@@ -44,10 +44,7 @@ class HeaderFilterView: UIView {
         
         addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.top.leading.trailing.bottom.equalToSuperview()
         }
         
         // shadow 효과
@@ -60,9 +57,7 @@ class HeaderFilterView: UIView {
     override func layoutSubviews() {
         addSubview(underLineView)
         underLineView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.bottom.equalToSuperview()
-
+            make.leading.bottom.equalToSuperview()
             make.width.equalTo(frame.width / 2)
             make.height.equalTo(2)
         }

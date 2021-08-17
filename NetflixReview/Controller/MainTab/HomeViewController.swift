@@ -11,7 +11,7 @@ class HomeViewController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let cellId = "cellId"
+    private let cellId = "HomeCell"
     
     static let categoryHeaderId = "categoryHeaderId"
     let headerId = "headerId"
@@ -50,7 +50,7 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(Header.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
     }
     
@@ -58,8 +58,10 @@ class HomeViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "홈"
     }
 }
@@ -111,9 +113,14 @@ extension HomeViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-        cell.backgroundColor = .systemPink
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
+//        cell.backgroundColor = .systemPink
         cell.layer.cornerRadius = 10
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = PostViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

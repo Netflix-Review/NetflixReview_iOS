@@ -1,14 +1,14 @@
 //
-//  ProfileCell.swift
+//  HomeCell.swift
 //  NetflixReview
 //
-//  Created by 강호성 on 2021/08/16.
+//  Created by 강호성 on 2021/08/17.
 //
 
 import UIKit
 import SnapKit
 
-class ProfileCell: UICollectionViewCell {
+class HomeCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -29,8 +29,7 @@ class ProfileCell: UICollectionViewCell {
         
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
-            make.top.equalTo(15)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.top.bottom.leading.trailing.equalToSuperview()
         }
     }
     

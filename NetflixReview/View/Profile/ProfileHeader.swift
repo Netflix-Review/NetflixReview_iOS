@@ -65,14 +65,13 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(editNameButton)
         editNameButton.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
-            make.leading.equalTo(nameLabel)
+            make.leading.equalTo(nameLabel).offset(5)
         }
 
         addSubview(filterBar)
         filterBar.snp.makeConstraints { make in
             make.top.equalTo(100)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.height.equalTo(60)
         }
     }

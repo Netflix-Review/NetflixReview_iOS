@@ -37,8 +37,10 @@ class ProfileViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "안녕하세요"
     }
     
@@ -68,6 +70,11 @@ extension ProfileViewController {
         
         header.delegate = self
         return header
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = PostViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
