@@ -28,9 +28,10 @@ class MainTabController: UITabBarController {
     func configureViewControllers() {
         let home = templateNavigationController(image: UIImage(systemName: "house")!, title: "홈", rootViewController: HomeViewController())
         let explore = templateNavigationController(image: UIImage(systemName: "antenna.radiowaves.left.and.right")!, title: "탐색", rootViewController: ExploreViewController())
+        let community = templateNavigationController(image: UIImage(systemName: "heart.text.square")!, title: "커뮤니티", rootViewController: CommunityViewController())
         let profile = templateNavigationController(image: UIImage(systemName: "person")!, title: "프로필", rootViewController: ProfileViewController())
         
-        viewControllers = [home, explore, profile]
+        viewControllers = [home, explore, community, profile]
     }
     
     func templateNavigationController(image: UIImage, title: String, rootViewController: UIViewController) -> UINavigationController {

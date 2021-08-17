@@ -114,7 +114,6 @@ extension HomeViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
-//        cell.backgroundColor = .systemPink
         cell.layer.cornerRadius = 10
         return cell
     }

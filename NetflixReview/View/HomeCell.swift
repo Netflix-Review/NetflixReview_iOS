@@ -22,6 +22,14 @@ class HomeCell: UICollectionViewCell {
         return iv
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "어벤져스: 엔드게임"
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -30,6 +38,14 @@ class HomeCell: UICollectionViewCell {
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
+        }
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(postImageView.snp.bottom).offset(5)
+            make.leading.equalTo(postImageView).offset(3)
+            make.trailing.equalTo(postImageView)
+            
         }
     }
     
