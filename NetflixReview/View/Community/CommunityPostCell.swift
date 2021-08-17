@@ -1,5 +1,5 @@
 //
-//  PostCell.swift
+//  CommunityPostCell.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
@@ -8,20 +8,20 @@
 import UIKit
 import SnapKit
 
-class PostCell: UICollectionViewCell {
+class CommunityPostCell: UICollectionViewCell {
     
     // MARK: - Properties
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "User"
+        label.text = "Another User"
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
     
-    private let reviewLabel: UILabel = {
+    private let commentLabel: UILabel = {
         let label = UILabel()
-        label.text = "review review review review review review review review review review review review review review review review review review review review review review "
+        label.text = "commentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcommentcomment"
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 18)
@@ -37,7 +37,7 @@ class PostCell: UICollectionViewCell {
     
     let underlineView = UIView()
     
-    // MARK: - Helpers
+    // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,12 +57,12 @@ class PostCell: UICollectionViewCell {
             make.leading.equalTo(16)
         }
         
-        addSubview(reviewLabel)
-        reviewLabel.snp.makeConstraints { make in
+        // commentLabel이랑 containerView 바닥 맞춰야함 (postLabel길이가 길어지면 넘어감)
+        addSubview(commentLabel)
+        commentLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(8)
             make.leading.equalTo(nameLabel)
             make.trailing.equalTo(-16)
-            make.bottom.equalTo(-16)
         }
         
         addSubview(timeLabel)

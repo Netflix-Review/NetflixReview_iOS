@@ -75,10 +75,12 @@ extension PostViewController {
 
 extension PostViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        // height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        // height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 400)
     }
 }

@@ -1,13 +1,14 @@
 //
-//  PostReviewViewController.swift
+//  CommunityPostHeader.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
 //
 
 import UIKit
+import SnapKit
 
-class PostReviewViewController: UIViewController {
+class CommunityPostHeader: UICollectionReusableView {
     
     // MARK: - Properties
     
@@ -18,9 +19,9 @@ class PostReviewViewController: UIViewController {
         return label
     }()
     
-    private let reviewLabel: UILabel = {
+    private let postLabel: UILabel = {
         let label = UILabel()
-        label.text = "review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review "
+        label.text = "comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment"
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 18)
@@ -34,26 +35,30 @@ class PostReviewViewController: UIViewController {
         return label
     }()
     
-    // MARK: - Action
+    private let bottomLabel: UILabel = {
+        let label = UILabel()
+        label.text = "댓글"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
     
-    @objc func handleCancel() {
-        dismiss(animated: true, completion: nil)
-    }
+    let underlineView = UIView()
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureUI()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .white
+//        backgroundColor = .systemBlue
         
         let containerView: UIView = {
             let view = UIView()
@@ -65,8 +70,8 @@ class PostReviewViewController: UIViewController {
                 make.leading.equalTo(25)
             }
             
-            view.addSubview(reviewLabel)
-            reviewLabel.snp.makeConstraints { make in
+            view.addSubview(postLabel)
+            postLabel.snp.makeConstraints { make in
                 make.top.equalTo(nameLabel.snp.bottom).offset(15)
                 make.leading.equalTo(20)
                 make.trailing.equalTo(-20)
@@ -79,18 +84,34 @@ class PostReviewViewController: UIViewController {
             }
             return view
         }()
-        
-        view.addSubview(containerView)
+        // postLabel이랑 containerView 바닥 맞춰야함 (postLabel길이가 길어지면 넘어감)
+        addSubview(containerView)
         containerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(safeAreaLayoutGuide).offset(30)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
-            make.height.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.height.equalTo(safeAreaLayoutGuide).offset(-100)
         }
         containerView.layer.cornerRadius = 10
-        containerView.layer.shadowOpacity = 0.25
+        containerView.layer.shadowOpacity = 0.4
         containerView.layer.shadowRadius = 10
         containerView.layer.shadowOffset = .init(width: 0, height: -5)
         containerView.layer.shadowColor = UIColor.lightGray.cgColor
+        
+        
+        addSubview(bottomLabel)
+        bottomLabel.snp.makeConstraints { make in
+            make.top.equalTo(containerView.snp.bottom).offset(10)
+            make.leading.equalTo(20)
+        }
+        
+        addSubview(underlineView)
+        underlineView.snp.makeConstraints { make in
+            make.top.equalTo(bottomLabel.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(1)
+        }
+        underlineView.backgroundColor = .lightGray
     }
+    
 }

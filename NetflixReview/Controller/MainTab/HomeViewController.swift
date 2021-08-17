@@ -21,7 +21,7 @@ class HomeViewController: UICollectionViewController {
     init() {
         super.init(collectionViewLayout: HomeViewController.createLayout())
         collectionView.backgroundColor = .white
-        collectionView.contentInset.top = 60
+        collectionView.contentInset.top = 40
     }
     
     required init?(coder: NSCoder) {
@@ -62,7 +62,7 @@ class HomeViewController: UICollectionViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
         navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = "홈"
+        navigationItem.title = "Netflix Review"
     }
 }
 
