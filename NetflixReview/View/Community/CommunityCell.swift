@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol CommunityCellDelegate: AnyObject {
-    func handleComment(_ cell: CommunityCell)
+    func handleComment()
 }
 
 class CommunityCell: UICollectionViewCell {
@@ -37,6 +37,7 @@ class CommunityCell: UICollectionViewCell {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "5일 전"
+        label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
@@ -79,7 +80,7 @@ class CommunityCell: UICollectionViewCell {
         addSubview(commentButton)
         commentButton.snp.makeConstraints { make in
             make.top.equalTo(reviewLabel.snp.bottom)
-            make.leading.equalTo(reviewLabel).offset(5)
+            make.trailing.equalTo(reviewLabel).offset(-10)
         }
         
     }
@@ -91,6 +92,6 @@ class CommunityCell: UICollectionViewCell {
     // MARK: - Action
     
     @objc func handleComment() {
-        delegate?.handleComment(self)
+        delegate?.handleComment()
     }
 }

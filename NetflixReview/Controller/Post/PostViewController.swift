@@ -81,14 +81,14 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         // height 크기 조정해야함
-        return CGSize(width: view.frame.width, height: 400)
+        return CGSize(width: view.frame.width, height: 500)
     }
 }
 
 // MARK: - PostHeaderDelegate
 
 extension PostViewController: PostHeaderDelegate {
-    func TapWish(_ header: PostHeader) {
+    func TapWish() {
         print("찜하기")
     }
     
@@ -97,6 +97,6 @@ extension PostViewController: PostHeaderDelegate {
     }
     
     func didTapUnLike() {
-        print("별로에요")
+        print("별로예요")
     }
 }

@@ -14,7 +14,11 @@ class ExploreViewController: UIViewController {
     private let tableView = UITableView()
     private let cellId = "VideoListCell"
     
-    private let seacrhController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
+    
+    private var inSearchMode: Bool {
+        return searchController.isActive && !searchController.searchBar.text!.isEmpty
+    }
     
     // MARK: - Lifecycle
     
@@ -34,7 +38,11 @@ class ExploreViewController: UIViewController {
         navigationController?.navigationBar.sizeToFit()
         navigationItem.title = "탐색"
     }
-    
+
+    // 키보드를 숨기고 표시하는 기능 제공
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
     
     // MARK: - Helpers
     
@@ -50,11 +58,11 @@ class ExploreViewController: UIViewController {
     }
     
     func configureSearchController() {
-        seacrhController.searchResultsUpdater = self
-        seacrhController.obscuresBackgroundDuringPresentation = false
-        seacrhController.hidesNavigationBarDuringPresentation = true
-        seacrhController.searchBar.placeholder = "작품, 컬렉션, 감독, 배우 등"
-        navigationItem.searchController = seacrhController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.searchBar.placeholder = "작품, 컬렉션, 감독, 배우 등"
+        navigationItem.searchController = searchController
         definesPresentationContext = false
     }
 }
@@ -82,8 +90,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension ExploreViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text?.lowercased() else { return }
-        print("DEBUG: Search text \(searchText)")
+        guard (searchController.searchBar.text?.lowercased()) != nil else { return }
         
         self.tableView.reloadData()
     }

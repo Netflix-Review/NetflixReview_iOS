@@ -31,24 +31,34 @@ class CommunityPostHeader: UICollectionReusableView {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "5일 전"
+        label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
     
-    private let bottomLabel: UILabel = {
-        let label = UILabel()
-        label.text = "댓글"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        return label
+    private lazy var bottomView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemBackground
+
+        view.addSubview(bottomLabel)
+        bottomLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.leading.equalTo(16)
+            make.width.equalToSuperview()
+            make.height.equalTo(50)
+        }
+
+        return view
     }()
     
-    let underlineView = UIView()
+    private let bottomLabel = UILabel()
     
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+        configureViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -58,11 +68,11 @@ class CommunityPostHeader: UICollectionReusableView {
     // MARK: - Helpers
     
     func configureUI() {
-//        backgroundColor = .systemBlue
+        backgroundColor = .systemGroupedBackground
         
         let containerView: UIView = {
             let view = UIView()
-            view.backgroundColor = .systemBackground
+            view.backgroundColor = .white
 
             view.addSubview(nameLabel)
             nameLabel.snp.makeConstraints { make in
@@ -84,6 +94,7 @@ class CommunityPostHeader: UICollectionReusableView {
             }
             return view
         }()
+        
         // postLabel이랑 containerView 바닥 맞춰야함 (postLabel길이가 길어지면 넘어감)
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
@@ -93,25 +104,22 @@ class CommunityPostHeader: UICollectionReusableView {
             make.height.equalTo(safeAreaLayoutGuide).offset(-100)
         }
         containerView.layer.cornerRadius = 10
-        containerView.layer.shadowOpacity = 0.4
-        containerView.layer.shadowRadius = 10
-        containerView.layer.shadowOffset = .init(width: 0, height: -5)
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
         
-        
-        addSubview(bottomLabel)
-        bottomLabel.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(10)
-            make.leading.equalTo(20)
+
+        addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
         }
-        
-        addSubview(underlineView)
-        underlineView.snp.makeConstraints { make in
-            make.top.equalTo(bottomLabel.snp.bottom)
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        underlineView.backgroundColor = .lightGray
+        bottomView.layer.shadowOpacity = 0.25
+        bottomView.layer.shadowRadius = 10
+        bottomView.layer.shadowOffset = .init(width: 0, height: -5)
+        bottomView.layer.shadowColor = UIColor.lightGray.cgColor
+    }
+    
+    func configureViewModel() {
+        let viewModel = CommunityViewModel()
+        bottomLabel.attributedText = viewModel.CommentText
     }
     
 }

@@ -8,12 +8,12 @@
 import Foundation
 
 enum HeaderFIlterOptions: Int, CaseIterable {
-    case Favorite
+    case Wish
     case Evaluated
     
     var description: String {
         switch self {
-        case .Favorite: return "찜한 작품"
+        case .Wish: return "찜한 작품"
         case .Evaluated: return "평가한 작품"
         }
     }

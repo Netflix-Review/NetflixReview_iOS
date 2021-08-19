@@ -10,6 +10,7 @@ import SnapKit
 
 protocol ProfileHeaderDelegate: AnyObject {
     func didSelect(filter: HeaderFIlterOptions)
+    func editName()
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -39,7 +40,7 @@ class ProfileHeader: UICollectionReusableView {
     // MARK: - Actions
     
     @objc func editNameButtonTapped() {
-        print("editNameButtonTapped")
+        delegate?.editName()
     }
     
     // MARK: - Lifecycle

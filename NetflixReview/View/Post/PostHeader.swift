@@ -11,7 +11,7 @@ import SnapKit
 protocol PostHeaderDelegate: AnyObject {
     func didTapLike()
     func didTapUnLike()
-    func TapWish(_ header: PostHeader)
+    func TapWish()
 }
 
 class PostHeader: UICollectionReusableView {
@@ -32,39 +32,68 @@ class PostHeader: UICollectionReusableView {
             make.height.equalTo(250)
         }
         
-        backgroundImage.addSubview(wishButton)
+        view.addSubview(wishButton)
         wishButton.snp.makeConstraints { make in
-            make.top.equalTo(42)
+            make.bottom.equalTo(-10)
             make.trailing.equalTo(-20)
-            make.width.equalTo(30)
-            make.height.equalTo(30)
+            make.width.height.equalTo(30)
         }
-        wishButton.layer.cornerRadius = 10
         
         return view
     }()
     
-//    private lazy var likeButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(systemName: "hand.thumbsup")!, for: .normal)
-//        button.layer.borderColor = UIColor.black.cgColor
-//        button.layer.borderWidth = 1.25
-//        button.tintColor = .black
-//        button.backgroundColor = .red.withAlphaComponent(0.5)
-//        button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
-//        return button
-//    }()
-//
-//    private lazy var unlikeButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setImage(UIImage(systemName: "hand.thumbsdown")!, for: .normal)
-//        button.layer.borderColor = UIColor.black.cgColor
-//        button.layer.borderWidth = 1.25
-//        button.tintColor = .black
-//        button.backgroundColor = .systemBlue.withAlphaComponent(0.5)
-//        button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
-//        return button
-//    }()
+    private lazy var likeView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        
+        view.addSubview(likeButton)
+        likeButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(10)
+            make.width.equalTo(180)
+            make.height.equalTo(50)
+        }
+
+        view.addSubview(unlikeButton)
+        unlikeButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(likeButton.snp.trailing).offset(10)
+            make.width.equalTo(180)
+            make.height.equalTo(50)
+        }
+        
+        return view
+    }()
+    
+    private lazy var likeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("추천해요", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.layer.cornerRadius = 10
+        button.tintColor = .white
+        button.backgroundColor = .systemGreen
+        button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
+        return button
+    }()
+
+    private lazy var unlikeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("별로예요", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.layer.cornerRadius = 10
+        button.tintColor = .white
+        button.backgroundColor = .red.withAlphaComponent(0.7)
+        button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var percentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "87%"
+        label.textColor = .systemGreen
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        return label
+    }()
 
     private lazy var backgroundImage: UIImageView = {
         let iv = UIImageView()
@@ -78,8 +107,9 @@ class PostHeader: UICollectionReusableView {
     private lazy var wishButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("찜", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemPink
+        button.setTitleColor(.systemPink, for: .normal)
+        button.layer.cornerRadius = 10
+        button.backgroundColor = .white
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.addTarget(self, action: #selector(TapWish), for: .touchUpInside)
         return button
@@ -164,7 +194,24 @@ class PostHeader: UICollectionReusableView {
             make.top.equalTo(containerView.snp.bottom).offset(13)
             make.leading.equalTo(postImageView.snp.trailing).offset(8)
         }
-
+        
+        addSubview(percentLabel)
+        percentLabel.snp.makeConstraints { make in
+            make.top.equalTo(containerView.snp.bottom).offset(25)
+            make.trailing.equalTo(-17)
+        }
+        
+        addSubview(likeView)
+        likeView.snp.makeConstraints { make in
+            make.bottom.equalTo(textView.snp.top).offset(-10)
+            make.leading.trailing.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        likeView.layer.shadowOpacity = 0.25
+        likeView.layer.shadowRadius = 10
+        likeView.layer.shadowOffset = .init(width: 0, height: -5)
+        likeView.layer.shadowColor = UIColor.lightGray.cgColor
     }
     
     required init?(coder: NSCoder) {
@@ -182,7 +229,7 @@ class PostHeader: UICollectionReusableView {
     }
     
     @objc func TapWish() {
-        delegate?.TapWish(self)
+        delegate?.TapWish()
     }
     
     // MARK: - Helpers

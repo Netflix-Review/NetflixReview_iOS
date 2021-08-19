@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class CommunityViewController: UICollectionViewController {
     
     // MARK: - Properties
@@ -49,11 +50,13 @@ class CommunityViewController: UICollectionViewController {
     // MARK: - Action
     
     @objc func searchPost() {
-        print("searchPost")
+        let controller = SeachCommunityPostController()
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc func writePost() {
-        print("writePost")
+        let controller = AddCommunityPostController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -100,7 +103,7 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - CommunityCellDelegate
 
 extension CommunityViewController: CommunityCellDelegate {
-    func handleComment(_ cell: CommunityCell) {
+    func handleComment() {
         print("comment")
     }
 }

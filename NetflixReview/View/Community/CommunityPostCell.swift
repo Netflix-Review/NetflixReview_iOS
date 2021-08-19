@@ -31,6 +31,7 @@ class CommunityPostCell: UICollectionViewCell {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "5일 전"
+        label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()

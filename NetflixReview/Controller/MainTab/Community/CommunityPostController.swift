@@ -14,6 +14,16 @@ class CommunityPostController: UICollectionViewController {
     private let cellId = "CommunityPostCell"
     private let headerId = "CommunityPostHeader"
     
+    private lazy var coummunityInputView: CommunityInputAccesoryView = {
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        
+        let cv = CommunityInputAccesoryView(frame: frame)
+        cv.delegate = self
+        return cv
+    }()
+    
+    var restoreFrameValue: CGFloat = 0.0
+    
     // MARK: - Lifecycle
     
     init() {
@@ -34,6 +44,32 @@ class CommunityPostController: UICollectionViewController {
         collectionView.register(CommunityPostCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(CommunityPostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    
+    override var inputAccessoryView: UIView? {
+        get { return coummunityInputView }
+    }
+    
+    // 키보드를 숨기고 표시하는 기능 제공
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.frame.origin.y = restoreFrameValue
+        self.view.endEditing(true)
+    }
+    
     
     // MARK: - Action
     
@@ -82,3 +118,15 @@ extension CommunityPostController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 500)
     }
 }
+
+// MARK: - CommunityInputAccesoryViewDelegate
+
+extension CommunityPostController: CommunityInputAccesoryViewDelegate {
+    func inputView(_ inputView: CommunityInputAccesoryView, uploadComment comment: String) {
+        print("upload comment")
+        inputView.clearCommentTextView()
+    }
+    
+    
+}
+

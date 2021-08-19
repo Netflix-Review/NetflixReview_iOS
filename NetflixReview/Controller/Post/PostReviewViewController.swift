@@ -30,6 +30,7 @@ class PostReviewViewController: UIViewController {
     private let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "5일 전"
+        label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
@@ -53,11 +54,11 @@ class PostReviewViewController: UIViewController {
     // MARK: - Helpers
     
     func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemGroupedBackground
         
         let containerView: UIView = {
             let view = UIView()
-            view.backgroundColor = .systemBackground
+            view.backgroundColor = .white
 
             view.addSubview(nameLabel)
             nameLabel.snp.makeConstraints { make in
@@ -85,12 +86,8 @@ class PostReviewViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
-            make.height.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.height.equalTo(view.safeAreaLayoutGuide).offset(-200)
         }
         containerView.layer.cornerRadius = 10
-        containerView.layer.shadowOpacity = 0.25
-        containerView.layer.shadowRadius = 10
-        containerView.layer.shadowOffset = .init(width: 0, height: -5)
-        containerView.layer.shadowColor = UIColor.lightGray.cgColor
     }
 }

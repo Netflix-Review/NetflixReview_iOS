@@ -11,10 +11,11 @@ class ProfileViewController: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let cellId = "ProfileCell"
+    private let cellId = "ProfileWishCell"
+//    private let cellId2 = "ProfileEvaluatedCell"
     private let headerId = "ProfileHeader"
     
-    private var selectedFilter: HeaderFIlterOptions = .Favorite {
+    private var selectedFilter: HeaderFIlterOptions = .Wish {
         didSet { collectionView.reloadData() }
     }
     
@@ -49,7 +50,8 @@ class ProfileViewController: UICollectionViewController {
     func configureCollectionView() {
         collectionView.backgroundColor = .white
         
-        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(ProfileWishCell.self, forCellWithReuseIdentifier: cellId)
+//        collectionView.register(ProfileEvaluatedCell.self, forCellWithReuseIdentifier: cellId2)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
 }
@@ -63,9 +65,10 @@ extension ProfileViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfileCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfileWishCell
+//        let cell2 = collectionView.dequeueReusableCell(withReuseIdentifier: cellId2, for: indexPath) as! ProfileEvaluatedCell
         return cell
+//        return selectedFilter == .Wish ? cell : cell2
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -95,6 +98,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 10) / 3
         return CGSize(width: width, height: 200)
+//        return selectedFilter == .Wish ? CGSize(width: width, height: 200) : CGSize(width: view.frame.width, height: 100)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -107,5 +111,12 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 extension ProfileViewController: ProfileHeaderDelegate {
     func didSelect(filter: HeaderFIlterOptions) {
         self.selectedFilter = filter
+    }
+    
+    func editName() {
+        let controller = EditNameController()
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalTransitionStyle = .crossDissolve
+        present(nav, animated: true, completion: nil)
     }
 }
