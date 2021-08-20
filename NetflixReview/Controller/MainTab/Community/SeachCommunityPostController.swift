@@ -31,6 +31,18 @@ class SeachCommunityPostController: UITableViewController {
         configureSearchController()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.isActive = true
+    }
+    
     // 키보드를 숨기고 표시하는 기능 제공
     override var canBecomeFirstResponder: Bool {
         return true
