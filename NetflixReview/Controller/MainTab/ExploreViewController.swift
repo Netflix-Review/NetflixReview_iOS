@@ -34,16 +34,14 @@ class ExploreViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationController?.navigationBar.sizeToFit()
-        navigationItem.title = "탐색"
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = true
+        searchController.isActive = true
     }
 
     // 키보드를 숨기고 표시하는 기능 제공
@@ -57,10 +55,12 @@ class ExploreViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(VideoListCell.self, forCellReuseIdentifier: cellId)
-        tableView.rowHeight = 64
+        tableView.rowHeight = 130
+        tableView.separatorStyle = .none
         
         view.addSubview(tableView)
         tableView.frame = view.frame
+        tableView.contentInset.top = 10
         tableView.tableFooterView = UIView()
     }
     

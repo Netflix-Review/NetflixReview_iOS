@@ -23,13 +23,18 @@ class PostHeader: UICollectionReusableView {
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
-
+        
         view.addSubview(backgroundImage)
         backgroundImage.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.height.equalTo(250)
+        }
+        
+        backgroundImage.addSubview(backgroundView)
+        backgroundView.snp.makeConstraints { make in
+            make.top.leading.trailing.height.equalTo(backgroundImage)
         }
         
         view.addSubview(wishButton)
@@ -39,6 +44,12 @@ class PostHeader: UICollectionReusableView {
             make.width.height.equalTo(30)
         }
         
+        return view
+    }()
+    
+    private var backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black.withAlphaComponent(0.5)
         return view
     }()
     
@@ -117,9 +128,10 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var postImageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.image = #imageLiteral(resourceName: "marvel")
+        iv.backgroundColor = .blue
+        iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()
     
@@ -180,11 +192,12 @@ class PostHeader: UICollectionReusableView {
         
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(-40)
-            make.leading.equalTo(16)
+            make.top.equalTo(containerView.snp.bottom).offset(-60)
+            make.leading.equalTo(20)
             make.width.equalTo(100)
-            make.height.equalTo(120)
+            make.height.equalTo(150)
         }
+        postImageView.layer.cornerRadius = 10
         
         let infoStack = UIStackView(arrangedSubviews: [titleLabel, infoLabel])
         infoStack.axis = .vertical
@@ -192,7 +205,7 @@ class PostHeader: UICollectionReusableView {
         addSubview(infoStack)
         infoStack.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(13)
-            make.leading.equalTo(postImageView.snp.trailing).offset(8)
+            make.leading.equalTo(postImageView.snp.trailing).offset(10)
         }
         
         addSubview(percentLabel)
@@ -239,3 +252,5 @@ class PostHeader: UICollectionReusableView {
         textLabel.attributedText = viewModel.ReviewText
     }
 }
+
+

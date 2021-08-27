@@ -58,7 +58,6 @@ class HomeViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
         navigationItem.largeTitleDisplayMode = .always
@@ -96,7 +95,7 @@ extension HomeViewController {
     }
 }
 
-// MARK: - UICollectionDatasource
+// MARK: - UICollectionDatasource, UICollectionViewDelegate
 
 extension HomeViewController {
     

@@ -25,7 +25,6 @@ class SeachCommunityPostController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "검색"
         
         configureTableView()
         configureSearchController()

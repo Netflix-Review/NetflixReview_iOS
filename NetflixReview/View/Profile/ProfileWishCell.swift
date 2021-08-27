@@ -18,7 +18,9 @@ class ProfileWishCell: UICollectionViewCell {
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 10
-        iv.image = #imageLiteral(resourceName: "marvel")
+        iv.layer.borderWidth = 2
+        iv.layer.borderColor = UIColor.white.cgColor
+        iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()
     

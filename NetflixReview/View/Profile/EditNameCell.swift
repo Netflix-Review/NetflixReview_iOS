@@ -47,7 +47,7 @@ class EditNameCell: UITableViewCell {
     // MARK: - Action
     
     @objc func updataUserInfo() {
-        print("dddddd")
+        print("이름 업데이트")
     }
     
     // MARK: - Helpers

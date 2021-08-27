@@ -32,8 +32,8 @@ class AddCommunityPostController: UIViewController {
         return button
     }()
     
-    
     var restoreFrameValue: CGFloat = 0.0
+    
     
     // MARK: - Lifecycle
     

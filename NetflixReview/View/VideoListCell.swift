@@ -12,10 +12,28 @@ class VideoListCell: UITableViewCell {
     
     // MARK: - Properties
     
+    private lazy var postImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
+        iv.isUserInteractionEnabled = true
+        iv.layer.cornerRadius = 10
+        iv.image = #imageLiteral(resourceName: "end")
+        return iv
+    }()
+    
     private let videoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "Video Name"
+        label.text = "어벤져스: 엔드게임"
+        return label
+    }()
+    
+    private lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.text = "영화 ∙ 2019 ∙ 181분"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .lightGray
         return label
     }()
     
@@ -24,10 +42,21 @@ class VideoListCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        addSubview(videoLabel)
-        videoLabel.snp.makeConstraints { make in
-            make.top.equalTo(30)
-            make.leading.equalTo(20)
+        addSubview(postImageView)
+        postImageView.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(16)
+            make.width.equalTo(75)
+            make.height.equalTo(120)
+        }
+        
+        let stack = UIStackView(arrangedSubviews: [videoLabel, infoLabel])
+        stack.axis = .vertical
+        
+        addSubview(stack)
+        stack.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(postImageView.snp.trailing).offset(10)
         }
     }
     

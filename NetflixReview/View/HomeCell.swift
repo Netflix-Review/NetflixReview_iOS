@@ -18,7 +18,7 @@ class HomeCell: UICollectionViewCell {
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 10
-        iv.image = #imageLiteral(resourceName: "marvel")
+        iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()
     
