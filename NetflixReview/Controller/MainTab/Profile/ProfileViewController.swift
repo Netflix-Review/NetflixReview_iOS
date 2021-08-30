@@ -110,9 +110,7 @@ extension ProfileViewController: ProfileHeaderDelegate {
     }
     
     func editName() {
-        let controller = EditNameController()
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalTransitionStyle = .crossDissolve
-        present(nav, animated: true, completion: nil)
+        let controller = EditInfoController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

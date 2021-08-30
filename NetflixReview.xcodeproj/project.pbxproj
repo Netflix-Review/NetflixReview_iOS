@@ -21,8 +21,6 @@
 		B436AE0726CE197300EDE028 /* SeachCommunityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */; };
 		B436AE0926CE1F1E00EDE028 /* SeachCommunityPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0826CE1F1E00EDE028 /* SeachCommunityPostCell.swift */; };
 		B436AE0B26CE21B700EDE028 /* ProfileEvaluatedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0A26CE21B700EDE028 /* ProfileEvaluatedCell.swift */; };
-		B436AE0E26CE29EF00EDE028 /* EditNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0D26CE29EF00EDE028 /* EditNameController.swift */; };
-		B436AE1026CE2C7200EDE028 /* EditNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0F26CE2C7200EDE028 /* EditNameCell.swift */; };
 		B436AE1226CE2DFA00EDE028 /* EditNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */; };
 		B43AC71826C7CC3E00C959E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC71726C7CC3E00C959E4 /* AppDelegate.swift */; };
 		B43AC71A26C7CC3E00C959E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC71926C7CC3E00C959E4 /* SceneDelegate.swift */; };
@@ -33,6 +31,8 @@
 		B43AC73226C7CE2900C959E4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73126C7CE2900C959E4 /* HomeViewController.swift */; };
 		B43AC73426C7CE5F00C959E4 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73326C7CE5F00C959E4 /* ExploreViewController.swift */; };
 		B43AC73626C7CFB000C959E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73526C7CFB000C959E4 /* ProfileViewController.swift */; };
+		B459BC4E26DC96F40061EB67 /* EditInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4D26DC96F40061EB67 /* EditInfoController.swift */; };
+		B459BC5026DC99450061EB67 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4F26DC99450061EB67 /* EditInfoCell.swift */; };
 		B4AB9BE326CA1AEC00B39556 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE226CA1AEC00B39556 /* VideoListCell.swift */; };
 		B4AB9BE526CA2CC800B39556 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE426CA2CC800B39556 /* ProfileHeader.swift */; };
 		B4AB9BEA26CA2CDD00B39556 /* ProfileWishCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE926CA2CDD00B39556 /* ProfileWishCell.swift */; };
@@ -61,8 +61,6 @@
 		B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostController.swift; sourceTree = "<group>"; };
 		B436AE0826CE1F1E00EDE028 /* SeachCommunityPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostCell.swift; sourceTree = "<group>"; };
 		B436AE0A26CE21B700EDE028 /* ProfileEvaluatedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEvaluatedCell.swift; sourceTree = "<group>"; };
-		B436AE0D26CE29EF00EDE028 /* EditNameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameController.swift; sourceTree = "<group>"; };
-		B436AE0F26CE2C7200EDE028 /* EditNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameCell.swift; sourceTree = "<group>"; };
 		B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewModel.swift; sourceTree = "<group>"; };
 		B43AC71426C7CC3E00C959E4 /* NetflixReview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixReview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43AC71726C7CC3E00C959E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +73,8 @@
 		B43AC73126C7CE2900C959E4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B43AC73326C7CE5F00C959E4 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		B43AC73526C7CFB000C959E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B459BC4D26DC96F40061EB67 /* EditInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoController.swift; sourceTree = "<group>"; };
+		B459BC4F26DC99450061EB67 /* EditInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
 		B4AB9BE226CA1AEC00B39556 /* VideoListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoListCell.swift; sourceTree = "<group>"; };
 		B4AB9BE426CA2CC800B39556 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		B4AB9BE926CA2CDD00B39556 /* ProfileWishCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWishCell.swift; sourceTree = "<group>"; };
@@ -163,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				B43AC73526C7CFB000C959E4 /* ProfileViewController.swift */,
-				B436AE0D26CE29EF00EDE028 /* EditNameController.swift */,
+				B459BC4D26DC96F40061EB67 /* EditInfoController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -261,7 +261,7 @@
 				B4AB9BE926CA2CDD00B39556 /* ProfileWishCell.swift */,
 				B436AE0A26CE21B700EDE028 /* ProfileEvaluatedCell.swift */,
 				B4AB9BE426CA2CC800B39556 /* ProfileHeader.swift */,
-				B436AE0F26CE2C7200EDE028 /* EditNameCell.swift */,
+				B459BC4F26DC99450061EB67 /* EditInfoCell.swift */,
 				B4AB9BEB26CA330400B39556 /* Filter */,
 			);
 			path = Profile;
@@ -410,17 +410,17 @@
 				B436AE0526CE0DE800EDE028 /* AddCommunityPostController.swift in Sources */,
 				B43AC73426C7CE5F00C959E4 /* ExploreViewController.swift in Sources */,
 				B4AB9C0926CA962400B39556 /* PostViewController.swift in Sources */,
+				B459BC5026DC99450061EB67 /* EditInfoCell.swift in Sources */,
 				B436AE0926CE1F1E00EDE028 /* SeachCommunityPostCell.swift in Sources */,
 				B41790AE26CB94CA00E4E248 /* CommunityPostController.swift in Sources */,
 				B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */,
-				B436AE0E26CE29EF00EDE028 /* EditNameController.swift in Sources */,
 				B4AB9BF126CA33F400B39556 /* HeaderFIlterOptions.swift in Sources */,
 				B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */,
+				B459BC4E26DC96F40061EB67 /* EditInfoController.swift in Sources */,
 				B43AC71826C7CC3E00C959E4 /* AppDelegate.swift in Sources */,
 				B406593E26CCBD840008FD26 /* CommunityInputAccesoryView.swift in Sources */,
 				B436AE0B26CE21B700EDE028 /* ProfileEvaluatedCell.swift in Sources */,
 				B436AE0726CE197300EDE028 /* SeachCommunityPostController.swift in Sources */,
-				B436AE1026CE2C7200EDE028 /* EditNameCell.swift in Sources */,
 				B41790A926CB8E3400E4E248 /* CommunityCell.swift in Sources */,
 				B43AC71A26C7CC3E00C959E4 /* SceneDelegate.swift in Sources */,
 				B4AB9BED26CA331500B39556 /* HeaderFilterView.swift in Sources */,

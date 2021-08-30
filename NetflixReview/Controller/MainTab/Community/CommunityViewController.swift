@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class CommunityViewController: UICollectionViewController {
     
     // MARK: - Properties

@@ -46,7 +46,7 @@ class VideoListCell: UITableViewCell {
         postImageView.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(16)
-            make.width.equalTo(75)
+            make.width.equalTo(80)
             make.height.equalTo(120)
         }
         
@@ -56,7 +56,7 @@ class VideoListCell: UITableViewCell {
         addSubview(stack)
         stack.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(postImageView.snp.trailing).offset(10)
+            make.leading.equalTo(postImageView.snp.trailing).offset(15)
         }
     }
     

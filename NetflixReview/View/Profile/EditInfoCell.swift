@@ -1,14 +1,14 @@
 //
-//  EditNameCell.swift
+//  EditInfoCell.swift
 //  NetflixReview
 //
-//  Created by 강호성 on 2021/08/19.
+//  Created by 강호성 on 2021/08/30.
 //
 
 import UIKit
 import SnapKit
 
-class EditNameCell: UITableViewCell {
+class EditInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
@@ -18,7 +18,7 @@ class EditNameCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
@@ -27,17 +27,16 @@ class EditNameCell: UITableViewCell {
         tf.borderStyle = .none
         tf.font = UIFont.systemFont(ofSize: 18)
         tf.textAlignment = .left
-        tf.textColor = .lightGray
         tf.addTarget(self, action: #selector(updataUserInfo), for: .editingDidEnd)
         return tf
     }()
     
+    
     // MARK: - Lifecycle
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         configureUI()
-        configureViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -50,16 +49,16 @@ class EditNameCell: UITableViewCell {
         print("이름 업데이트")
     }
     
+    
     // MARK: - Helpers
     
     func configureUI() {
         backgroundColor = .white
-        selectionStyle = .none
         
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.leading.equalTo(20)
+            make.leading.equalTo(30)
         }
         
         contentView.addSubview(infoText)
@@ -75,4 +74,5 @@ class EditNameCell: UITableViewCell {
         titleLabel.text = viewModel.titleText
         infoText.text = viewModel.optionValue
     }
+    
 }
