@@ -6,8 +6,31 @@
 //
 
 import UIKit
+import SnapKit
 
 class PostReviewViewController: UIViewController {
+    
+    // MARK: - Scroll Properties
+    
+    lazy var contentViewSize = CGSize(width: self.view.frame.width, height: self.view.frame.height+200)
+    
+    lazy var scrollView: UIScrollView = {
+        let view = UIScrollView(frame: .zero)
+        view.backgroundColor = .white
+        view.contentSize = contentViewSize
+        view.frame = self.view.bounds
+        view.autoresizingMask = .flexibleHeight
+        view.showsHorizontalScrollIndicator = true
+        view.bounces = true
+        return view
+    }()
+    
+    lazy var containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.frame.size = contentViewSize
+        return view
+    }()
     
     // MARK: - Properties
     
@@ -20,9 +43,9 @@ class PostReviewViewController: UIViewController {
     
     private let reviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review review "
+        label.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda. Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
         label.numberOfLines = 0
-        label.lineBreakMode = .byTruncatingTail
+        label.lineBreakMode = .byWordWrapping
         label.font = UIFont.systemFont(ofSize: 18)
         return label
     }()
@@ -45,49 +68,36 @@ class PostReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        configureUI()
+        view.backgroundColor = .white
+        configure()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
     }
     
     // MARK: - Helpers
     
-    func configureUI() {
-        view.backgroundColor = .systemGroupedBackground
+    func configure() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(containerView)
         
-        let containerView: UIView = {
-            let view = UIView()
-            view.backgroundColor = .white
-
-            view.addSubview(nameLabel)
-            nameLabel.snp.makeConstraints { make in
-                make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-                make.leading.equalTo(25)
-            }
-            
-            view.addSubview(reviewLabel)
-            reviewLabel.snp.makeConstraints { make in
-                make.top.equalTo(nameLabel.snp.bottom).offset(15)
-                make.leading.equalTo(20)
-                make.trailing.equalTo(-20)
-            }
-
-            view.addSubview(timeLabel)
-            timeLabel.snp.makeConstraints { make in
-                make.top.equalTo(nameLabel)
-                make.trailing.equalTo(-20)
-            }
-            return view
-        }()
-        
-        view.addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
-            make.leading.equalTo(20)
-            make.trailing.equalTo(-20)
-            make.height.equalTo(view.safeAreaLayoutGuide).offset(-200)
+        containerView.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(containerView.safeAreaLayoutGuide).offset(20)
+            make.leading.equalTo(25)
         }
-        containerView.layer.cornerRadius = 10
+        
+        containerView.addSubview(reviewLabel)
+        reviewLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(15)
+            make.leading.equalTo(20)
+            make.width.equalTo(containerView.frame.width-40)
+        }
+        
+        containerView.addSubview(timeLabel)
+        timeLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(nameLabel)
+            make.leading.equalTo(nameLabel.snp.trailing).offset(15)
+        }
     }
 }
+

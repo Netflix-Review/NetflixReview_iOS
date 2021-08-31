@@ -8,15 +8,15 @@
 import UIKit
 import SnapKit
 
-protocol CommunityCellDelegate: AnyObject {
-    func handleComment()
-}
+//protocol CommunityCellDelegate: AnyObject {
+//    func handleComment()
+//}
 
 class CommunityCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    weak var delegate: CommunityCellDelegate?
+//    weak var delegate: CommunityCellDelegate?
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -27,7 +27,7 @@ class CommunityCell: UICollectionViewCell {
     
     private let reviewLabel: UILabel = {
         let label = UILabel()
-        label.text = "comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment comment "
+        label.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 18)
@@ -42,21 +42,31 @@ class CommunityCell: UICollectionViewCell {
         return label
     }()
     
-    private let commentButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("댓글 달기", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        button.setTitleColor(.lightGray, for: .normal)
-        button.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
-        return button
-    }()
-    
+//    private let commentButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("댓글 달기", for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
+//        button.setTitleColor(.lightGray, for: .normal)
+//        button.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
+//        return button
+//    }()
+//
     
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        configure()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helpers
+    
+    func configure() {
         addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(15)
@@ -77,21 +87,17 @@ class CommunityCell: UICollectionViewCell {
             make.trailing.equalTo(-20)
         }
         
-        addSubview(commentButton)
-        commentButton.snp.makeConstraints { make in
-            make.top.equalTo(reviewLabel.snp.bottom)
-            make.trailing.equalTo(reviewLabel).offset(-10)
-        }
+//        addSubview(commentButton)
+//        commentButton.snp.makeConstraints { make in
+//            make.top.equalTo(reviewLabel.snp.bottom)
+//            make.trailing.equalTo(reviewLabel).offset(-10)
+//        }
         
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Action
     
-    @objc func handleComment() {
-        delegate?.handleComment()
-    }
+//    @objc func handleComment() {
+//        delegate?.handleComment()
+//    }
 }

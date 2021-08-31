@@ -75,7 +75,7 @@ extension CommunityViewController {
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.backgroundColor = .systemBackground
         
-        cell.delegate = self
+//        cell.delegate = self
         return cell
     }
     
@@ -91,7 +91,7 @@ extension CommunityViewController {
 
 extension CommunityViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 150)
+        return CGSize(width: view.frame.width - 15, height: 150)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
@@ -99,10 +99,13 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-// MARK: - CommunityCellDelegate
-
-extension CommunityViewController: CommunityCellDelegate {
-    func handleComment() {
-        print("comment")
-    }
-}
+//// MARK: - CommunityCellDelegate
+//
+//extension CommunityViewController: CommunityCellDelegate {
+//    func handleComment() {
+//        let controller = CommunityPostController()
+//        let nav = UINavigationController(rootViewController: controller)
+//        nav.modalTransitionStyle = .crossDissolve
+//        present(nav, animated: true, completion: nil)
+//    }
+//}

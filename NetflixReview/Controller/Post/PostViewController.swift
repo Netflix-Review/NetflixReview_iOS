@@ -67,6 +67,7 @@ extension PostViewController {
         let nav = UINavigationController(rootViewController: controller)
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
+//        navigationController?.pushViewController(controller, animated: true)
     }
 }
 

@@ -109,12 +109,12 @@ extension CommunityPostController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // height 크기 조정해야함
+        // 셀 height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 150)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        // height 크기 조정해야함
+        // 헤더 height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 500)
     }
 }

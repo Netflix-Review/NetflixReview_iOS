@@ -61,7 +61,7 @@ class PostHeader: UICollectionReusableView {
         likeButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(10)
-            make.width.equalTo(180)
+            make.width.equalTo(frame.width/2 - 15)
             make.height.equalTo(50)
         }
 
@@ -69,8 +69,8 @@ class PostHeader: UICollectionReusableView {
         unlikeButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(likeButton.snp.trailing).offset(10)
-            make.width.equalTo(180)
-            make.height.equalTo(50)
+            make.width.equalTo(likeButton)
+            make.height.equalTo(likeButton)
         }
         
         return view
@@ -192,7 +192,7 @@ class PostHeader: UICollectionReusableView {
         
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(-60)
+            make.top.equalTo(containerView.snp.bottom).offset(-70)
             make.leading.equalTo(20)
             make.width.equalTo(100)
             make.height.equalTo(150)
