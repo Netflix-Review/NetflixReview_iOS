@@ -89,6 +89,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - PostHeaderDelegate
 
 extension PostViewController: PostHeaderDelegate {
+    
     func TapWish() {
         print("찜하기")
     }
@@ -99,5 +100,10 @@ extension PostViewController: PostHeaderDelegate {
     
     func didTapUnLike() {
         print("별로예요")
+    }
+    
+    func writeReview() {
+        let controller = WriteReviewViewController()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

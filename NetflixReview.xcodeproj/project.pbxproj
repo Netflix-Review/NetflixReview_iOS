@@ -10,6 +10,7 @@
 		3E37DDFB34E0D7D83036749C /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
 		B406593E26CCBD840008FD26 /* CommunityInputAccesoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B406593D26CCBD840008FD26 /* CommunityInputAccesoryView.swift */; };
 		B406594126CCBE240008FD26 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B406594026CCBE240008FD26 /* InputTextView.swift */; };
+		B40BDB0C26DE104C0060435B /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40BDB0B26DE104C0060435B /* WriteReviewViewController.swift */; };
 		B41790A026CB6A4E00E4E248 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B417909F26CB6A4E00E4E248 /* PostCell.swift */; };
 		B41790A326CB72A600E4E248 /* PostReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41790A226CB72A600E4E248 /* PostReviewViewController.swift */; };
 		B41790A726CB82EA00E4E248 /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41790A626CB82EA00E4E248 /* CommunityViewController.swift */; };
@@ -50,6 +51,7 @@
 		3AB5ECABCBF526DFF608BD74 /* Pods-NetflixReview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetflixReview.release.xcconfig"; path = "Target Support Files/Pods-NetflixReview/Pods-NetflixReview.release.xcconfig"; sourceTree = "<group>"; };
 		B406593D26CCBD840008FD26 /* CommunityInputAccesoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityInputAccesoryView.swift; sourceTree = "<group>"; };
 		B406594026CCBE240008FD26 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
+		B40BDB0B26DE104C0060435B /* WriteReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteReviewViewController.swift; sourceTree = "<group>"; };
 		B417909F26CB6A4E00E4E248 /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		B41790A226CB72A600E4E248 /* PostReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReviewViewController.swift; sourceTree = "<group>"; };
 		B41790A626CB82EA00E4E248 /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				B4AB9C0826CA962400B39556 /* PostViewController.swift */,
 				B41790A226CB72A600E4E248 /* PostReviewViewController.swift */,
+				B40BDB0B26DE104C0060435B /* WriteReviewViewController.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				B4AB9BEF26CA331A00B39556 /* HeaderFilterCell.swift in Sources */,
 				B43AC73626C7CFB000C959E4 /* ProfileViewController.swift in Sources */,
 				B41790B726CBACE400E4E248 /* CommunityPostCell.swift in Sources */,
+				B40BDB0C26DE104C0060435B /* WriteReviewViewController.swift in Sources */,
 				B4AB9C0D26CAA6A900B39556 /* PostHeader.swift in Sources */,
 				B406594126CCBE240008FD26 /* InputTextView.swift in Sources */,
 				B4AB9BE326CA1AEC00B39556 /* VideoListCell.swift in Sources */,

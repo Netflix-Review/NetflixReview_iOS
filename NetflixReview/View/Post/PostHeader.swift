@@ -12,6 +12,7 @@ protocol PostHeaderDelegate: AnyObject {
     func didTapLike()
     func didTapUnLike()
     func TapWish()
+    func writeReview()
 }
 
 class PostHeader: UICollectionReusableView {
@@ -61,7 +62,7 @@ class PostHeader: UICollectionReusableView {
         likeButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.leading.equalTo(10)
-            make.width.equalTo(frame.width/2 - 15)
+            make.width.equalTo(frame.width/3 - 15)
             make.height.equalTo(50)
         }
 
@@ -73,12 +74,20 @@ class PostHeader: UICollectionReusableView {
             make.height.equalTo(likeButton)
         }
         
+        view.addSubview(writeButton)
+        writeButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(unlikeButton.snp.trailing).offset(10)
+            make.width.equalTo(likeButton)
+            make.height.equalTo(likeButton)
+        }
+        
         return view
     }()
     
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("추천해요", for: .normal)
+        button.setTitle("👍 추천해요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
         button.tintColor = .white
@@ -89,12 +98,25 @@ class PostHeader: UICollectionReusableView {
 
     private lazy var unlikeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("별로예요", for: .normal)
+        button.setTitle("👎 별로예요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
         button.tintColor = .white
         button.backgroundColor = .red.withAlphaComponent(0.7)
         button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var writeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("✍️ 리뷰작성", for: .normal)
+        button.setTitleColor(.systemPink, for: .normal)
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemPink.cgColor
+        button.backgroundColor = .white
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
         return button
     }()
     
@@ -216,9 +238,8 @@ class PostHeader: UICollectionReusableView {
         
         addSubview(likeView)
         likeView.snp.makeConstraints { make in
-            make.bottom.equalTo(textView.snp.top).offset(-10)
-            make.leading.trailing.equalToSuperview()
-            make.width.equalToSuperview()
+            make.top.equalTo(postImageView.snp.bottom).offset(20)
+            make.leading.trailing.width.equalToSuperview()
             make.height.equalTo(80)
         }
         likeView.layer.shadowOpacity = 0.25
@@ -243,6 +264,10 @@ class PostHeader: UICollectionReusableView {
     
     @objc func TapWish() {
         delegate?.TapWish()
+    }
+    
+    @objc func writeReview() {
+        delegate?.writeReview()
     }
     
     // MARK: - Helpers
