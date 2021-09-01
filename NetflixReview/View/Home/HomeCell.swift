@@ -30,6 +30,13 @@ class HomeCell: UICollectionViewCell {
         return label
     }()
     
+    var photo: Photo! {
+        didSet {
+            self.titleLabel.text = self.photo.title
+            self.postImageView.setImage(imageUrl: self.photo.url)
+        }
+    }
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {

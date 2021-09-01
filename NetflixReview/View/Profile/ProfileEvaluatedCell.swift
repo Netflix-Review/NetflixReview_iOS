@@ -34,7 +34,7 @@ class ProfileEvaluatedCell: UICollectionViewCell {
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
-        iv.image = #imageLiteral(resourceName: "marvel")
+        iv.image = #imageLiteral(resourceName: "marvel post")
         return iv
     }()
     

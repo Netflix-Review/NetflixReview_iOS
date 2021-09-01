@@ -8,4 +8,5 @@ target 'NetflixReview' do
   # Pods for NetflixReview
 pod 'SnapKit'
 pod 'Alamofire', '~> 5.2'
+pod 'Kingfisher'
 end

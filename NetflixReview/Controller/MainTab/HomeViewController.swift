@@ -6,52 +6,37 @@
 //
 
 import UIKit
+import Alamofire
 
 class HomeViewController: UICollectionViewController {
     
     // MARK: - Properties
     
     private let cellId = "HomeCell"
-    
+    let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
-    let headerId = "headerId"
+    
+    private let url = "https://jsonplaceholder.typicode.com"
+    private var photos = [Photo]()
     
     // MARK: - Lifecycle
     
     init() {
         super.init(collectionViewLayout: HomeViewController.createLayout())
         collectionView.backgroundColor = .white
-        collectionView.contentInset.top = 40
+        collectionView.contentInset.top = 20
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    class Header: UICollectionReusableView {
-        let label = UILabel()
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            label.text = "순위"
-            label.font = UIFont.boldSystemFont(ofSize: 25)
-            addSubview(label)
-        }
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            label.frame = bounds
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchData()
+        
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(Header.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
+        collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +47,15 @@ class HomeViewController: UICollectionViewController {
         navigationController?.navigationBar.sizeToFit()
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Netflix Review"
+    }
+    
+    // MARK: - Helpers
+    
+    func fetchData() {
+        AF.request(self.url + "/photos", method: .get).validate().responseDecodable(of: [Photo].self) { response in
+            self.photos = response.value ?? []
+            self.collectionView.reloadData()
+        }
     }
 }
 
@@ -75,12 +69,10 @@ extension HomeViewController {
                                                                 heightDimension: .absolute(200)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 10)
             
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7),
-                                                                             heightDimension: .estimated(1000)),
-                                                           subitems: [item])
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 40, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 50, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
             
             section.boundarySupplementaryItems = [
@@ -102,17 +94,20 @@ extension HomeViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int { 4 }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HomeHeaderLabel
+        
         return header
 
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return photos.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
+        
+        cell.photo = photos[indexPath.row]
         cell.layer.cornerRadius = 10
         return cell
     }
