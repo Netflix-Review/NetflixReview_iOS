@@ -44,7 +44,7 @@ class HomeCell: UICollectionViewCell {
         
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         
         addSubview(titleLabel)
@@ -52,7 +52,6 @@ class HomeCell: UICollectionViewCell {
             make.top.equalTo(postImageView.snp.bottom).offset(5)
             make.leading.equalTo(postImageView).offset(3)
             make.trailing.equalTo(postImageView)
-            
         }
     }
     

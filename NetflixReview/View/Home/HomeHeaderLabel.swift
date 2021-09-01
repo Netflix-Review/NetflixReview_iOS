@@ -17,7 +17,6 @@ class HomeHeaderLabel: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        label.text = "순위"
         label.font = UIFont.boldSystemFont(ofSize: 25)
         addSubview(label)
     }

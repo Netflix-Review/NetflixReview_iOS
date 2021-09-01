@@ -72,7 +72,7 @@ extension HomeViewController {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 16, bottom: 50, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 50, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
             
             section.boundarySupplementaryItems = [
@@ -91,23 +91,38 @@ extension HomeViewController {
 
 extension HomeViewController {
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int { 4 }
+    override func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HomeHeaderLabel
         
+        if indexPath.section == 0 {
+            header.label.text = "영화 순위"
+        } else if indexPath.section == 1 {
+            header.label.text = "드라마 순위"
+        } else if indexPath.section == 2 {
+            header.label.text = "TV 프로그램 순위"
+        }
         return header
-
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return photos.count
+        
+        switch section {
+        case 0: return photos.count
+        case 1: return 5
+        case 2: return 7
+        default: return 0
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
         
-        cell.photo = photos[indexPath.row]
+        if indexPath.section == 0 {
+            cell.photo = photos[indexPath.row]
+        }
+        
         cell.layer.cornerRadius = 10
         return cell
     }
