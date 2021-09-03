@@ -32,17 +32,24 @@ class HomeCell: UICollectionViewCell {
     
     // MARK: - Fetch
     
-    var movie: Movie! {
+    var contents: Contents! {
         didSet {
-            self.titleLabel.text = self.movie.title
-            self.postImageView.setImage(imageUrl: self.movie.image)
+            self.titleLabel.text = self.contents.title
+            self.postImageView.setImage(imageUrl: self.contents.post)
         }
     }
     
-    var photo: Photo! {
+    var movie: Movie! {
         didSet {
-            self.titleLabel.text = self.photo.title
-            self.postImageView.setImage(imageUrl: self.photo.url)
+            self.titleLabel.text = self.movie.title
+            self.postImageView.setImage(imageUrl: self.movie.post)
+        }
+    }
+    
+    var tvprogram: tvProgram! {
+        didSet {
+            self.titleLabel.text = self.tvprogram.title
+            self.postImageView.setImage(imageUrl: self.tvprogram.post)
         }
     }
     

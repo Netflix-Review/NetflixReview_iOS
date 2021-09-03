@@ -16,11 +16,11 @@ class HomeViewController: UICollectionViewController {
     let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
     
-    private let moviewUrl = "http://219.249.59.254:3000"
+    private let baseUrl = "http://219.249.59.254:3000"
+    private var contents = [Contents]()
     private var movies = [Movie]()
+    private var tvprograms = [tvProgram]()
     
-    private let photoUrl = "https://jsonplaceholder.typicode.com"
-    private var photos = [Photo]()
     
     // MARK: - Lifecycle
     
@@ -37,7 +37,8 @@ class HomeViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchMovieData()
-        fetchPhotpData()
+        fetchPhotoData()
+        fetchTestData()
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
@@ -53,18 +54,25 @@ class HomeViewController: UICollectionViewController {
         navigationItem.title = "Netflix Review"
     }
     
-    // MARK: - Helpers
+    // MARK: - FetchAPI
     
     func fetchMovieData() {
-        AF.request(self.moviewUrl + "/netflix", method: .get).validate().responseDecodable(of: [Movie].self) { response in
+        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Contents].self) { response in
+            self.contents = response.value ?? []
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchPhotoData() {
+        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Movie].self) { response in
             self.movies = response.value ?? []
             self.collectionView.reloadData()
         }
     }
     
-    func fetchPhotpData() {
-        AF.request(self.photoUrl + "/photos", method: .get).validate().responseDecodable(of: [Photo].self) { response in
-            self.photos = response.value ?? []
+    func fetchTestData() {
+        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [tvProgram].self) { response in
+            self.tvprograms = response.value ?? []
             self.collectionView.reloadData()
         }
     }
@@ -80,10 +88,10 @@ extension HomeViewController {
                                                                 heightDimension: .absolute(200)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 10)
             
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 16, bottom: 40, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 16, bottom: 45, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
             
             section.boundarySupplementaryItems = [
@@ -108,11 +116,11 @@ extension HomeViewController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HomeHeaderLabel
         
         if indexPath.section == 0 {
-            header.label.text = "영화 인기 콘텐츠"
+            header.label.text = "한국의 TOP 10 콘텐츠"
         } else if indexPath.section == 1 {
-            header.label.text = "드라마 인기 콘텐츠"
+            header.label.text = "영화 TOP 10"
         } else if indexPath.section == 2 {
-            header.label.text = "TV 프로그램 인기 콘텐츠"
+            header.label.text = "TV 프로그램 TOP 10"
         }
         return header
     }
@@ -120,9 +128,9 @@ extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch section {
-        case 0: return movies.count
-        case 1: return photos.count
-        case 2: return 4
+        case 0: return contents.count
+        case 1: return movies.count
+        case 2: return tvprograms.count
         default: return 0
         }
     }
@@ -132,9 +140,11 @@ extension HomeViewController {
         cell.layer.cornerRadius = 10
         
         if indexPath.section == 0 {
-            cell.movie = movies[indexPath.row]
+            cell.contents = contents[indexPath.row]
         } else if indexPath.section == 1 {
-            cell.photo = photos[indexPath.row]
+            cell.movie = movies[indexPath.row]
+        } else if indexPath.section == 2 {
+            cell.tvprogram = tvprograms[indexPath.row]
         }
         
         return cell
@@ -144,11 +154,11 @@ extension HomeViewController {
         let controller = PostViewController()
         
         if indexPath.section == 0 {
-            controller.movies = movies[indexPath.row]
-            print(movies[indexPath.row])
+            controller.contents = contents[indexPath.row]
         } else if indexPath.section == 1 {
-            controller.photos = photos[indexPath.row]
-            print(photos[indexPath.row])
+            controller.movies = movies[indexPath.row]
+        } else if indexPath.section == 2 {
+            controller.tvprograms = tvprograms[indexPath.row]
         }
         
         navigationController?.pushViewController(controller, animated: true)

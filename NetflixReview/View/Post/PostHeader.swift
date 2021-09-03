@@ -21,8 +21,16 @@ class PostHeader: UICollectionReusableView {
     
     weak var delegate: PostHeaderDelegate?
     
-    var viewModel: PostViewModel? {
-        didSet { configureViewModel() }
+    var ContentsViewModel: ContentsViewModel? {
+        didSet { configureContentsViewModel() }
+    }
+    
+    var MovieViewModel: MovieViewModel? {
+        didSet { configureMovieViewModel() }
+    }
+    
+    var TvProgramViewModel: TvProgramViewModel? {
+        didSet { configureTvViewModel() }
     }
     
     private lazy var containerView: UIView = {
@@ -198,7 +206,7 @@ class PostHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureViewModel()
+        configureMovieViewModel()
         
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
@@ -274,18 +282,39 @@ class PostHeader: UICollectionReusableView {
         delegate?.writeReview()
     }
     
-    // MARK: - Helpers
+    // MARK: - ViewModel
     
-    func configureViewModel() {
-        guard let viewModel = viewModel else { return }
+    func configureContentsViewModel() {
+        guard let viewModel = ContentsViewModel else { return }
+
+        titleLabel.text = viewModel.contents_title
+        let data = try? Data(contentsOf: viewModel.contents_postImageView!)
+        postImageView.image = UIImage(data: data!)
+        backgroundImage.image = UIImage(data: data!)
+        
+        textLabel.attributedText = viewModel.ReviewText
+    }
+    
+    func configureMovieViewModel() {
+        guard let viewModel = MovieViewModel else { return }
 
         titleLabel.text = viewModel.movie_title
-        textLabel.attributedText = viewModel.ReviewText
-        
         let data = try? Data(contentsOf: viewModel.movie_postImageView!)
         postImageView.image = UIImage(data: data!)
-        
         backgroundImage.image = UIImage(data: data!)
+        
+        textLabel.attributedText = viewModel.ReviewText
+    }
+    
+    func configureTvViewModel() {
+        guard let viewModel = TvProgramViewModel else { return }
+
+        titleLabel.text = viewModel.tvProgram_title
+        let data = try? Data(contentsOf: viewModel.tvProgram_postImageView!)
+        postImageView.image = UIImage(data: data!)
+        backgroundImage.image = UIImage(data: data!)
+        
+        textLabel.attributedText = viewModel.ReviewText
     }
 }
 

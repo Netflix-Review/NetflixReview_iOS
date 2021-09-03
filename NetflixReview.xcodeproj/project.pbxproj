@@ -19,8 +19,10 @@
 		B41790B526CBACDE00E4E248 /* CommunityPostHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41790B426CBACDE00E4E248 /* CommunityPostHeader.swift */; };
 		B41790B726CBACE400E4E248 /* CommunityPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41790B626CBACE400E4E248 /* CommunityPostCell.swift */; };
 		B41845B726DF4DC900416A19 /* HomeHeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41845B626DF4DC900416A19 /* HomeHeaderLabel.swift */; };
-		B41845BB26DF6C6900416A19 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41845BA26DF6C6900416A19 /* Home.swift */; };
+		B41845BB26DF6C6900416A19 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41845BA26DF6C6900416A19 /* Value.swift */; };
 		B41845BD26DF6CE300416A19 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41845BC26DF6CE300416A19 /* UIImageViewExtension.swift */; };
+		B4211EAE26E219100044BA74 /* ContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4211EAD26E219100044BA74 /* ContentsViewModel.swift */; };
+		B4211EB226E219240044BA74 /* TvProgramViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4211EB126E219240044BA74 /* TvProgramViewModel.swift */; };
 		B42677F926E0E9E40060BF4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42677F826E0E9E40060BF4B /* LoginViewController.swift */; };
 		B436AE0526CE0DE800EDE028 /* AddCommunityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0426CE0DE800EDE028 /* AddCommunityPostController.swift */; };
 		B436AE0726CE197300EDE028 /* SeachCommunityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */; };
@@ -47,7 +49,7 @@
 		B4AB9C0926CA962400B39556 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C0826CA962400B39556 /* PostViewController.swift */; };
 		B4AB9C0D26CAA6A900B39556 /* PostHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C0C26CAA6A900B39556 /* PostHeader.swift */; };
 		B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C1226CACB0B00B39556 /* HomeCell.swift */; };
-		B4AB9C1526CACBEE00B39556 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C1426CACBEE00B39556 /* PostViewModel.swift */; };
+		B4AB9C1526CACBEE00B39556 /* MovieViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C1426CACBEE00B39556 /* MovieViewModel.swift */; };
 		B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -64,8 +66,10 @@
 		B41790B426CBACDE00E4E248 /* CommunityPostHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostHeader.swift; sourceTree = "<group>"; };
 		B41790B626CBACE400E4E248 /* CommunityPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPostCell.swift; sourceTree = "<group>"; };
 		B41845B626DF4DC900416A19 /* HomeHeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderLabel.swift; sourceTree = "<group>"; };
-		B41845BA26DF6C6900416A19 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		B41845BA26DF6C6900416A19 /* Value.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		B41845BC26DF6CE300416A19 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		B4211EAD26E219100044BA74 /* ContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsViewModel.swift; sourceTree = "<group>"; };
+		B4211EB126E219240044BA74 /* TvProgramViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TvProgramViewModel.swift; sourceTree = "<group>"; };
 		B42677F826E0E9E40060BF4B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B436AE0426CE0DE800EDE028 /* AddCommunityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommunityPostController.swift; sourceTree = "<group>"; };
 		B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostController.swift; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		B4AB9C0826CA962400B39556 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		B4AB9C0C26CAA6A900B39556 /* PostHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeader.swift; sourceTree = "<group>"; };
 		B4AB9C1226CACB0B00B39556 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
-		B4AB9C1426CACBEE00B39556 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
+		B4AB9C1426CACBEE00B39556 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
 		B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
 		B7698193307963565803A6F4 /* Pods_NetflixReview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetflixReview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8288A3A39F54308BF33AC5E /* Pods-NetflixReview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetflixReview.debug.xcconfig"; path = "Target Support Files/Pods-NetflixReview/Pods-NetflixReview.debug.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +192,16 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		B4211EA826E218DA0044BA74 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B4211EAD26E219100044BA74 /* ContentsViewModel.swift */,
+				B4AB9C1426CACBEE00B39556 /* MovieViewModel.swift */,
+				B4211EB126E219240044BA74 /* TvProgramViewModel.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		B42677F726E0E9DA0060BF4B /* Auth */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,8 +268,8 @@
 		B43AC72C26C7CC7E00C959E4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B4211EA826E218DA0044BA74 /* Home */,
 				B4AB9BF026CA33F400B39556 /* HeaderFIlterOptions.swift */,
-				B4AB9C1426CACBEE00B39556 /* PostViewModel.swift */,
 				B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */,
 				B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */,
 			);
@@ -277,7 +291,7 @@
 		B43AC72E26C7CC9000C959E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B41845BA26DF6C6900416A19 /* Home.swift */,
+				B41845BA26DF6C6900416A19 /* Value.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -440,7 +454,7 @@
 			files = (
 				B41790A326CB72A600E4E248 /* PostReviewViewController.swift in Sources */,
 				B41790A026CB6A4E00E4E248 /* PostCell.swift in Sources */,
-				B4AB9C1526CACBEE00B39556 /* PostViewModel.swift in Sources */,
+				B4AB9C1526CACBEE00B39556 /* MovieViewModel.swift in Sources */,
 				B4AB9BE526CA2CC800B39556 /* ProfileHeader.swift in Sources */,
 				B42677F926E0E9E40060BF4B /* LoginViewController.swift in Sources */,
 				B436AE1226CE2DFA00EDE028 /* EditNameViewModel.swift in Sources */,
@@ -451,7 +465,7 @@
 				B43AC73426C7CE5F00C959E4 /* ExploreViewController.swift in Sources */,
 				B4AB9C0926CA962400B39556 /* PostViewController.swift in Sources */,
 				B459BC5026DC99450061EB67 /* EditInfoCell.swift in Sources */,
-				B41845BB26DF6C6900416A19 /* Home.swift in Sources */,
+				B41845BB26DF6C6900416A19 /* Value.swift in Sources */,
 				B436AE0926CE1F1E00EDE028 /* SeachCommunityPostCell.swift in Sources */,
 				B41790AE26CB94CA00E4E248 /* CommunityPostController.swift in Sources */,
 				B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */,
@@ -461,7 +475,9 @@
 				B43AC71826C7CC3E00C959E4 /* AppDelegate.swift in Sources */,
 				B406593E26CCBD840008FD26 /* CommunityInputAccesoryView.swift in Sources */,
 				B41845BD26DF6CE300416A19 /* UIImageViewExtension.swift in Sources */,
+				B4211EAE26E219100044BA74 /* ContentsViewModel.swift in Sources */,
 				B436AE0B26CE21B700EDE028 /* ProfileEvaluatedCell.swift in Sources */,
+				B4211EB226E219240044BA74 /* TvProgramViewModel.swift in Sources */,
 				B436AE0726CE197300EDE028 /* SeachCommunityPostController.swift in Sources */,
 				B41790A926CB8E3400E4E248 /* CommunityCell.swift in Sources */,
 				B41845B726DF4DC900416A19 /* HomeHeaderLabel.swift in Sources */,

@@ -14,8 +14,9 @@ class PostViewController: UICollectionViewController {
     private let headerId = "PostHeader"
     private let cellId = "PostCell"
     
+    var contents: Contents?
     var movies: Movie?
-    var photos: Photo?
+    var tvprograms: tvProgram?
     
     // MARK: - Lifecycle
     
@@ -62,9 +63,19 @@ extension PostViewController {
         header.delegate = self
         header.backgroundColor = .white
         
-        if let movie = movies {
-            header.viewModel = PostViewModel(movie: movie)
+        
+        if let contents = contents {
+            header.ContentsViewModel = ContentsViewModel(contents: contents)
         }
+        
+        if let movies = movies {
+            header.MovieViewModel = MovieViewModel(movie: movies)
+        }
+        
+        if let tvprograms = tvprograms {
+            header.TvProgramViewModel = TvProgramViewModel(tvprogram: tvprograms)
+        }
+        
         return header
     }
     
