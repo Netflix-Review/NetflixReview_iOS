@@ -51,15 +51,6 @@ class LoginViewController: UIViewController {
     }
     
     func configureView() {
-        
-        view.addSubview(containerView)
-        containerView.frame = self.view.frame
-        
-        view.addSubview(slideUpView)
-        slideUpView.backgroundColor = .white
-        slideUpView.layer.cornerRadius = 15
-        slideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        
         view.addSubview(goToLoginButton)
         goToLoginButton.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
@@ -75,6 +66,11 @@ class LoginViewController: UIViewController {
     // MARK: - Action (Slide Up, Down)
     
     @objc func goToLogin() {
+        
+        // addsubView _ containerView, slideUpView 는 로그인을 눌렀을 때, 다시 로그인이 안눌러지도록 하기위해
+        
+        view.addSubview(containerView)
+        containerView.frame = self.view.frame
         containerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(slideViewTapped))
@@ -91,8 +87,11 @@ class LoginViewController: UIViewController {
         
         
         let screenSize = UIScreen.main.bounds.size
+        view.addSubview(slideUpView)
+        slideUpView.backgroundColor = .white
+        slideUpView.layer.cornerRadius = 15
+        slideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         slideUpView.frame = CGRect(x: 0, y: screenSize.height, width: screenSize.width, height: slideUpViewHeight)
-        
         
         UIView.animate(withDuration: 0.5,
                        delay: 0, usingSpringWithDamping: 1.0,
@@ -100,10 +99,12 @@ class LoginViewController: UIViewController {
                        options: .curveEaseInOut,
                        animations: {
                         self.containerView.alpha = 0.8
-                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height - self.slideUpViewHeight, width: screenSize.width, height: self.slideUpViewHeight)
+                        self.slideUpView.frame = CGRect(x: 0, y: screenSize.height - self.slideUpViewHeight,
+                                                        width: screenSize.width, height: self.slideUpViewHeight)
                        }, completion: nil)
     }
     
+     
     @objc func slideViewTapped() {
         UIView.animate(withDuration: 0.5,
                        delay: 0, usingSpringWithDamping: 1.0,
