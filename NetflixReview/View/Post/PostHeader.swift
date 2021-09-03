@@ -21,6 +21,10 @@ class PostHeader: UICollectionReusableView {
     
     weak var delegate: PostHeaderDelegate?
     
+    var viewModel: PostViewModel? {
+        didSet { configureViewModel() }
+    }
+    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
@@ -87,7 +91,7 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("👍 추천해요", for: .normal)
+        button.setTitle("추천해요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
         button.tintColor = .white
@@ -98,7 +102,7 @@ class PostHeader: UICollectionReusableView {
 
     private lazy var unlikeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("👎 별로예요", for: .normal)
+        button.setTitle("별로예요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
         button.tintColor = .white
@@ -109,7 +113,7 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var writeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("✍️ 리뷰작성", for: .normal)
+        button.setTitle("리뷰작성", for: .normal)
         button.setTitleColor(.systemPink, for: .normal)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
@@ -150,7 +154,7 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var postImageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
         iv.backgroundColor = .blue
         iv.image = #imageLiteral(resourceName: "end")
@@ -273,8 +277,15 @@ class PostHeader: UICollectionReusableView {
     // MARK: - Helpers
     
     func configureViewModel() {
-        let viewModel = PostViewModel()
+        guard let viewModel = viewModel else { return }
+
+        titleLabel.text = viewModel.movie_title
         textLabel.attributedText = viewModel.ReviewText
+        
+        let data = try? Data(contentsOf: viewModel.movie_postImageView!)
+        postImageView.image = UIImage(data: data!)
+        
+        backgroundImage.image = UIImage(data: data!)
     }
 }
 

@@ -9,6 +9,11 @@ import UIKit
 
 struct PostViewModel {
     
+    var movie: Movie
+    
+    var movie_title: String { return movie.title }
+    var movie_postImageView: URL? { return URL(string: movie.image) }
+    
     var ReviewText: NSAttributedString {
         let title = NSMutableAttributedString(string: "리뷰", attributes: [.font: UIFont.boldSystemFont(ofSize: 20)])
         
@@ -18,4 +23,5 @@ struct PostViewModel {
         return title
     }
     
+    init(movie: Movie) { self.movie = movie }
 }

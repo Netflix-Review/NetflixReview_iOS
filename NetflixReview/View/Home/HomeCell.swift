@@ -14,7 +14,7 @@ class HomeCell: UICollectionViewCell {
     
     private lazy var postImageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 10
@@ -29,6 +29,15 @@ class HomeCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
+    
+    // MARK: - Fetch
+    
+    var movie: Movie! {
+        didSet {
+            self.titleLabel.text = self.movie.title
+            self.postImageView.setImage(imageUrl: self.movie.image)
+        }
+    }
     
     var photo: Photo! {
         didSet {
@@ -49,7 +58,7 @@ class HomeCell: UICollectionViewCell {
         
         addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(postImageView.snp.bottom).offset(5)
+            make.top.equalTo(postImageView.snp.bottom).offset(8)
             make.leading.equalTo(postImageView).offset(3)
             make.trailing.equalTo(postImageView)
         }

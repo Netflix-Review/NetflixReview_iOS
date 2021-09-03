@@ -14,6 +14,8 @@ class PostViewController: UICollectionViewController {
     private let headerId = "PostHeader"
     private let cellId = "PostCell"
     
+    var movies: Movie?
+    var photos: Photo?
     
     // MARK: - Lifecycle
     
@@ -59,6 +61,10 @@ extension PostViewController {
         
         header.delegate = self
         header.backgroundColor = .white
+        
+        if let movie = movies {
+            header.viewModel = PostViewModel(movie: movie)
+        }
         return header
     }
     
@@ -67,7 +73,6 @@ extension PostViewController {
         let nav = UINavigationController(rootViewController: controller)
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
-//        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -76,12 +81,10 @@ extension PostViewController {
 
 extension PostViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        // height 크기 조정해야함
         return CGSize(width: view.frame.width, height: 500)
     }
 }

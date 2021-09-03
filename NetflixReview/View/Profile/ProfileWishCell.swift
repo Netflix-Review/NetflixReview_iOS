@@ -14,7 +14,7 @@ class ProfileWishCell: UICollectionViewCell {
     
     private lazy var postImageView: UIImageView = {
         let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 10

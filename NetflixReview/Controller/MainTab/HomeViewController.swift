@@ -16,7 +16,10 @@ class HomeViewController: UICollectionViewController {
     let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
     
-    private let url = "https://jsonplaceholder.typicode.com"
+    private let moviewUrl = "http://219.249.59.254:3000"
+    private var movies = [Movie]()
+    
+    private let photoUrl = "https://jsonplaceholder.typicode.com"
     private var photos = [Photo]()
     
     // MARK: - Lifecycle
@@ -24,7 +27,7 @@ class HomeViewController: UICollectionViewController {
     init() {
         super.init(collectionViewLayout: HomeViewController.createLayout())
         collectionView.backgroundColor = .white
-        collectionView.contentInset.top = 20
+        collectionView.contentInset.top = 40
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +36,8 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
+        fetchMovieData()
+        fetchPhotpData()
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
@@ -51,8 +55,15 @@ class HomeViewController: UICollectionViewController {
     
     // MARK: - Helpers
     
-    func fetchData() {
-        AF.request(self.url + "/photos", method: .get).validate().responseDecodable(of: [Photo].self) { response in
+    func fetchMovieData() {
+        AF.request(self.moviewUrl + "/netflix", method: .get).validate().responseDecodable(of: [Movie].self) { response in
+            self.movies = response.value ?? []
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchPhotpData() {
+        AF.request(self.photoUrl + "/photos", method: .get).validate().responseDecodable(of: [Photo].self) { response in
             self.photos = response.value ?? []
             self.collectionView.reloadData()
         }
@@ -69,10 +80,10 @@ extension HomeViewController {
                                                                 heightDimension: .absolute(200)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 10)
             
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(1000)), subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 15, leading: 16, bottom: 50, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 16, bottom: 40, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
             
             section.boundarySupplementaryItems = [
@@ -97,11 +108,11 @@ extension HomeViewController {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! HomeHeaderLabel
         
         if indexPath.section == 0 {
-            header.label.text = "영화 순위"
+            header.label.text = "영화 인기 콘텐츠"
         } else if indexPath.section == 1 {
-            header.label.text = "드라마 순위"
+            header.label.text = "드라마 인기 콘텐츠"
         } else if indexPath.section == 2 {
-            header.label.text = "TV 프로그램 순위"
+            header.label.text = "TV 프로그램 인기 콘텐츠"
         }
         return header
     }
@@ -109,26 +120,37 @@ extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         switch section {
-        case 0: return photos.count
-        case 1: return 5
-        case 2: return 7
+        case 0: return movies.count
+        case 1: return photos.count
+        case 2: return 4
         default: return 0
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeCell
+        cell.layer.cornerRadius = 10
         
         if indexPath.section == 0 {
+            cell.movie = movies[indexPath.row]
+        } else if indexPath.section == 1 {
             cell.photo = photos[indexPath.row]
         }
         
-        cell.layer.cornerRadius = 10
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = PostViewController()
+        
+        if indexPath.section == 0 {
+            controller.movies = movies[indexPath.row]
+            print(movies[indexPath.row])
+        } else if indexPath.section == 1 {
+            controller.photos = photos[indexPath.row]
+            print(photos[indexPath.row])
+        }
+        
         navigationController?.pushViewController(controller, animated: true)
     }
 }
