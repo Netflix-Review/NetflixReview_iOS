@@ -92,7 +92,7 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - 5) / 2
+        let width = (view.frame.width - 5) / 3
         return CGSize(width: width, height: 200)
     }
 

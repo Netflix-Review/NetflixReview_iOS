@@ -12,7 +12,6 @@ protocol PostHeaderDelegate: AnyObject {
     func didTapLike()
     func didTapUnLike()
     func TapWish()
-    func writeReview()
 }
 
 class PostHeader: UICollectionReusableView {
@@ -66,44 +65,13 @@ class PostHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var likeView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-        
-        view.addSubview(likeButton)
-        likeButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(10)
-            make.width.equalTo(frame.width/3 - 15)
-            make.height.equalTo(50)
-        }
-
-        view.addSubview(unlikeButton)
-        unlikeButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(likeButton.snp.trailing).offset(10)
-            make.width.equalTo(likeButton)
-            make.height.equalTo(likeButton)
-        }
-        
-        view.addSubview(writeButton)
-        writeButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(unlikeButton.snp.trailing).offset(10)
-            make.width.equalTo(likeButton)
-            make.height.equalTo(likeButton)
-        }
-        
-        return view
-    }()
-    
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추천해요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.tintColor = .systemGreen
         button.layer.cornerRadius = 10
-        button.tintColor = .white
-        button.backgroundColor = .systemGreen
+        button.backgroundColor = .white
         button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         return button
     }()
@@ -112,23 +80,10 @@ class PostHeader: UICollectionReusableView {
         let button = UIButton(type: .system)
         button.setTitle("별로예요", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.tintColor = .systemPink
         button.layer.cornerRadius = 10
-        button.tintColor = .white
-        button.backgroundColor = .red.withAlphaComponent(0.7)
-        button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var writeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("리뷰작성", for: .normal)
-        button.setTitleColor(.systemPink, for: .normal)
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemPink.cgColor
         button.backgroundColor = .white
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.addTarget(self, action: #selector(writeReview), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
         return button
     }()
     
@@ -184,6 +139,13 @@ class PostHeader: UICollectionReusableView {
         return label
     }()
     
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.numberOfLines = 3
+        return label
+    }()
 
     private lazy var textView: UIView = {
         let view = UIView()
@@ -235,6 +197,7 @@ class PostHeader: UICollectionReusableView {
         
         let infoStack = UIStackView(arrangedSubviews: [titleLabel, infoLabel])
         infoStack.axis = .vertical
+        infoStack.spacing = 5
         
         addSubview(infoStack)
         infoStack.snp.makeConstraints { make in
@@ -248,16 +211,30 @@ class PostHeader: UICollectionReusableView {
             make.trailing.equalTo(-17)
         }
         
-        addSubview(likeView)
-        likeView.snp.makeConstraints { make in
+        addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
             make.top.equalTo(postImageView.snp.bottom).offset(20)
-            make.leading.trailing.width.equalToSuperview()
-            make.height.equalTo(80)
+            make.leading.equalTo(15)
+            make.trailing.equalTo(-15)
         }
-        likeView.layer.shadowOpacity = 0.25
-        likeView.layer.shadowRadius = 10
-        likeView.layer.shadowOffset = .init(width: 0, height: -5)
-        likeView.layer.shadowColor = UIColor.lightGray.cgColor
+        
+        
+        addSubview(likeButton)
+        likeButton.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(15)
+            make.leading.equalTo(10)
+            make.width.equalTo(frame.width/2-10)
+            make.height.equalTo(50)
+        }
+        
+        addSubview(unlikeButton)
+        unlikeButton.snp.makeConstraints { make in
+            make.top.equalTo(likeButton)
+            make.leading.equalTo(likeButton.snp.trailing).offset(10)
+            make.trailing.equalTo(-10)
+            make.height.equalTo(50)
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -276,10 +253,6 @@ class PostHeader: UICollectionReusableView {
     
     @objc func TapWish() {
         delegate?.TapWish()
-    }
-    
-    @objc func writeReview() {
-        delegate?.writeReview()
     }
     
     // MARK: - ViewModel

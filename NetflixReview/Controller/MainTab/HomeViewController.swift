@@ -15,6 +15,7 @@ class HomeViewController: UICollectionViewController {
     private let cellId = "HomeCell"
     let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
+    static let badgeElementKind = "badge-element-kind"
     
     private let baseUrl = "http://219.249.59.254:3000"
     private var contents = [Contents]()

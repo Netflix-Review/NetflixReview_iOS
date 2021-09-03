@@ -96,7 +96,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 500)
+        return CGSize(width: view.frame.width, height: 560)
     }
 }
 
@@ -110,14 +110,33 @@ extension PostViewController: PostHeaderDelegate {
     
     func didTapLike() {
         print("추천해요")
+        
+        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !", message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+            let controller = WriteReviewViewController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive, handler: nil)
+        
+        actionSheet.addAction(okAction)
+        actionSheet.addAction(noAction)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
     func didTapUnLike() {
         print("별로예요")
-    }
-    
-    func writeReview() {
-        let controller = WriteReviewViewController()
-        navigationController?.pushViewController(controller, animated: true)
+        
+        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !", message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?", preferredStyle: .actionSheet)
+        let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+            let controller = WriteReviewViewController()
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive, handler: nil)
+        
+        actionSheet.addAction(okAction)
+        actionSheet.addAction(noAction)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
 }
