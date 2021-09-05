@@ -9,10 +9,15 @@ import UIKit
 
 struct TvProgramViewModel {
     
-    var tvProgram: tvProgram
+    var tvProgram: Value
     
     var tvProgram_title: String { return tvProgram.title }
     var tvProgram_postImageView: URL? { return URL(string: tvProgram.post) }
+    var tvProgram_backgroundView: URL? { return URL(string: tvProgram.view) }
+    var tvProgram_info: String { return tvProgram.info }
+    var tvProgram_desciption: String { return tvProgram.des }
+    var tvProgram_rank: String { return "\(tvProgram.rank)%" }
+    
     
     var ReviewText: NSAttributedString {
         let title = NSMutableAttributedString(string: "리뷰", attributes: [.font: UIFont.boldSystemFont(ofSize: 20)])
@@ -23,7 +28,7 @@ struct TvProgramViewModel {
         return title
     }
     
-    init(tvprogram: tvProgram) {
+    init(tvprogram: Value) {
         self.tvProgram = tvprogram
     }
 }

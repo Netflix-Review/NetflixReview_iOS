@@ -7,33 +7,12 @@
 
 import Foundation
 
-struct Contents: Codable {
+struct Value: Codable {
     let id: Int
     let title: String
     let post: String
     let view: String
     let info: String
     let des: String
-    let rank: Int
+    var rank: Int
 }
-
-struct Movie: Codable {
-    let id: Int
-    let title: String
-    let post: String
-    let view: String
-    let info: String
-    let des: String
-    let rank: Int
-}
-
-struct tvProgram: Codable {
-    let id: Int
-    let title: String
-    let post: String
-    let view: String
-    let info: String
-    let des: String
-    let rank: Int
-}
-

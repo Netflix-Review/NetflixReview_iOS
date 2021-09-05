@@ -49,7 +49,7 @@ class ProfileViewController: UICollectionViewController {
     func configureCollectionView() {
         collectionView.backgroundColor = .white
         
-        collectionView.register(ProfileWishCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
 }
@@ -63,7 +63,7 @@ extension ProfileViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfileWishCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ProfileCell
         return cell
     }
     

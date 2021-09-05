@@ -15,12 +15,11 @@ class HomeViewController: UICollectionViewController {
     private let cellId = "HomeCell"
     let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
-    static let badgeElementKind = "badge-element-kind"
     
     private let baseUrl = "http://219.249.59.254:3000"
-    private var contents = [Contents]()
-    private var movies = [Movie]()
-    private var tvprograms = [tvProgram]()
+    private var contents = [Value]()
+    private var movies = [Value]()
+    private var tvprograms = [Value]()
     
     
     // MARK: - Lifecycle
@@ -37,9 +36,9 @@ class HomeViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        fetchContentsData()
         fetchMovieData()
-        fetchPhotoData()
-        fetchTestData()
+        fetchTvData()
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
@@ -57,22 +56,22 @@ class HomeViewController: UICollectionViewController {
     
     // MARK: - FetchAPI
     
-    func fetchMovieData() {
-        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Contents].self) { response in
+    func fetchContentsData() {
+        AF.request(self.baseUrl + "/drama", method: .get).validate().responseDecodable(of: [Value].self) { response in
             self.contents = response.value ?? []
             self.collectionView.reloadData()
         }
     }
     
-    func fetchPhotoData() {
-        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Movie].self) { response in
+    func fetchMovieData() {
+        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Value].self) { response in
             self.movies = response.value ?? []
             self.collectionView.reloadData()
         }
     }
     
-    func fetchTestData() {
-        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [tvProgram].self) { response in
+    func fetchTvData() {
+        AF.request(self.baseUrl + "/tv", method: .get).validate().responseDecodable(of: [Value].self) { response in
             self.tvprograms = response.value ?? []
             self.collectionView.reloadData()
         }
@@ -92,7 +91,7 @@ extension HomeViewController {
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
             
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 16, bottom: 45, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 13, leading: 16, bottom: 60, trailing: 0)
             section.orthogonalScrollingBehavior = .continuous
             
             section.boundarySupplementaryItems = [
@@ -155,11 +154,12 @@ extension HomeViewController {
         let controller = PostViewController()
         
         if indexPath.section == 0 {
-            controller.contents = contents[indexPath.row]
+            controller.value = contents[indexPath.row]
         } else if indexPath.section == 1 {
-            controller.movies = movies[indexPath.row]
+            controller.value = movies[indexPath.row]
         } else if indexPath.section == 2 {
-            controller.tvprograms = tvprograms[indexPath.row]
+            controller.value = tvprograms[indexPath.row]
+            controller.type = .tv
         }
         
         navigationController?.pushViewController(controller, animated: true)

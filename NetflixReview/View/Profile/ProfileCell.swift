@@ -1,5 +1,5 @@
 //
-//  ProfileWishCell.swift
+//  ProfileCell.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/16.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ProfileWishCell: UICollectionViewCell {
+class ProfileCell: UICollectionViewCell {
     
     // MARK: - Properties
     

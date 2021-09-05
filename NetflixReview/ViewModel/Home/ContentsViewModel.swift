@@ -9,10 +9,15 @@ import UIKit
 
 struct ContentsViewModel {
     
-    var contents: Contents
+    var contents: Value
     
     var contents_title: String { return contents.title }
     var contents_postImageView: URL? { return URL(string: contents.post) }
+    var contents_backgroundView: URL? { return URL(string: contents.view) }
+    var contents_info: String { return contents.info }
+    var contents_desciption: String { return contents.des }
+    var contents_rank: String { return "\(contents.rank)%" }
+    
     
     var ReviewText: NSAttributedString {
         let title = NSMutableAttributedString(string: "리뷰", attributes: [.font: UIFont.boldSystemFont(ofSize: 20)])
@@ -23,7 +28,7 @@ struct ContentsViewModel {
         return title
     }
     
-    init(contents: Contents) {
+    init(contents: Value) {
         self.contents = contents
     }
 }

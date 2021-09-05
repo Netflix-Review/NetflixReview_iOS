@@ -5,7 +5,15 @@
 //  Created by 강호성 on 2021/08/16.
 //
 
+
+enum Type {
+    case drama
+    case movie
+    case tv
+}
+
 import UIKit
+import Alamofire
 
 class PostViewController: UICollectionViewController {
     
@@ -14,9 +22,11 @@ class PostViewController: UICollectionViewController {
     private let headerId = "PostHeader"
     private let cellId = "PostCell"
     
-    var contents: Contents?
-    var movies: Movie?
-    var tvprograms: tvProgram?
+    var value: Value?
+    
+    private let baseUrl = "http://219.249.59.254:3000"
+    
+    var type: Type = .drama
     
     // MARK: - Lifecycle
     
@@ -45,6 +55,7 @@ class PostViewController: UICollectionViewController {
     }
 }
 
+
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
 extension PostViewController {
@@ -64,18 +75,10 @@ extension PostViewController {
         header.backgroundColor = .white
         
         
-        if let contents = contents {
-            header.ContentsViewModel = ContentsViewModel(contents: contents)
+        if let value = value {
+            header.ContentsViewModel = ContentsViewModel(contents: value)
         }
-        
-        if let movies = movies {
-            header.MovieViewModel = MovieViewModel(movie: movies)
-        }
-        
-        if let tvprograms = tvprograms {
-            header.TvProgramViewModel = TvProgramViewModel(tvprogram: tvprograms)
-        }
-        
+
         return header
     }
     
@@ -111,32 +114,129 @@ extension PostViewController: PostHeaderDelegate {
     func didTapLike() {
         print("추천해요")
         
-        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !", message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !",
+                                            message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?",
+                                            preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+            
+            self.plusPercentCount()
+            
             let controller = WriteReviewViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }
-        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive, handler: nil)
+
+        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
+            
+            self.plusPercentCount()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
+
         
         actionSheet.addAction(okAction)
         actionSheet.addAction(noAction)
-        
         present(actionSheet, animated: true, completion: nil)
     }
     
     func didTapUnLike() {
         print("별로예요")
         
-        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !", message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?", preferredStyle: .actionSheet)
+        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !",
+                                            message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?",
+                                            preferredStyle: .actionSheet)
+        
         let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+            
+            self.minusPercentCount()
+            
             let controller = WriteReviewViewController()
             self.navigationController?.pushViewController(controller, animated: true)
         }
-        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive, handler: nil)
+        
+        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
+            
+            self.minusPercentCount()
+            
+            self.dismiss(animated: true, completion: nil)
+        }
         
         actionSheet.addAction(okAction)
         actionSheet.addAction(noAction)
-        
         present(actionSheet, animated: true, completion: nil)
+    }
+}
+
+
+
+// MARK: - Post API
+
+extension PostViewController {
+    
+    func plusPercentCount() {
+        
+        var urlString = ""
+        
+        switch type {
+        case .drama: urlString = "/drama"
+        case .movie: urlString = "/movie"
+        case .tv: urlString = "/tv"
+        }
+        
+        var request = URLRequest(url: URL(string: baseUrl + urlString)!)
+        request.httpMethod = "POST"
+        
+        print(value?.rank ?? 0)
+        value?.rank += 1
+        print(value?.rank ?? 0)
+        
+        let params = ["rank": value?.rank ?? 0] as Dictionary
+        
+        do {
+            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+        } catch {
+            print("http Body error")
+        }
+        
+        AF.request(request).responseString { respone in
+            switch respone.result {
+            case .success: print("POST 성공 \(params)")
+            case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+        collectionView.reloadData()
+    }
+    
+    func minusPercentCount() {
+        
+        var urlString = ""
+        
+        switch type {
+        case .drama: urlString = "/drama"
+        case .movie: urlString = "/movie"
+        case .tv: urlString = "/tv"
+        }
+        
+        var request = URLRequest(url: URL(string: baseUrl + urlString)!)
+        request.httpMethod = "POST"
+        
+        print(value?.rank ?? 0)
+        value?.rank -= 1
+        print(value?.rank ?? 0)
+        
+        let params = ["rank": value?.rank ?? 0] as Dictionary
+        
+        do {
+            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+        } catch {
+            print("http Body error")
+        }
+        
+        AF.request(request).responseString { respone in
+            switch respone.result {
+            case .success: print("POST 성공 \(params)")
+            case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+        collectionView.reloadData()
     }
 }

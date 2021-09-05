@@ -32,21 +32,21 @@ class HomeCell: UICollectionViewCell {
     
     // MARK: - Fetch
     
-    var contents: Contents! {
+    var contents: Value! {
         didSet {
             self.titleLabel.text = self.contents.title
             self.postImageView.setImage(imageUrl: self.contents.post)
         }
     }
     
-    var movie: Movie! {
+    var movie: Value! {
         didSet {
             self.titleLabel.text = self.movie.title
             self.postImageView.setImage(imageUrl: self.movie.post)
         }
     }
     
-    var tvprogram: tvProgram! {
+    var tvprogram: Value! {
         didSet {
             self.titleLabel.text = self.tvprogram.title
             self.postImageView.setImage(imageUrl: self.tvprogram.post)
@@ -69,6 +69,7 @@ class HomeCell: UICollectionViewCell {
             make.leading.equalTo(postImageView).offset(3)
             make.trailing.equalTo(postImageView)
         }
+        
     }
     
     required init?(coder: NSCoder) {

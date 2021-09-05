@@ -9,10 +9,15 @@ import UIKit
 
 struct MovieViewModel {
     
-    var movie: Movie
+    var movie: Value
     
     var movie_title: String { return movie.title }
     var movie_postImageView: URL? { return URL(string: movie.post) }
+    var movie_backgroundView: URL? { return URL(string: movie.view) }
+    var movie_info: String { return movie.info }
+    var movie_desciption: String { return movie.des }
+    var movie_rank: String { return "\(movie.rank)%" }
+    
     
     var ReviewText: NSAttributedString {
         let title = NSMutableAttributedString(string: "리뷰", attributes: [.font: UIFont.boldSystemFont(ofSize: 20)])
@@ -23,7 +28,7 @@ struct MovieViewModel {
         return title
     }
     
-    init(movie: Movie) {
+    init(movie: Value) {
         self.movie = movie
     }
 }

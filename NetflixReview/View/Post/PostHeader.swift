@@ -127,6 +127,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어벤져스: 엔드게임"
+        label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -143,7 +144,7 @@ class PostHeader: UICollectionReusableView {
         let label = UILabel()
         label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
         label.font = UIFont.systemFont(ofSize: 17)
-        label.numberOfLines = 3
+        label.numberOfLines = 4
         return label
     }()
 
@@ -203,11 +204,12 @@ class PostHeader: UICollectionReusableView {
         infoStack.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(13)
             make.leading.equalTo(postImageView.snp.trailing).offset(10)
+            make.trailing.equalTo(-50)
         }
         
         addSubview(percentLabel)
         percentLabel.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(25)
+            make.top.equalTo(containerView.snp.bottom).offset(40)
             make.trailing.equalTo(-17)
         }
         
@@ -221,7 +223,7 @@ class PostHeader: UICollectionReusableView {
         
         addSubview(likeButton)
         likeButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(15)
+            make.bottom.equalTo(textView.snp.top).offset(-15)
             make.leading.equalTo(10)
             make.width.equalTo(frame.width/2-10)
             make.height.equalTo(50)
@@ -263,7 +265,12 @@ class PostHeader: UICollectionReusableView {
         titleLabel.text = viewModel.contents_title
         let data = try? Data(contentsOf: viewModel.contents_postImageView!)
         postImageView.image = UIImage(data: data!)
-        backgroundImage.image = UIImage(data: data!)
+        let backData = try? Data(contentsOf: viewModel.contents_backgroundView!)
+        backgroundImage.image = UIImage(data: backData!)
+        infoLabel.text = viewModel.contents_info
+        percentLabel.text = viewModel.contents_rank
+        descriptionLabel.text = viewModel.contents_desciption
+        
         
         textLabel.attributedText = viewModel.ReviewText
     }
@@ -274,7 +281,11 @@ class PostHeader: UICollectionReusableView {
         titleLabel.text = viewModel.movie_title
         let data = try? Data(contentsOf: viewModel.movie_postImageView!)
         postImageView.image = UIImage(data: data!)
-        backgroundImage.image = UIImage(data: data!)
+        let backData = try? Data(contentsOf: viewModel.movie_backgroundView!)
+        backgroundImage.image = UIImage(data: backData!)
+        infoLabel.text = viewModel.movie_info
+        percentLabel.text = viewModel.movie_rank
+        descriptionLabel.text = viewModel.movie_desciption
         
         textLabel.attributedText = viewModel.ReviewText
     }
@@ -285,7 +296,11 @@ class PostHeader: UICollectionReusableView {
         titleLabel.text = viewModel.tvProgram_title
         let data = try? Data(contentsOf: viewModel.tvProgram_postImageView!)
         postImageView.image = UIImage(data: data!)
-        backgroundImage.image = UIImage(data: data!)
+        let backData = try? Data(contentsOf: viewModel.tvProgram_backgroundView!)
+        backgroundImage.image = UIImage(data: backData!)
+        infoLabel.text = viewModel.tvProgram_info
+        percentLabel.text = viewModel.tvProgram_rank
+        descriptionLabel.text = viewModel.tvProgram_desciption
         
         textLabel.attributedText = viewModel.ReviewText
     }
