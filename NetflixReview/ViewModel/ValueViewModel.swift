@@ -1,22 +1,22 @@
 //
-//  PostViewModel.swift
+//  ValueViewModel.swift
 //  NetflixReview
 //
-//  Created by 강호성 on 2021/08/17.
+//  Created by 강호성 on 2021/09/06.
 //
 
 import UIKit
 
-struct MovieViewModel {
+struct ValueViewModel {
     
-    var movie: Value
+    var value: Value
     
-    var movie_title: String { return movie.title }
-    var movie_postImageView: URL? { return URL(string: movie.post) }
-    var movie_backgroundView: URL? { return URL(string: movie.view) }
-    var movie_info: String { return movie.info }
-    var movie_desciption: String { return movie.des }
-    var movie_rank: String { return "\(movie.rank)%" }
+    var title: String { return value.title }
+    var postImageView: URL? { return URL(string: value.post) }
+    var backgroundView: URL? { return URL(string: value.view) }
+    var info: String { return value.info }
+    var desciption: String { return value.des }
+    var rank: String { return "\(value.rank)%" }
     
     
     var ReviewText: NSAttributedString {
@@ -28,7 +28,8 @@ struct MovieViewModel {
         return title
     }
     
-    init(movie: Value) {
-        self.movie = movie
+    init(value: Value) {
+        self.value = value
     }
 }
+

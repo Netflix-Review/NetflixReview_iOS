@@ -76,7 +76,7 @@ extension PostViewController {
         
         
         if let value = value {
-            header.ContentsViewModel = ContentsViewModel(contents: value)
+            header.ValueViewModel = ValueViewModel(value: value)
         }
 
         return header
@@ -191,18 +191,26 @@ extension PostViewController {
         
         let params = ["rank": value?.rank ?? 0] as Dictionary
         
+        // withJSONObject: JSON 데이터를 생성할 개체, options: JSON 데이터를 생성하기 위한 옵션
+        // 1. http 본문(추후 response 값)에 파라미터 객체를 JSON 데이터로 생성
         do {
-            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+            try request.httpBody = JSONSerialization.data(withJSONObject: params)
         } catch {
             print("http Body error")
         }
         
+        // 2. AF.request(request) - 백단에 request를 송신, .responseString - 서버로부터 응답을 받기 위해 문자열로 처리한 후 서버에 전달
+        // 서버로부터 응답을 받기 위한 메소드 - responseString: 응답결과를 문자열로 처리한 후 전달한다
+        // 서버로부터 JSON 데이터를 응답받아서 문자열로 처리
         AF.request(request).responseString { respone in
+            // 4. respone.result 여기로 와서 성공이면 View에 값 업데이트
             switch respone.result {
+            // 5. print 찍기
             case .success: print("POST 성공 \(params)")
             case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }
         }
+        // 3. 요청한 데이터를 백단에서 반환한 데이터로 받아서 리로드
         collectionView.reloadData()
     }
     
@@ -226,7 +234,7 @@ extension PostViewController {
         let params = ["rank": value?.rank ?? 0] as Dictionary
         
         do {
-            try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+            try request.httpBody = JSONSerialization.data(withJSONObject: params)
         } catch {
             print("http Body error")
         }

@@ -159,7 +159,6 @@ extension HomeViewController {
             controller.value = movies[indexPath.row]
         } else if indexPath.section == 2 {
             controller.value = tvprograms[indexPath.row]
-            controller.type = .tv
         }
         
         navigationController?.pushViewController(controller, animated: true)

@@ -20,17 +20,10 @@ class PostHeader: UICollectionReusableView {
     
     weak var delegate: PostHeaderDelegate?
     
-    var ContentsViewModel: ContentsViewModel? {
-        didSet { configureContentsViewModel() }
+    var ValueViewModel: ValueViewModel? {
+        didSet { configureViewModel() }
     }
     
-    var MovieViewModel: MovieViewModel? {
-        didSet { configureMovieViewModel() }
-    }
-    
-    var TvProgramViewModel: TvProgramViewModel? {
-        didSet { configureTvViewModel() }
-    }
     
     private lazy var containerView: UIView = {
         let view = UIView()
@@ -169,7 +162,7 @@ class PostHeader: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureMovieViewModel()
+        configureViewModel()
         
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
@@ -259,49 +252,18 @@ class PostHeader: UICollectionReusableView {
     
     // MARK: - ViewModel
     
-    func configureContentsViewModel() {
-        guard let viewModel = ContentsViewModel else { return }
+    func configureViewModel() {
+        guard let viewModel = ValueViewModel else { return }
 
-        titleLabel.text = viewModel.contents_title
-        let data = try? Data(contentsOf: viewModel.contents_postImageView!)
+        titleLabel.text = viewModel.title
+        let data = try? Data(contentsOf: viewModel.postImageView!)
         postImageView.image = UIImage(data: data!)
-        let backData = try? Data(contentsOf: viewModel.contents_backgroundView!)
+        
+        let backData = try? Data(contentsOf: viewModel.backgroundView!)
         backgroundImage.image = UIImage(data: backData!)
-        infoLabel.text = viewModel.contents_info
-        percentLabel.text = viewModel.contents_rank
-        descriptionLabel.text = viewModel.contents_desciption
-        
-        
-        textLabel.attributedText = viewModel.ReviewText
-    }
-    
-    func configureMovieViewModel() {
-        guard let viewModel = MovieViewModel else { return }
-
-        titleLabel.text = viewModel.movie_title
-        let data = try? Data(contentsOf: viewModel.movie_postImageView!)
-        postImageView.image = UIImage(data: data!)
-        let backData = try? Data(contentsOf: viewModel.movie_backgroundView!)
-        backgroundImage.image = UIImage(data: backData!)
-        infoLabel.text = viewModel.movie_info
-        percentLabel.text = viewModel.movie_rank
-        descriptionLabel.text = viewModel.movie_desciption
-        
-        textLabel.attributedText = viewModel.ReviewText
-    }
-    
-    func configureTvViewModel() {
-        guard let viewModel = TvProgramViewModel else { return }
-
-        titleLabel.text = viewModel.tvProgram_title
-        let data = try? Data(contentsOf: viewModel.tvProgram_postImageView!)
-        postImageView.image = UIImage(data: data!)
-        let backData = try? Data(contentsOf: viewModel.tvProgram_backgroundView!)
-        backgroundImage.image = UIImage(data: backData!)
-        infoLabel.text = viewModel.tvProgram_info
-        percentLabel.text = viewModel.tvProgram_rank
-        descriptionLabel.text = viewModel.tvProgram_desciption
-        
+        infoLabel.text = viewModel.info
+        percentLabel.text = viewModel.rank
+        descriptionLabel.text = viewModel.desciption
         textLabel.attributedText = viewModel.ReviewText
     }
 }
