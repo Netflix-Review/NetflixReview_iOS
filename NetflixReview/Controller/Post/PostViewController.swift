@@ -5,7 +5,6 @@
 //  Created by 강호성 on 2021/08/16.
 //
 
-
 enum Type {
     case drama
     case movie
@@ -14,6 +13,7 @@ enum Type {
 
 import UIKit
 import Alamofire
+import JGProgressHUD
 
 class PostViewController: UICollectionViewController {
     
@@ -27,6 +27,8 @@ class PostViewController: UICollectionViewController {
     private let baseUrl = "http://219.249.59.254:3000"
     
     var type: Type = .drama
+    
+    let hud = JGProgressHUD(style: .dark)
     
     // MARK: - Lifecycle
     
@@ -74,7 +76,6 @@ extension PostViewController {
         header.delegate = self
         header.backgroundColor = .white
         
-        
         if let value = value {
             header.ValueViewModel = ValueViewModel(value: value)
         }
@@ -113,12 +114,11 @@ extension PostViewController: PostHeaderDelegate {
     
     func didTapLike() {
         print("추천해요")
-        
+
         let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !",
                                             message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?",
                                             preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
-            
             self.plusPercentCount()
             
             let controller = WriteReviewViewController()
@@ -126,13 +126,12 @@ extension PostViewController: PostHeaderDelegate {
         }
 
         let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
-            
+            self.hud.show(in: self.view)
             self.plusPercentCount()
             
             self.dismiss(animated: true, completion: nil)
         }
-
-        
+                
         actionSheet.addAction(okAction)
         actionSheet.addAction(noAction)
         present(actionSheet, animated: true, completion: nil)
@@ -154,7 +153,7 @@ extension PostViewController: PostHeaderDelegate {
         }
         
         let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
-            
+            self.hud.show(in: self.view)
             self.minusPercentCount()
             
             self.dismiss(animated: true, completion: nil)
@@ -191,27 +190,33 @@ extension PostViewController {
         
         let params = ["rank": value?.rank ?? 0] as Dictionary
         
-        // withJSONObject: JSON 데이터를 생성할 개체, options: JSON 데이터를 생성하기 위한 옵션
-        // 1. http 본문(추후 response 값)에 파라미터 객체를 JSON 데이터로 생성
-        do {
-            try request.httpBody = JSONSerialization.data(withJSONObject: params)
-        } catch {
-            print("http Body error")
-        }
         
-        // 2. AF.request(request) - 백단에 request를 송신, .responseString - 서버로부터 응답을 받기 위해 문자열로 처리한 후 서버에 전달
-        // 서버로부터 응답을 받기 위한 메소드 - responseString: 응답결과를 문자열로 처리한 후 전달한다
-        // 서버로부터 JSON 데이터를 응답받아서 문자열로 처리
-        AF.request(request).responseString { respone in
-            // 4. respone.result 여기로 와서 성공이면 View에 값 업데이트
-            switch respone.result {
-            // 5. print 찍기
-            case .success: print("POST 성공 \(params)")
-            case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+        DispatchQueue.main.async {
+            // withJSONObject: JSON 데이터를 생성할 개체, options: JSON 데이터를 생성하기 위한 옵션
+            // JSONSerialization = Dictionary -> JSON
+            // 1. http 본문(추후 response 값)에 파라미터 객체를 JSON 데이터로 생성
+            do {
+                try request.httpBody = JSONSerialization.data(withJSONObject: params)
+            } catch {
+                print("http Body error")
             }
+            
+            // 2. AF.request(request) - 백단에 request를 송신, .responseString - 서버로부터 응답을 받기 위해 문자열로 처리한 후 서버에 전달
+            // 서버로부터 응답을 받기 위한 메소드 - responseString: 응답결과를 문자열로 처리한 후 전달한다
+            // 서버로부터 JSON 데이터를 응답받아서 문자열로 처리
+            AF.request(request).responseString { respone in
+                // 4. respone.result 여기로 와서 성공이면 View에 값 업데이트
+                switch respone.result {
+                // 5. print 찍기
+                case .success: print("POST 성공 \(params)")
+                case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                }
+            }
+            
+            // 3. 요청한 데이터를 백단에서 반환한 데이터로 받아서 리로드
+            self.collectionView.reloadData()
+            self.hud.dismiss()
         }
-        // 3. 요청한 데이터를 백단에서 반환한 데이터로 받아서 리로드
-        collectionView.reloadData()
     }
     
     func minusPercentCount() {
@@ -233,18 +238,21 @@ extension PostViewController {
         
         let params = ["rank": value?.rank ?? 0] as Dictionary
         
-        do {
-            try request.httpBody = JSONSerialization.data(withJSONObject: params)
-        } catch {
-            print("http Body error")
-        }
-        
-        AF.request(request).responseString { respone in
-            switch respone.result {
-            case .success: print("POST 성공 \(params)")
-            case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+        DispatchQueue.main.async {
+            do {
+                try request.httpBody = JSONSerialization.data(withJSONObject: params)
+            } catch {
+                print("http Body error")
             }
+            
+            AF.request(request).responseString { respone in
+                switch respone.result {
+                case .success: print("POST 성공 \(params)")
+                case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                }
+            }
+            self.collectionView.reloadData()
+            self.hud.dismiss()
         }
-        collectionView.reloadData()
     }
 }

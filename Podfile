@@ -9,5 +9,6 @@ target 'NetflixReview' do
 pod 'SnapKit'
 pod 'Alamofire', '~> 5.2'
 pod 'Kingfisher'
+pod 'JGProgressHUD','~>2.0.3'
 
 end

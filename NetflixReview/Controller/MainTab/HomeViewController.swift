@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import JGProgressHUD
 
 class HomeViewController: UICollectionViewController {
     
@@ -21,7 +22,8 @@ class HomeViewController: UICollectionViewController {
     private var movies = [Value]()
     private var tvprograms = [Value]()
     
-    
+    let hud = JGProgressHUD(style: .dark)
+
     // MARK: - Lifecycle
     
     init() {

@@ -75,7 +75,6 @@ extension CommunityViewController {
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.backgroundColor = .systemBackground
         
-//        cell.delegate = self
         return cell
     }
     
@@ -98,14 +97,3 @@ extension CommunityViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: view.frame.width, height: 50)
     }
 }
-
-//// MARK: - CommunityCellDelegate
-//
-//extension CommunityViewController: CommunityCellDelegate {
-//    func handleComment() {
-//        let controller = CommunityPostController()
-//        let nav = UINavigationController(rootViewController: controller)
-//        nav.modalTransitionStyle = .crossDissolve
-//        present(nav, animated: true, completion: nil)
-//    }
-//}
