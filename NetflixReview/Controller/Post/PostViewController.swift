@@ -6,7 +6,7 @@
 //
 
 enum Type {
-    case drama
+    case contents
     case movie
     case tv
 }
@@ -26,7 +26,7 @@ class PostViewController: UICollectionViewController {
     
     private let baseUrl = "http://219.249.59.254:3000"
     
-    var type: Type = .drama
+    var type: Type = .contents
     
     let hud = JGProgressHUD(style: .dark)
     
@@ -173,7 +173,7 @@ extension PostViewController {
         var urlString = ""
         
         switch type {
-        case .drama: urlString = "/plus"
+        case .contents: urlString = "/plus"
         case .movie: urlString = "/plus"
         case .tv: urlString = "/plus"
         }
@@ -183,11 +183,9 @@ extension PostViewController {
         var request = URLRequest(url: URL(string: baseUrl + urlString)!)
         request.httpMethod = "POST"
         
-//        print(value?.rank ?? 0)
-//        value?.rank += 1
-//        print(value?.rank ?? 0)
+        let header: HTTPHeaders = ["Content-Type": "application/json"]
+        request.headers = header
         
-//        let params = ["rank": value?.rank ?? 0] as Dictionary
         let params = ["id": value?.id ?? 0, "rank": "추천"] as Dictionary
         
         DispatchQueue.main.async {
@@ -199,32 +197,38 @@ extension PostViewController {
             } catch {
                 print("http Body error")
             }
+                        
             
             // 2. AF.request(request) - 백단에 request를 송신, .responseString - 서버로부터 응답을 받기 위해 문자열로 처리한 후 서버에 전달
             // 서버로부터 응답을 받기 위한 메소드 - responseString: 응답결과를 문자열로 처리한 후 전달한다
             // 서버로부터 JSON 데이터를 응답받아서 문자열로 처리
             // 응답한 값을 response라는 변수에 담아주는 것
             AF.request(request).responseString { respone in
+                print("HTTP Body : " + String(decoding: respone.request?.httpBody ?? Data(), as: UTF8.self))
                 // 4. respone.result 여기로 와서 성공이면 View에 값 업데이트
                 switch respone.result {
                 // 5. print 찍기
-                case .success: print("POST 성공 \(params)")
+                case .success:
+                    print("POST 성공 \(params)")
                 case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
                 }
             }
-            
-            // 3. 요청한 데이터를 백단에서 반환한 데이터로 받아서 리로드
+            // 지금 순서가 그린다음 -> 데이터 로 잘못됐음
+            // 스레드 개념 이해 , 동기 비동기 ios에서 어떤걸 이용해서 어떻게 돌리는가, 어떻게 써야되는지
+            // af request에서는 이렇게 돈다, 동작과정이
+            // 스레드 ,멀티스레드 , 메인스레드가 뭐지, urlsession/af request 차이
             self.collectionView.reloadData()
             self.hud.dismiss()
         }
     }
+    
     
     func minusPercentCount() {
         
         var urlString = ""
         
         switch type {
-        case .drama: urlString = "/drama"
+        case .contents: urlString = "/drama"
         case .movie: urlString = "/movie"
         case .tv: urlString = "/tv"
         }
@@ -234,9 +238,8 @@ extension PostViewController {
         var request = URLRequest(url: URL(string: baseUrl + urlString)!)
         request.httpMethod = "POST"
         
-//        print(value?.rank ?? 0)
-//        value?.rank -= 1
-//        print(value?.rank ?? 0)
+        let header: HTTPHeaders = ["Content-Type": "application/json"]
+        request.headers = header
         
         let params = ["id": value?.id ?? 0, "rank": "별로"] as Dictionary
         

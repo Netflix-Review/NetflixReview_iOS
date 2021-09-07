@@ -76,7 +76,7 @@ class RegistrationViewController: UIViewController {
         return button
     }()
     
-    private let dontHaveAccountButton: UIButton = {
+    private let alreadyhaveAccount: UIButton = {
         let button = LoginUtil().attributedButton("이미 회원이신가요?  ", "돌아가기")
         button.addTarget(self, action: #selector(backLoginView), for: .touchUpInside)
         return button
@@ -150,13 +150,10 @@ class RegistrationViewController: UIViewController {
             make.leading.trailing.equalTo(nameStack)
         }
         
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.snp.makeConstraints { make in
-            make.top.equalTo(registrationButton.snp.bottom).offset(10)
+        view.addSubview(alreadyhaveAccount)
+        alreadyhaveAccount.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
             make.leading.trailing.equalTo(registrationButton)
         }
     }
-    
-    
-    
 }
