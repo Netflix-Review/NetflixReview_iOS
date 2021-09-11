@@ -112,7 +112,7 @@ class PostHeader: UICollectionReusableView {
         let iv = UIImageView()
         iv.contentMode = .scaleToFill
         iv.clipsToBounds = true
-        iv.backgroundColor = .blue
+        iv.backgroundColor = .lightGray
         iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()
@@ -230,6 +230,7 @@ class PostHeader: UICollectionReusableView {
             make.height.equalTo(50)
         }
         
+        
     }
     
     required init?(coder: NSCoder) {
@@ -262,9 +263,10 @@ class PostHeader: UICollectionReusableView {
         let backData = try? Data(contentsOf: viewModel.backgroundView!)
         backgroundImage.image = UIImage(data: backData!)
         infoLabel.text = viewModel.info
-        percentLabel.text = viewModel.rank
+        percentLabel.text = String(viewModel.rank)
         descriptionLabel.text = viewModel.desciption
         textLabel.attributedText = viewModel.ReviewText
+
     }
 }
 

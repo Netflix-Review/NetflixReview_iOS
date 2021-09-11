@@ -18,6 +18,7 @@ class HomeCell: UICollectionViewCell {
         iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.layer.cornerRadius = 10
+        iv.backgroundColor = .lightGray
         iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()

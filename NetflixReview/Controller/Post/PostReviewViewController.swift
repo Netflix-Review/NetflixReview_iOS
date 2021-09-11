@@ -89,8 +89,8 @@ class PostReviewViewController: UIViewController {
         containerView.addSubview(reviewLabel)
         reviewLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom).offset(15)
-            make.leading.equalTo(20)
-            make.width.equalTo(containerView.frame.width-40)
+            make.leading.equalTo(30)
+            make.width.equalTo(containerView.frame.width-60)
         }
         
         containerView.addSubview(timeLabel)

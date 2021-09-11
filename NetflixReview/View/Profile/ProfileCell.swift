@@ -20,6 +20,7 @@ class ProfileCell: UICollectionViewCell {
         iv.layer.cornerRadius = 10
         iv.layer.borderWidth = 2
         iv.layer.borderColor = UIColor.white.cgColor
+        iv.backgroundColor = .lightGray
         iv.image = #imageLiteral(resourceName: "end")
         return iv
     }()

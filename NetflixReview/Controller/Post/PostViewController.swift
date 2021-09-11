@@ -14,6 +14,7 @@ enum Type {
 import UIKit
 import Alamofire
 import JGProgressHUD
+import SwiftyJSON
 
 class PostViewController: UICollectionViewController {
     
@@ -127,12 +128,16 @@ extension PostViewController: PostHeaderDelegate {
 
         let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
             self.plusPercentCount()
-            
             self.dismiss(animated: true, completion: nil)
         }
-                
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
         actionSheet.addAction(okAction)
         actionSheet.addAction(noAction)
+        actionSheet.addAction(cancelAction)
         present(actionSheet, animated: true, completion: nil)
     }
     
@@ -156,8 +161,13 @@ extension PostViewController: PostHeaderDelegate {
             self.dismiss(animated: true, completion: nil)
         }
         
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
         actionSheet.addAction(okAction)
         actionSheet.addAction(noAction)
+        actionSheet.addAction(cancelAction)
         present(actionSheet, animated: true, completion: nil)
     }
 }
@@ -179,46 +189,30 @@ extension PostViewController {
         }
         
         self.hud.show(in: self.view)
-
-        var request = URLRequest(url: URL(string: baseUrl + urlString)!)
-        request.httpMethod = "POST"
         
-        let header: HTTPHeaders = ["Content-Type": "application/json"]
-        request.headers = header
+        let url = URL(string: baseUrl + urlString)!
+        let params = ["id": value?.id ?? 0, "rank": 1] as Dictionary
         
-        let params = ["id": value?.id ?? 0, "rank": "추천"] as Dictionary
-        
-        DispatchQueue.main.async {
-            // withJSONObject: JSON 데이터를 생성할 개체, options: JSON 데이터를 생성하기 위한 옵션
-            // JSONSerialization = Dictionary -> JSON
-            // 1. http 본문(추후 response 값)에 파라미터 객체를 JSON 데이터로 생성
-            do {
-                try request.httpBody = JSONSerialization.data(withJSONObject: params)
-            } catch {
-                print("http Body error")
-            }
-                        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
             
-            // 2. AF.request(request) - 백단에 request를 송신, .responseString - 서버로부터 응답을 받기 위해 문자열로 처리한 후 서버에 전달
-            // 서버로부터 응답을 받기 위한 메소드 - responseString: 응답결과를 문자열로 처리한 후 전달한다
-            // 서버로부터 JSON 데이터를 응답받아서 문자열로 처리
-            // 응답한 값을 response라는 변수에 담아주는 것
-            AF.request(request).responseString { respone in
-                print("HTTP Body : " + String(decoding: respone.request?.httpBody ?? Data(), as: UTF8.self))
-                // 4. respone.result 여기로 와서 성공이면 View에 값 업데이트
-                switch respone.result {
-                // 5. print 찍기
-                case .success:
-                    print("POST 성공 \(params)")
-                case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
+            
+            switch response.result {
+            case .success(let data):
+                
+                let json = JSON(data)
+                let result = json[0]["rank"].intValue
+                
+                self.value?.rank = result
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.hud.dismiss()
                 }
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }
-            // 지금 순서가 그린다음 -> 데이터 로 잘못됐음
-            // 스레드 개념 이해 , 동기 비동기 ios에서 어떤걸 이용해서 어떻게 돌리는가, 어떻게 써야되는지
-            // af request에서는 이렇게 돈다, 동작과정이
-            // 스레드 ,멀티스레드 , 메인스레드가 뭐지, urlsession/af request 차이
-            self.collectionView.reloadData()
-            self.hud.dismiss()
         }
     }
     
@@ -227,37 +221,43 @@ extension PostViewController {
         
         var urlString = ""
         
+//        switch type {
+//        case .contents: urlString = "/drama"
+//        case .movie: urlString = "/movie"
+//        case .tv: urlString = "/tv"
+//        }
+                
         switch type {
-        case .contents: urlString = "/drama"
-        case .movie: urlString = "/movie"
-        case .tv: urlString = "/tv"
+        case .contents: urlString = "/plus"
+        case .movie: urlString = "/plus"
+        case .tv: urlString = "/plus"
         }
         
         self.hud.show(in: self.view)
         
-        var request = URLRequest(url: URL(string: baseUrl + urlString)!)
-        request.httpMethod = "POST"
+        let url = URL(string: baseUrl + urlString)!
+        let params = ["id": value?.id ?? 0, "rank": "Down"] as Dictionary
         
-        let header: HTTPHeaders = ["Content-Type": "application/json"]
-        request.headers = header
-        
-        let params = ["id": value?.id ?? 0, "rank": "별로"] as Dictionary
-        
-        DispatchQueue.main.async {
-            do {
-                try request.httpBody = JSONSerialization.data(withJSONObject: params)
-            } catch {
-                print("http Body error")
-            }
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
             
-            AF.request(request).responseString { respone in
-                switch respone.result {
-                case .success: print("POST 성공 \(params)")
-                case .failure(let error): print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
+            
+            switch response.result {
+            case .success(let data):
+                
+                let json = JSON(data)
+                let result = json[0]["rank"].intValue
+                
+                self.value?.rank = result
+                
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.hud.dismiss()
                 }
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }
-            self.collectionView.reloadData()
-            self.hud.dismiss()
         }
     }
 }

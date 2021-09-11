@@ -3,12 +3,14 @@ PODS:
   - JGProgressHUD (2.0.4)
   - Kingfisher (6.3.1)
   - SnapKit (5.0.1)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
   - JGProgressHUD (~> 2.0.3)
   - Kingfisher
   - SnapKit
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
@@ -16,13 +18,15 @@ SPEC REPOS:
     - JGProgressHUD
     - Kingfisher
     - SnapKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   JGProgressHUD: 62658b14e72cccf179efc7a13bcb54d30b92fc22
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 24328466829a0ab9fa1d3c7c40a31ff93bfdfcc0
+PODFILE CHECKSUM: 68f46b4fefcc8e73586d191ee7137c461e29a60a
 
 COCOAPODS: 1.10.1

@@ -16,7 +16,7 @@ struct ValueViewModel {
     var backgroundView: URL? { return URL(string: value.view) }
     var info: String { return value.info }
     var desciption: String { return value.des }
-    var rank: String { return "\(value.rank)%" }
+    var rank: Int { return value.rank }
     
     
     var ReviewText: NSAttributedString {
