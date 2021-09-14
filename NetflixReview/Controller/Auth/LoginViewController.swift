@@ -7,10 +7,13 @@
 
 import UIKit
 import SnapKit
+import Alamofire
 
 class LoginViewController: UIViewController {
     
     // MARK: - Properties
+    
+    private let baseUrl = "http://219.249.59.254:3000"
     
     var containerView = UIView()
     var slideUpView = UIView()
@@ -32,15 +35,26 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    private var naverButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("N", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.tintColor = .white
-        button.layer.cornerRadius = 50/2
-        button.backgroundColor = .systemGreen
-        button.addTarget(self, action: #selector(naverLogin), for: .touchUpInside)
-        return button
+    private lazy var naverImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "naver")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(naverLogin))
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(tap)
+        
+        return iv
+    }()
+    
+    private lazy var kakaoImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "kakao")
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(kakaoLogin))
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(tap)
+        
+        return iv
     }()
     
     private lazy var emailLabel: UILabel = {
@@ -91,16 +105,23 @@ class LoginViewController: UIViewController {
             make.leading.equalTo(25)
         }
         
-        slideUpView.addSubview(naverButton)
-        naverButton.snp.makeConstraints { make in
+        slideUpView.addSubview(naverImage)
+        naverImage.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(50)
             make.leading.equalTo(40)
-            make.width.height.equalTo(50)
+            make.width.height.equalTo(60)
+        }
+        
+        slideUpView.addSubview(kakaoImage)
+        kakaoImage.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(50)
+            make.leading.equalTo(naverImage.snp.trailing).offset(20)
+            make.width.height.equalTo(60)
         }
         
         slideUpView.addSubview(emailLabel)
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(naverButton.snp.bottom).offset(40)
+            make.top.equalTo(naverImage.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
         }
     }
@@ -171,7 +192,13 @@ class LoginViewController: UIViewController {
     
     
     @objc func naverLogin() {
-        print("naver")
+        AF.request(self.baseUrl + "/nlogin", method: .get).validate().responseString { response in
+            print("response \(response)")
+        }
+    }
+    
+    @objc func kakaoLogin() {
+        print("카카오 로그인")
     }
     
     @objc func goEmailLogin() {
@@ -180,3 +207,5 @@ class LoginViewController: UIViewController {
     }
     
 }
+//            guard let safari = URL(string: "https://naver.com") else { return }
+//            UIApplication.shared.open(safari)
