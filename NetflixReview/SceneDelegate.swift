@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = MainTabController()
         window?.makeKeyAndVisible()
     }
-    
+    // test
     
 }
 
