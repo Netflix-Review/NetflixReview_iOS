@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import Alamofire
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class LoginViewController: UIViewController {
     
@@ -35,20 +37,9 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    private lazy var naverImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "naver")
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(naverLogin))
-        iv.isUserInteractionEnabled = true
-        iv.addGestureRecognizer(tap)
-        
-        return iv
-    }()
-    
     private lazy var kakaoImage: UIImageView = {
         let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "kakao")
+        iv.image = #imageLiteral(resourceName: "kakao_login_medium_wide")
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(kakaoLogin))
         iv.isUserInteractionEnabled = true
@@ -105,27 +96,32 @@ class LoginViewController: UIViewController {
             make.leading.equalTo(25)
         }
         
-        slideUpView.addSubview(naverImage)
-        naverImage.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(50)
-            make.leading.equalTo(40)
-            make.width.height.equalTo(60)
-        }
-        
         slideUpView.addSubview(kakaoImage)
         kakaoImage.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(50)
-            make.leading.equalTo(naverImage.snp.trailing).offset(20)
-            make.width.height.equalTo(60)
+            make.centerX.equalToSuperview()
         }
         
         slideUpView.addSubview(emailLabel)
         emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(naverImage.snp.bottom).offset(40)
+            make.top.equalTo(kakaoImage.snp.bottom).offset(40)
             make.centerX.equalToSuperview()
         }
     }
     
+    // 사용자 정보 불러오기
+    func setKakaoUserInfo() {
+        UserApi.shared.me() {(user, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("me() success.")
+                //do something
+                _ = user
+            }
+        }
+    }
     
     // MARK: - Action (Slide Up, Down)
     
@@ -190,15 +186,54 @@ class LoginViewController: UIViewController {
                        }, completion: nil)
     }
     
-    
-    @objc func naverLogin() {
-        AF.request(self.baseUrl + "/nlogin", method: .get).validate().responseString { response in
-            print("response \(response)")
-        }
-    }
-    
     @objc func kakaoLogin() {
         print("카카오 로그인")
+        
+        if UserApi.isKakaoTalkLoginAvailable() { // 해당 폰에 카카오톡 앱이 깔려있을 때
+            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("KakaoApp - loginWithKakaoTalk() success")
+                    
+                    // 발행된 access token 을 서버에 전달 (post)
+                    _ = oauthToken
+                    
+                    self.setKakaoUserInfo()
+                }
+            }
+            
+            setKakaoUserInfo()
+        
+        } else { // 해당 폰에 카카오톡이 안깔려있으면 웹 브라우저로
+            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("Web - loginWithKakaoTalk() success")
+                    
+                    let url = URL(string: self.baseUrl + "")!
+
+                    // do something
+                    _ = oauthToken
+                    let accessToken = oauthToken?.accessToken
+                    let param = ["access_token": accessToken!] as Dictionary
+                    print("access_token: \(accessToken!)")
+                    
+                    AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+                        switch response.result {
+                        case .success(let data):
+                            print("Success \(data)")
+                        case .failure(let error):
+                            print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                        }
+                    }
+                    
+                    self.setKakaoUserInfo()
+                }
+            }
+        }
+        
     }
     
     @objc func goEmailLogin() {
@@ -207,5 +242,4 @@ class LoginViewController: UIViewController {
     }
     
 }
-//            guard let safari = URL(string: "https://naver.com") else { return }
-//            UIApplication.shared.open(safari)
+

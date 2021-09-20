@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,9 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 뒤로가기 버튼에 title 삭제
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000.0, vertical: 0.0), for: .default)
         
+        KakaoSDKCommon.initSDK(appKey: "fb42e0628d55a35f779407d9b7aa79f7")
+        
         return true
     }
-
+    
     // MARK: - UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

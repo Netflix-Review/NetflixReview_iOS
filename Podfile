@@ -11,4 +11,9 @@ pod 'Alamofire', '~> 5.2'
 pod 'Kingfisher'
 pod 'JGProgressHUD','~>2.0.3'
 pod 'SwiftyJSON', '~> 4.0'
+
+pod 'KakaoSDKCommon'
+pod 'KakaoSDKAuth'
+pod 'KakaoSDKUser'
+
 end

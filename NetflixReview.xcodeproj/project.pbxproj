@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E37DDFB34E0D7D83036749C /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
 		B406593E26CCBD840008FD26 /* CommunityInputAccesoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B406593D26CCBD840008FD26 /* CommunityInputAccesoryView.swift */; };
 		B406594126CCBE240008FD26 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B406594026CCBE240008FD26 /* InputTextView.swift */; };
 		B40BDB0C26DE104C0060435B /* WriteReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B40BDB0B26DE104C0060435B /* WriteReviewViewController.swift */; };
@@ -23,6 +22,7 @@
 		B41845BD26DF6CE300416A19 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B41845BC26DF6CE300416A19 /* UIImageViewExtension.swift */; };
 		B4211ED526E26BDD0044BA74 /* SlideUpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4211ED426E26BDD0044BA74 /* SlideUpViewCell.swift */; };
 		B42677F926E0E9E40060BF4B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42677F826E0E9E40060BF4B /* LoginViewController.swift */; };
+		B42A138126F302A5001E2954 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42A138026F302A5001E2954 /* User.swift */; };
 		B42D02B326E5B27E0044BE19 /* ValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D02B226E5B27E0044BE19 /* ValueViewModel.swift */; };
 		B436AE0526CE0DE800EDE028 /* AddCommunityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0426CE0DE800EDE028 /* AddCommunityPostController.swift */; };
 		B436AE0726CE197300EDE028 /* SeachCommunityPostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */; };
@@ -42,6 +42,8 @@
 		B465E4EB26E73CF400D83953 /* EmailLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4EA26E73CF400D83953 /* EmailLoginViewController.swift */; };
 		B465E4EF26E7582E00D83953 /* LoginUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4EE26E7582E00D83953 /* LoginUtil.swift */; };
 		B465E4F126E766A500D83953 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4F026E766A500D83953 /* RegistrationViewController.swift */; };
+		B468513C26F2213500FF4F4B /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
+		B468513D26F2213500FF4F4B /* Pods_NetflixReview.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B4AB9BE326CA1AEC00B39556 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE226CA1AEC00B39556 /* VideoListCell.swift */; };
 		B4AB9BE526CA2CC800B39556 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE426CA2CC800B39556 /* ProfileHeader.swift */; };
 		B4AB9BEA26CA2CDD00B39556 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE926CA2CDD00B39556 /* ProfileCell.swift */; };
@@ -53,6 +55,20 @@
 		B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C1226CACB0B00B39556 /* HomeCell.swift */; };
 		B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B468513E26F2213500FF4F4B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B468513D26F2213500FF4F4B /* Pods_NetflixReview.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3AB5ECABCBF526DFF608BD74 /* Pods-NetflixReview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetflixReview.release.xcconfig"; path = "Target Support Files/Pods-NetflixReview/Pods-NetflixReview.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,6 +87,7 @@
 		B41845BC26DF6CE300416A19 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		B4211ED426E26BDD0044BA74 /* SlideUpViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewCell.swift; sourceTree = "<group>"; };
 		B42677F826E0E9E40060BF4B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B42A138026F302A5001E2954 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B42D02B226E5B27E0044BE19 /* ValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueViewModel.swift; sourceTree = "<group>"; };
 		B436AE0426CE0DE800EDE028 /* AddCommunityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommunityPostController.swift; sourceTree = "<group>"; };
 		B436AE0626CE197300EDE028 /* SeachCommunityPostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostController.swift; sourceTree = "<group>"; };
@@ -111,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E37DDFB34E0D7D83036749C /* Pods_NetflixReview.framework in Frameworks */,
+				B468513C26F2213500FF4F4B /* Pods_NetflixReview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +313,7 @@
 			isa = PBXGroup;
 			children = (
 				B41845BA26DF6C6900416A19 /* Value.swift */,
+				B42A138026F302A5001E2954 /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -353,6 +371,7 @@
 				B43AC71126C7CC3E00C959E4 /* Frameworks */,
 				B43AC71226C7CC3E00C959E4 /* Resources */,
 				E0B7E0A53637D7698F2F1648 /* [CP] Embed Pods Frameworks */,
+				B468513E26F2213500FF4F4B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -475,6 +494,7 @@
 				B465E4EF26E7582E00D83953 /* LoginUtil.swift in Sources */,
 				B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */,
 				B4AB9BF126CA33F400B39556 /* HeaderFIlterOptions.swift in Sources */,
+				B42A138126F302A5001E2954 /* User.swift in Sources */,
 				B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */,
 				B4211ED526E26BDD0044BA74 /* SlideUpViewCell.swift in Sources */,
 				B459BC4E26DC96F40061EB67 /* EditInfoController.swift in Sources */,
@@ -644,6 +664,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7MS89TXQ5T;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = NetflixReview/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

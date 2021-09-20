@@ -226,7 +226,7 @@ extension PostViewController {
 //        case .movie: urlString = "/movie"
 //        case .tv: urlString = "/tv"
 //        }
-                
+        
         switch type {
         case .contents: urlString = "/plus"
         case .movie: urlString = "/plus"
