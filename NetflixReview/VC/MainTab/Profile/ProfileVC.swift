@@ -1,5 +1,5 @@
 //
-//  ProfileController.swift
+//  ProfileVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UICollectionViewController {
+class ProfileVC: UICollectionViewController {
     
     // MARK: - Properties
     
@@ -56,7 +56,7 @@ class ProfileViewController: UICollectionViewController {
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension ProfileViewController {
+extension ProfileVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 9
@@ -75,14 +75,14 @@ extension ProfileViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostViewController()
+        let controller = PostVC()
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension ProfileViewController: UICollectionViewDelegateFlowLayout {
+extension ProfileVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
@@ -103,14 +103,14 @@ extension ProfileViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - FeedHeaderDelegate
 
-extension ProfileViewController: ProfileHeaderDelegate {
+extension ProfileVC: ProfileHeaderDelegate {
     
     func didSelect(filter: HeaderFIlterOptions) {
         self.selectedFilter = filter
     }
     
     func editName() {
-        let controller = EditInfoController()
+        let controller = EditInfoVC()
         navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  LoginViewController.swift
+//  LoginVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/09/02.
@@ -11,7 +11,7 @@ import Alamofire
 import KakaoSDKAuth
 import KakaoSDKUser
 
-class LoginViewController: UIViewController {
+class LoginVC: UIViewController {
     
     // MARK: - Properties
     
@@ -202,9 +202,6 @@ class LoginViewController: UIViewController {
                     self.setKakaoUserInfo()
                 }
             }
-            
-            setKakaoUserInfo()
-        
         } else { // 해당 폰에 카카오톡이 안깔려있으면 웹 브라우저로
             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                 if let error = error {
@@ -214,8 +211,6 @@ class LoginViewController: UIViewController {
                     
                     let url = URL(string: self.baseUrl + "")!
 
-                    // do something
-                    _ = oauthToken
                     let accessToken = oauthToken?.accessToken
                     let param = ["access_token": accessToken!] as Dictionary
                     print("access_token: \(accessToken!)")
@@ -237,7 +232,7 @@ class LoginViewController: UIViewController {
     }
     
     @objc func goEmailLogin() {
-        let controller = EmailLoginViewController()
+        let controller = EmailLoginVC()
         navigationController?.pushViewController(controller, animated: true)
     }
     

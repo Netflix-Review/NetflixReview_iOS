@@ -1,5 +1,5 @@
 //
-//  PostViewController.swift
+//  PostVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/16.
@@ -16,7 +16,7 @@ import Alamofire
 import JGProgressHUD
 import SwiftyJSON
 
-class PostViewController: UICollectionViewController {
+class PostVC: UICollectionViewController {
     
     // MARK: - Properties
     
@@ -61,7 +61,7 @@ class PostViewController: UICollectionViewController {
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension PostViewController {
+extension PostVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -85,7 +85,7 @@ extension PostViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostReviewViewController()
+        let controller = PostReviewVC()
         let nav = UINavigationController(rootViewController: controller)
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
@@ -95,7 +95,7 @@ extension PostViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension PostViewController: UICollectionViewDelegateFlowLayout {
+extension PostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
     }
@@ -107,7 +107,7 @@ extension PostViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - PostHeaderDelegate
 
-extension PostViewController: PostHeaderDelegate {
+extension PostVC: PostHeaderDelegate {
     
     func TapWish() {
         print("찜하기")
@@ -122,7 +122,7 @@ extension PostViewController: PostHeaderDelegate {
         let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
             self.plusPercentCount()
             
-            let controller = WriteReviewViewController()
+            let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
         }
 
@@ -151,7 +151,7 @@ extension PostViewController: PostHeaderDelegate {
         let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
             self.minusPercentCount()
             
-            let controller = WriteReviewViewController()
+            let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
         }
         
@@ -176,7 +176,7 @@ extension PostViewController: PostHeaderDelegate {
 
 // MARK: - Post API
 
-extension PostViewController {
+extension PostVC {
     
     func plusPercentCount() {
         

@@ -1,5 +1,5 @@
 //
-//  EmailLoginViewController.swift
+//  EmailLoginVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/09/07.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class EmailLoginViewController: UIViewController {
+class EmailLoginVC: UIViewController {
     
     // MARK: - Properties
         
@@ -93,7 +93,7 @@ class EmailLoginViewController: UIViewController {
     }
     
     @objc func handleShowSignUp() {
-        let controller = RegistrationViewController()
+        let controller = RegistrationVC()
         navigationController?.pushViewController(controller, animated: true)
     }
     

@@ -1,5 +1,5 @@
 //
-//  RegistrationViewController.swift
+//  RegistrationVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/09/07.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class RegistrationViewController: UIViewController {
+class RegistrationVC: UIViewController {
     
     // MARK: - Properties
         

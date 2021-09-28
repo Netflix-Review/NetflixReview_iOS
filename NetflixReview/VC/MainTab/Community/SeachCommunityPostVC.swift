@@ -1,5 +1,5 @@
 //
-//  SeachCommunityPostController.swift
+//  SeachCommunityPostVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/19.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SeachCommunityPostController: UITableViewController {
+class SeachCommunityPostVC: UITableViewController {
     
     // MARK: - Properties
     
@@ -67,7 +67,7 @@ class SeachCommunityPostController: UITableViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension SeachCommunityPostController {
+extension SeachCommunityPostVC {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
@@ -85,7 +85,7 @@ extension SeachCommunityPostController {
 // MARK: - UISearchResultsUpdating
 // 검색결과 업데이트
 
-extension SeachCommunityPostController: UISearchResultsUpdating {
+extension SeachCommunityPostVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard (searchController.searchBar.text?.lowercased()) != nil else { return }
         

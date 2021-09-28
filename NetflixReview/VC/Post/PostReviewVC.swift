@@ -1,5 +1,5 @@
 //
-//  PostReviewViewController.swift
+//  PostReviewVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class PostReviewViewController: UIViewController {
+class PostReviewVC: UIViewController {
     
     // MARK: - Scroll Properties
     

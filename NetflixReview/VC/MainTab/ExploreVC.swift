@@ -1,5 +1,5 @@
 //
-//  ExploreViewController.swift
+//  ExploreVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/14.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ExploreVC: UIViewController {
     
     // MARK: - Properties
     
@@ -76,7 +76,7 @@ class ExploreViewController: UIViewController {
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
 
-extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
+extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
     }
@@ -95,7 +95,7 @@ extension ExploreViewController: UITableViewDataSource, UITableViewDelegate {
 // MARK: - UISearchResultsUpdating
 // 검색결과 업데이트
 
-extension ExploreViewController: UISearchResultsUpdating {
+extension ExploreVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard (searchController.searchBar.text?.lowercased()) != nil else { return }
         

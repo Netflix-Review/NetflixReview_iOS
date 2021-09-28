@@ -1,27 +1,27 @@
 //
-//  WriteReviewViewController.swift
+//  AddCommunityPostVC.swift
 //  NetflixReview
 //
-//  Created by 강호성 on 2021/08/31.
+//  Created by 강호성 on 2021/08/19.
 //
 
 import UIKit
 import SnapKit
 
-class WriteReviewViewController: UIViewController {
+class AddCommunityPostVC: UIViewController {
     
     // MARK: - Properties
     
     private lazy var captionTextView: InputTextView = {
         let tv = InputTextView()
-        tv.placeholderText = "작품에 대한 감상평을 남겨주세요."
+        tv.placeholderText = "커뮤니티에 새로운 글을 등록해보세요."
         tv.font = UIFont.systemFont(ofSize: 18)
         return tv
     }()
     
     private lazy var doneButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("리뷰 업로드하기", for: .normal)
+        button.setTitle("커뮤니티에 업로드하기", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
@@ -56,7 +56,7 @@ class WriteReviewViewController: UIViewController {
     
     func configureUI() {
         view.backgroundColor = .white
-        navigationItem.title = "리뷰 작성"
+        navigationItem.title = "새 글"
         
         view.addSubview(captionTextView)
         captionTextView.snp.makeConstraints { make in

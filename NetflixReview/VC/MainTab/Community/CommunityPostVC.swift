@@ -1,5 +1,5 @@
 //
-//  CommunityPostController.swift
+//  CommunityPostVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommunityPostController: UICollectionViewController {
+class CommunityPostVC: UICollectionViewController {
    
     // MARK: - Properties
     
@@ -81,7 +81,7 @@ class CommunityPostController: UICollectionViewController {
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension CommunityPostController {
+extension CommunityPostVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -99,7 +99,7 @@ extension CommunityPostController {
 
 // MARK: - UICollectionViewDataSource
 
-extension CommunityPostController: UICollectionViewDelegateFlowLayout {
+extension CommunityPostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 1
     }
@@ -121,7 +121,7 @@ extension CommunityPostController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - CommunityInputAccesoryViewDelegate
 
-extension CommunityPostController: CommunityInputAccesoryViewDelegate {
+extension CommunityPostVC: CommunityInputAccesoryViewDelegate {
     func inputView(_ inputView: CommunityInputAccesoryView, uploadComment comment: String) {
         print("upload comment")
         inputView.clearCommentTextView()

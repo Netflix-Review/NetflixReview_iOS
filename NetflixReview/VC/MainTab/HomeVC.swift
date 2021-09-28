@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  HomeVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/14.
@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 import JGProgressHUD
 
-class HomeViewController: UICollectionViewController {
+class HomeVC: UICollectionViewController {
     
     // MARK: - Properties
     
@@ -27,7 +27,7 @@ class HomeViewController: UICollectionViewController {
     // MARK: - Lifecycle
     
     init() {
-        super.init(collectionViewLayout: HomeViewController.createLayout())
+        super.init(collectionViewLayout: HomeVC.createLayout())
         collectionView.backgroundColor = .white
         collectionView.contentInset.top = 40
     }
@@ -43,7 +43,7 @@ class HomeViewController: UICollectionViewController {
         fetchTvData()
         
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeViewController.categoryHeaderId, withReuseIdentifier: headerId)
+        collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeVC.categoryHeaderId, withReuseIdentifier: headerId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +82,7 @@ class HomeViewController: UICollectionViewController {
 
 // MARK: - UICollectionViewCompositionalLayout
 
-extension HomeViewController {
+extension HomeVC {
     static func createLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             
@@ -110,7 +110,7 @@ extension HomeViewController {
 
 // MARK: - UICollectionDatasource, UICollectionViewDelegate
 
-extension HomeViewController {
+extension HomeVC {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int { 3 }
     
@@ -153,7 +153,7 @@ extension HomeViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostViewController()
+        let controller = PostVC()
         
         if indexPath.section == 0 {
             controller.value = contents[indexPath.row]

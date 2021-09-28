@@ -1,5 +1,5 @@
 //
-//  EditInfoController.swift
+//  EditInfoVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/30.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditInfoController: UICollectionViewController {
+class EditInfoVC: UICollectionViewController {
     
     // MARK: - Properties
     
@@ -45,7 +45,7 @@ class EditInfoController: UICollectionViewController {
 
 // MARK: - DataSource
 
-extension EditInfoController {
+extension EditInfoVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return EditNameOption.allCases.count
     }
@@ -69,7 +69,7 @@ extension EditInfoController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension EditInfoController: UICollectionViewDelegateFlowLayout {
+extension EditInfoVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 30, height: 100)
     }

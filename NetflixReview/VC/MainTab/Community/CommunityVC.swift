@@ -1,5 +1,5 @@
 //
-//  CommunityViewController.swift
+//  CommunityVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommunityViewController: UICollectionViewController {
+class CommunityVC: UICollectionViewController {
     
     // MARK: - Properties
     
@@ -49,19 +49,19 @@ class CommunityViewController: UICollectionViewController {
     // MARK: - Action
     
     @objc func searchPost() {
-        let controller = SeachCommunityPostController()
+        let controller = SeachCommunityPostVC()
         navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc func writePost() {
-        let controller = AddCommunityPostController()
+        let controller = AddCommunityPostVC()
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension CommunityViewController {
+extension CommunityVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
     }
@@ -79,7 +79,7 @@ extension CommunityViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = CommunityPostController()
+        let controller = CommunityPostVC()
         let nav = UINavigationController(rootViewController: controller)
         nav.modalTransitionStyle = .crossDissolve
         present(nav, animated: true, completion: nil)
@@ -88,7 +88,7 @@ extension CommunityViewController {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension CommunityViewController: UICollectionViewDelegateFlowLayout {
+extension CommunityVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 15, height: 150)
     }
