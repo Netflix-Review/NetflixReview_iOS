@@ -12,7 +12,7 @@ class EditInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var viewModel: EditNameViewModel? {
+    var viewModel: EditNameVM? {
         didSet { configureViewModel() }
     }
     

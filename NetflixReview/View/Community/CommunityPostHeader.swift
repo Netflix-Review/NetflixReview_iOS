@@ -118,7 +118,7 @@ class CommunityPostHeader: UICollectionReusableView {
     }
     
     func configureViewModel() {
-        let viewModel = CommunityViewModel()
+        let viewModel = CommunityVM()
         bottomLabel.attributedText = viewModel.CommentText
     }
     

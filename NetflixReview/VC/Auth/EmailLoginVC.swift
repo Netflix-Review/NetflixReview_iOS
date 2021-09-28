@@ -72,6 +72,7 @@ class EmailLoginVC: UIViewController {
         return button
     }()
     
+    var restoreFrameValue: CGFloat = 0.0
     
     // MARK: - Lifecycle
     
@@ -80,6 +81,11 @@ class EmailLoginVC: UIViewController {
 
         configureUI()
 
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.frame.origin.y = restoreFrameValue
+        self.view.endEditing(true)
     }
     
     // MARK: - Action

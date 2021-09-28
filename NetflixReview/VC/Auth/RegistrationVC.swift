@@ -82,6 +82,7 @@ class RegistrationVC: UIViewController {
         return button
     }()
     
+    var restoreFrameValue: CGFloat = 0.0
     
     // MARK: - Lifecycle
     
@@ -90,6 +91,11 @@ class RegistrationVC: UIViewController {
 
         configureUI()
 
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.frame.origin.y = restoreFrameValue
+        self.view.endEditing(true)
     }
     
     // MARK: - Action

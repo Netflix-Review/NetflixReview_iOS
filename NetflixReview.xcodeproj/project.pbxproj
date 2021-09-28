@@ -23,11 +23,11 @@
 		B4211ED526E26BDD0044BA74 /* SlideUpViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4211ED426E26BDD0044BA74 /* SlideUpViewCell.swift */; };
 		B42677F926E0E9E40060BF4B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42677F826E0E9E40060BF4B /* LoginVC.swift */; };
 		B42A138126F302A5001E2954 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42A138026F302A5001E2954 /* User.swift */; };
-		B42D02B326E5B27E0044BE19 /* ValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D02B226E5B27E0044BE19 /* ValueViewModel.swift */; };
+		B42D02B326E5B27E0044BE19 /* ValueVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D02B226E5B27E0044BE19 /* ValueVM.swift */; };
 		B436AE0526CE0DE800EDE028 /* AddCommunityPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0426CE0DE800EDE028 /* AddCommunityPostVC.swift */; };
 		B436AE0726CE197300EDE028 /* SeachCommunityPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0626CE197300EDE028 /* SeachCommunityPostVC.swift */; };
 		B436AE0926CE1F1E00EDE028 /* SeachCommunityPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE0826CE1F1E00EDE028 /* SeachCommunityPostCell.swift */; };
-		B436AE1226CE2DFA00EDE028 /* EditNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */; };
+		B436AE1226CE2DFA00EDE028 /* EditNameVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B436AE1126CE2DFA00EDE028 /* EditNameVM.swift */; };
 		B43AC71826C7CC3E00C959E4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC71726C7CC3E00C959E4 /* AppDelegate.swift */; };
 		B43AC71A26C7CC3E00C959E4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC71926C7CC3E00C959E4 /* SceneDelegate.swift */; };
 		B43AC71F26C7CC3E00C959E4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B43AC71D26C7CC3E00C959E4 /* Main.storyboard */; };
@@ -37,13 +37,12 @@
 		B43AC73226C7CE2900C959E4 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73126C7CE2900C959E4 /* HomeVC.swift */; };
 		B43AC73426C7CE5F00C959E4 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73326C7CE5F00C959E4 /* ExploreVC.swift */; };
 		B43AC73626C7CFB000C959E4 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73526C7CFB000C959E4 /* ProfileVC.swift */; };
+		B43DB51827031DFE004A6C2D /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
 		B459BC4E26DC96F40061EB67 /* EditInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4D26DC96F40061EB67 /* EditInfoVC.swift */; };
 		B459BC5026DC99450061EB67 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4F26DC99450061EB67 /* EditInfoCell.swift */; };
 		B465E4EB26E73CF400D83953 /* EmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4EA26E73CF400D83953 /* EmailLoginVC.swift */; };
 		B465E4EF26E7582E00D83953 /* LoginUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4EE26E7582E00D83953 /* LoginUtil.swift */; };
 		B465E4F126E766A500D83953 /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4F026E766A500D83953 /* RegistrationVC.swift */; };
-		B468513C26F2213500FF4F4B /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
-		B468513D26F2213500FF4F4B /* Pods_NetflixReview.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B4AB9BE326CA1AEC00B39556 /* VideoListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE226CA1AEC00B39556 /* VideoListCell.swift */; };
 		B4AB9BE526CA2CC800B39556 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE426CA2CC800B39556 /* ProfileHeader.swift */; };
 		B4AB9BEA26CA2CDD00B39556 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9BE926CA2CDD00B39556 /* ProfileCell.swift */; };
@@ -53,22 +52,8 @@
 		B4AB9C0926CA962400B39556 /* PostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C0826CA962400B39556 /* PostVC.swift */; };
 		B4AB9C0D26CAA6A900B39556 /* PostHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C0C26CAA6A900B39556 /* PostHeader.swift */; };
 		B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4AB9C1226CACB0B00B39556 /* HomeCell.swift */; };
-		B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */; };
+		B4FE8D4126CBC56E00C5570A /* CommunityVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FE8D4026CBC56E00C5570A /* CommunityVM.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		B468513E26F2213500FF4F4B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				B468513D26F2213500FF4F4B /* Pods_NetflixReview.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3AB5ECABCBF526DFF608BD74 /* Pods-NetflixReview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetflixReview.release.xcconfig"; path = "Target Support Files/Pods-NetflixReview/Pods-NetflixReview.release.xcconfig"; sourceTree = "<group>"; };
@@ -88,11 +73,11 @@
 		B4211ED426E26BDD0044BA74 /* SlideUpViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideUpViewCell.swift; sourceTree = "<group>"; };
 		B42677F826E0E9E40060BF4B /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		B42A138026F302A5001E2954 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		B42D02B226E5B27E0044BE19 /* ValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueViewModel.swift; sourceTree = "<group>"; };
+		B42D02B226E5B27E0044BE19 /* ValueVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueVM.swift; sourceTree = "<group>"; };
 		B436AE0426CE0DE800EDE028 /* AddCommunityPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommunityPostVC.swift; sourceTree = "<group>"; };
 		B436AE0626CE197300EDE028 /* SeachCommunityPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostVC.swift; sourceTree = "<group>"; };
 		B436AE0826CE1F1E00EDE028 /* SeachCommunityPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachCommunityPostCell.swift; sourceTree = "<group>"; };
-		B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameViewModel.swift; sourceTree = "<group>"; };
+		B436AE1126CE2DFA00EDE028 /* EditNameVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameVM.swift; sourceTree = "<group>"; };
 		B43AC71426C7CC3E00C959E4 /* NetflixReview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixReview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B43AC71726C7CC3E00C959E4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B43AC71926C7CC3E00C959E4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,7 +103,7 @@
 		B4AB9C0826CA962400B39556 /* PostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVC.swift; sourceTree = "<group>"; };
 		B4AB9C0C26CAA6A900B39556 /* PostHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHeader.swift; sourceTree = "<group>"; };
 		B4AB9C1226CACB0B00B39556 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
-		B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewModel.swift; sourceTree = "<group>"; };
+		B4FE8D4026CBC56E00C5570A /* CommunityVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityVM.swift; sourceTree = "<group>"; };
 		B7698193307963565803A6F4 /* Pods_NetflixReview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetflixReview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B8288A3A39F54308BF33AC5E /* Pods-NetflixReview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetflixReview.debug.xcconfig"; path = "Target Support Files/Pods-NetflixReview/Pods-NetflixReview.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B468513C26F2213500FF4F4B /* Pods_NetflixReview.framework in Frameworks */,
+				B43DB51827031DFE004A6C2D /* Pods_NetflixReview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,10 +273,10 @@
 		B43AC72C26C7CC7E00C959E4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B42D02B226E5B27E0044BE19 /* ValueViewModel.swift */,
+				B42D02B226E5B27E0044BE19 /* ValueVM.swift */,
 				B4AB9BF026CA33F400B39556 /* HeaderFIlterOptions.swift */,
-				B4FE8D4026CBC56E00C5570A /* CommunityViewModel.swift */,
-				B436AE1126CE2DFA00EDE028 /* EditNameViewModel.swift */,
+				B4FE8D4026CBC56E00C5570A /* CommunityVM.swift */,
+				B436AE1126CE2DFA00EDE028 /* EditNameVM.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -371,7 +356,6 @@
 				B43AC71126C7CC3E00C959E4 /* Frameworks */,
 				B43AC71226C7CC3E00C959E4 /* Resources */,
 				E0B7E0A53637D7698F2F1648 /* [CP] Embed Pods Frameworks */,
-				B468513E26F2213500FF4F4B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -476,10 +460,10 @@
 			files = (
 				B41790A326CB72A600E4E248 /* PostReviewVC.swift in Sources */,
 				B41790A026CB6A4E00E4E248 /* PostCell.swift in Sources */,
-				B42D02B326E5B27E0044BE19 /* ValueViewModel.swift in Sources */,
+				B42D02B326E5B27E0044BE19 /* ValueVM.swift in Sources */,
 				B4AB9BE526CA2CC800B39556 /* ProfileHeader.swift in Sources */,
 				B42677F926E0E9E40060BF4B /* LoginVC.swift in Sources */,
-				B436AE1226CE2DFA00EDE028 /* EditNameViewModel.swift in Sources */,
+				B436AE1226CE2DFA00EDE028 /* EditNameVM.swift in Sources */,
 				B43AC73226C7CE2900C959E4 /* HomeVC.swift in Sources */,
 				B41790A726CB82EA00E4E248 /* CommunityVC.swift in Sources */,
 				B41790B526CBACDE00E4E248 /* CommunityPostHeader.swift in Sources */,
@@ -495,7 +479,7 @@
 				B4AB9C1326CACB0B00B39556 /* HomeCell.swift in Sources */,
 				B4AB9BF126CA33F400B39556 /* HeaderFIlterOptions.swift in Sources */,
 				B42A138126F302A5001E2954 /* User.swift in Sources */,
-				B4FE8D4126CBC56E00C5570A /* CommunityViewModel.swift in Sources */,
+				B4FE8D4126CBC56E00C5570A /* CommunityVM.swift in Sources */,
 				B4211ED526E26BDD0044BA74 /* SlideUpViewCell.swift in Sources */,
 				B459BC4E26DC96F40061EB67 /* EditInfoVC.swift in Sources */,
 				B43AC71826C7CC3E00C959E4 /* AppDelegate.swift in Sources */,

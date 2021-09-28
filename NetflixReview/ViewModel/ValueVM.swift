@@ -1,5 +1,5 @@
 //
-//  ValueViewModel.swift
+//  ValueVM.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/09/06.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct ValueViewModel {
+struct ValueVM {
     
     var value: Value
     

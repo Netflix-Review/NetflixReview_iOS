@@ -20,7 +20,7 @@ class PostHeader: UICollectionReusableView {
     
     weak var delegate: PostHeaderDelegate?
     
-    var ValueViewModel: ValueViewModel? {
+    var ValueViewModel: ValueVM? {
         didSet { configureViewModel() }
     }
     

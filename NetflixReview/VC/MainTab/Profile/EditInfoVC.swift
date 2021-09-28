@@ -61,7 +61,7 @@ extension EditInfoVC {
         cell.backgroundColor = .systemBackground
         
         guard let option = EditNameOption(rawValue: indexPath.row) else { return cell }
-        cell.viewModel = EditNameViewModel(option: option)
+        cell.viewModel = EditNameVM(option: option)
         
         return cell
     }

@@ -78,7 +78,7 @@ extension PostVC {
         header.backgroundColor = .white
         
         if let value = value {
-            header.ValueViewModel = ValueViewModel(value: value)
+            header.ValueViewModel = ValueVM(value: value)
         }
 
         return header

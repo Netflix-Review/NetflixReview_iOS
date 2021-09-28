@@ -1,5 +1,5 @@
 //
-//  EditNameViewModel.swift
+//  EditNameVM.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/19.
@@ -17,7 +17,7 @@ enum EditNameOption: Int, CaseIterable {
     }
 }
 
-struct EditNameViewModel {
+struct EditNameVM {
     
     let option: EditNameOption
     
