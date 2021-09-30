@@ -409,55 +409,55 @@ responseJSON 핸들러 안 로직 처리
 ```swift
 func plusPercentCount() {
         
-				// 1. urlString 변수를 초기화
-        var urlString = ""
+   // 1. urlString 변수를 초기화
+   var urlString = ""
         
-				// 2. 타입에 따라 url 스트링에 필요한 값을 대입
-        switch type {
-        case .contents: urlString = "/plus"
-        case .movie: urlString = "/plus"
-        case .tv: urlString = "/plus"
-        }
+   // 2. 타입에 따라 url 스트링에 필요한 값을 대입
+   switch type {
+   case .contents: urlString = "/plus"
+   case .movie: urlString = "/plus"
+   case .tv: urlString = "/plus"
+   }
         
-				// 3. 해당 뷰에 로딩뷰를 띄움
-        self.hud.show(in: self.view)
+   // 3. 해당 뷰에 로딩뷰를 띄움
+   self.hud.show(in: self.view)
         
-				// 4. url 변수 생성 - 기본 베이스 url에 타입에 따른 값을 대입해서 URL을 생성
-        let url = URL(string: baseUrl + urlString)!
-        // 5. 백단으로 보낼 파라미터 생성
-        let params = ["id": value?.id ?? 0, "rank": "Up"] as Dictionary
+   // 4. url 변수 생성 - 기본 베이스 url에 타입에 따른 값을 대입해서 URL을 생성
+   let url = URL(string: baseUrl + urlString)!
+   // 5. 백단으로 보낼 파라미터 생성
+   let params = ["id": value?.id ?? 0, "rank": "Up"] as Dictionary
         
-        // 6. Alamofire 라이브러리로 해당 url 에 요청
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"])
+    // 6. Alamofire 라이브러리로 해당 url 에 요청
+    AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"])
 				
-				// 7. Alamofire 를 사용함으로써 응답 처리는 다른 스레드로 보내진다.
-				.responseJSON { response in
+    // 7. Alamofire 를 사용함으로써 응답 처리는 다른 스레드로 보내진다.
+    .responseJSON { response in
             
-            print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
+     print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
             
-            switch response.result {
-            case .success(let data):
-                print("POST 성공 \(response.result)")
+     switch response.result {
+     case .success(let data):
+        print("POST 성공 \(response.result)")
                 
-                do {
+      do {
 								
-										**// SwiftyJSON 으로 받아온 값 파싱**
+      **// SwiftyJSON 으로 받아온 값 파싱**
 										
-										// 성공적으로 처리가 끝나면 메인스레드로 넘어가서 나머지 작업
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
-                        self.hud.dismiss()
-                    }
+      	    // 성공적으로 처리가 끝나면 메인스레드로 넘어가서 나머지 작업
+      	    DispatchQueue.main.async {
+          	 self.collectionView.reloadData()
+          	 self.hud.dismiss()
+      	     }
                     
-                } catch {
-                    print(error)
-                }
+       } catch {
+             print(error)
+       }
                 
-            case .failure(let error):
-                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-            }
+       case .failure(let error):
+          print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
         }
     }
+}
 ```
 
 **SwiftyJSON 으로 받아온 값 파싱**
