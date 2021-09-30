@@ -486,56 +486,13 @@ case .failure(let error):
 }
 ```
 
-![image](https://user-images.githubusercontent.com/74236080/135412598-18bdb66c-cb49-4baf-84ba-7bc0197505e8.png)
-
-
 > 결과값
 > 
 
-**추천해요 누르면,**
+![image](https://user-images.githubusercontent.com/74236080/135412598-18bdb66c-cb49-4baf-84ba-7bc0197505e8.png)
 
-- **HTTP Body : {"rank":1,"id":1}**
-- **POST 성공 response.result**
-    
-    **success(<__NSSingleObjectArrayI 0x600002750340>(**
-    
-          **{**
-    
-           **rank = 88;**
-    
-           **}**
-    
-    **)**
-    
-    **)**
-    
 
-- **data**
 
-**(**
-
-**{**
-
-**rank = 88;**
-
-**}**
-
-**)**
-
-- **json**
-
-**[**
-
-**{**
-
-**"rank" : 88**
-
-**}**
-
-**]**
-
-- **json[0]["rank"]** → **88**
-- **result -> 88**
 
 
 <img src = "https://user-images.githubusercontent.com/74236080/135412671-9044728f-0750-460d-bb79-f9f237f3ab35.png" width="30%" height="30%">
