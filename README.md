@@ -1,12 +1,12 @@
-# 진행중
+# 진행중 ~
 
 ## 뷰 구성
 
-### 홈 
+### _홈 
 
 collectionView 의 섹션을 나눠 스크롤 뷰 (좌, 우)
 
-### 검색
+### _검색
 
 navigation Bar 에서 search Bar 가 바로 나타나지 않는 문제 발생
 
@@ -24,7 +24,7 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 뷰의 계층 구조가 추가되기 전(**viewWillAppear**)에 서치바를 숨기지 않는다는 코드를 작성한 뒤, 뷰의 계층 구조가 추가된 후(**viewDidAppear**)에 스크롤할때 서치바를 없애주는 코드를 작성하여 서치바 뷰를 띄웠을 때, 처음에 서치바가 로드되고 스크롤할 때, 서치바가 안보이게 해준다.
 
-### 커뮤니티
+### _커뮤니티
 
 커뮤니티 상세 페이지로 전환이 될때, 헤더에는 글의 내용을 띄우고, 셀에는 리뷰를 띄우는 뷰로 구성
 
@@ -34,7 +34,9 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 **viewWillAppear** 메소드를 통해 "tabBarController?.tabBar.isHidden = true" 코드를 작성하여 뷰 계층 구조가 추가되기 전에 tabbar를 숨겨서 전환했을때 자연스레 InputAccesoryView를 띄워준다.
 
-### 프로필
+### _프로필
+
+<img src = "https://user-images.githubusercontent.com/74236080/135413848-bd26f389-726e-4b8d-be68-4f070578d127.png" width="30%" height="30%">
 
 뷰 헤더에 필터기능을 줘서 두 섹션을 클릭할 때 애니메이션이 주어지면서 셀의 정보가 바뀌도록 구성
 
@@ -86,7 +88,7 @@ protocol HeaderFilterViewDelegate: AnyObject {
 }
 ```
 
-### 로그인
+### _로그인
 
 <img src = "https://user-images.githubusercontent.com/74236080/135412077-ebc462ec-caf0-49fc-a274-25cbf642a361.png" width="30%" height="30%"><img src = "https://user-images.githubusercontent.com/74236080/135412146-c9a6e73a-fcd8-4810-92a2-40a51cfb67c5.png" width="30%" height="30%">
 
@@ -285,6 +287,8 @@ var request = URLRequest(url: URL(string: baseUrl + urlString)!)
 ---
 
 ***post 과정***
+
+1차 -> 틀림 ❌
 
 ```swift
 var request = URLRequest(url: URL(string: baseUrl + urlString)!)
@@ -533,10 +537,10 @@ case .failure(let error):
 - **json[0]["rank"]** → **88**
 - **result -> 88**
 
-해당 퍼센트 값을 +1 씩 올리는 것으로 테스트
 
 <img src = "https://user-images.githubusercontent.com/74236080/135412671-9044728f-0750-460d-bb79-f9f237f3ab35.png" width="30%" height="30%">
 
+해당 퍼센트 값을 +1 씩 올리는 것으로 테스트
 
 
 ---
@@ -595,15 +599,15 @@ UserApi.shared.loginWithKakaoAccount { oauthToken, error in
 
 ![image](https://user-images.githubusercontent.com/74236080/135413021-293cd008-75f9-469f-ac5c-75080e8e3b94.png)
 
-**grant_type** 승인 코드
+**grant_type** - 승인 코드
 
-**client_id** 애플리케이션의 식별자이며, 애플리케이션 생성 시 카카오에서 발급하는 REST API 키입니다.
+**client_id** - 애플리케이션의 식별자이며, 애플리케이션 생성 시 카카오에서 발급하는 REST API 키입니다.
 
-**redirect_uri** 사용자가 리디렉션되는 콜백 URL입니다. 이 URL은 [설정] > [사용자 관리] > [로그인 리디렉션 URL] 에서 지정된 URL과 일치해야 합니다.
+**redirect_uri** - 사용자가 리디렉션되는 콜백 URL입니다. 이 URL은 [설정] > [사용자 관리] > [로그인 리디렉션 URL] 에서 지정된 URL과 일치해야 합니다.
 
-**code** authorization_code 액세스 토큰을 얻기 위해 [Step 1: 승인 코드 받기]
+**code** - authorization_code 액세스 토큰을 얻기 위해 [Step 1: 승인 코드 받기]
 
-**client_secret**   `client_secret code` 앱 생성 시 카카오에서 발급하는 [설정] > [고급] > [클라이언트 비밀번호]에서 확인할 수 있습니다.
+**client_secret** - `client_secret code` 앱 생성 시 카카오에서 발급하는 [설정] > [고급] > [클라이언트 비밀번호]에서 확인할 수 있습니다.
 
 위와 같이 POST 메서드로 요청하는 경우
 
@@ -611,15 +615,15 @@ UserApi.shared.loginWithKakaoAccount { oauthToken, error in
 
 ![image](https://user-images.githubusercontent.com/74236080/135413060-569827da-011e-4424-92cb-a75277a71439.png)
 
-**access_token** API 호출에 사용되는 토큰
+**access_token** - API 호출에 사용되는 토큰
 
-**token_type** bearer
+**token_type** - bearer
 
-**refresh_token** 새 액세스 토큰을 얻는데 사용되는 토큰
+**refresh_token** - 새 액세스 토큰을 얻는데 사용되는 토큰
 
-**expires_in** 액세스 토큰이 만료될 때까지의 시간 (초)
+**expires_in** - 액세스 토큰이 만료될 때까지의 시간 (초)
 
-**scope** 사용자가 부여한 권한
+**scope** - 사용자가 부여한 권한
 
 3️⃣  액세스 토큰 새로 고침
 
@@ -628,6 +632,8 @@ UserApi.shared.loginWithKakaoAccount { oauthToken, error in
 4️⃣  액세스 토큰 확인 및 정보 가져오기
 
 '내 구성과 정보' 항목
+
+---
 
 ### 사용자 정보 불러오기
 
