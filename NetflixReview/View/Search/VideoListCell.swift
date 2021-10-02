@@ -25,6 +25,7 @@ class VideoListCell: UITableViewCell {
     private let videoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .black
         label.text = "어벤져스: 엔드게임"
         return label
     }()
@@ -32,6 +33,7 @@ class VideoListCell: UITableViewCell {
     private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .lightGray
         return label
@@ -47,7 +49,7 @@ class VideoListCell: UITableViewCell {
             make.centerY.equalToSuperview()
             make.leading.equalTo(16)
             make.width.equalTo(80)
-            make.height.equalTo(120)
+            make.height.equalTo(100)
         }
         
         let stack = UIStackView(arrangedSubviews: [videoLabel, infoLabel])

@@ -15,6 +15,7 @@ class PostCell: UICollectionViewCell {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "User"
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 17)
         return label
     }()
@@ -22,6 +23,7 @@ class PostCell: UICollectionViewCell {
     private let reviewLabel: UILabel = {
         let label = UILabel()
         label.text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
+        label.textColor = .black
         label.numberOfLines = 0
         label.lineBreakMode = .byTruncatingTail
         label.font = UIFont.systemFont(ofSize: 18)
@@ -35,8 +37,6 @@ class PostCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 15)
         return label
     }()
-    
-    let underlineView = UIView()
     
     // MARK: - Lifecycle
     
@@ -71,12 +71,5 @@ class PostCell: UICollectionViewCell {
             make.top.equalTo(nameLabel)
             make.trailing.equalTo(-20)
         }
-        
-        addSubview(underlineView)
-        underlineView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(1)
-        }
-        underlineView.backgroundColor = .systemGroupedBackground
     }
 }

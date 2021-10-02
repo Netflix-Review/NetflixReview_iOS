@@ -22,7 +22,7 @@ class MainTabVC: UITabBarController {
     
     func tabBarColor() {
         tabBar.barTintColor = .white
-        tabBar.isTranslucent = false
+        tabBar.isTranslucent = true
     }
     
     func configureViewControllers() {

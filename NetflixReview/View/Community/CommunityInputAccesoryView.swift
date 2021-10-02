@@ -20,6 +20,7 @@ class CommunityInputAccesoryView: UIView {
     private let commentTextView: InputTextView = {
         let tv = InputTextView()
         tv.placeholderText = "댓글 달기"
+        tv.backgroundColor = .white
         tv.font = UIFont.systemFont(ofSize: 15)
         tv.isScrollEnabled = false
         return tv

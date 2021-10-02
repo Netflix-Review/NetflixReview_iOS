@@ -37,7 +37,7 @@ class LoginUtil {
     func textField(withPlaceholder placeholder: String) -> UITextField {
         let tf = UITextField()
         tf.textColor = .black
-        tf.font = UIFont.systemFont(ofSize: 16)
+        tf.font = UIFont.systemFont(ofSize: 14)
         tf.attributedPlaceholder = NSAttributedString(string: placeholder,
                                                       attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         return tf
@@ -46,10 +46,10 @@ class LoginUtil {
     func attributedButton(_ firstPart: String, _ secondPart: String) -> UIButton {
         let button = UIButton(type: .system)
         
-        let attributedTitle = NSMutableAttributedString(string: firstPart,attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        let attributedTitle = NSMutableAttributedString(string: firstPart,attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         attributedTitle.append(NSAttributedString(string: secondPart,
-                                                  attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.systemPink]))
+                                                  attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.systemPink]))
         
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button

@@ -15,14 +15,16 @@ class EmailLoginVC: UIViewController {
     private var emailTitle: UILabel = {
         let label = UILabel()
         label.text = "이메일"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
     private var passwordTitle: UILabel = {
         let label = UILabel()
         label.text = "비밀번호"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -78,14 +80,9 @@ class EmailLoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        hideKeyboard()
         configureUI()
 
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = restoreFrameValue
-        self.view.endEditing(true)
     }
     
     // MARK: - Action

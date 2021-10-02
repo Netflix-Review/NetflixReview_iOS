@@ -38,6 +38,7 @@
 		B43AC73426C7CE5F00C959E4 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73326C7CE5F00C959E4 /* ExploreVC.swift */; };
 		B43AC73626C7CFB000C959E4 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B43AC73526C7CFB000C959E4 /* ProfileVC.swift */; };
 		B43DB51827031DFE004A6C2D /* Pods_NetflixReview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7698193307963565803A6F4 /* Pods_NetflixReview.framework */; };
+		B440F2582705779000CF46E6 /* hideKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B440F2572705779000CF46E6 /* hideKeyboard.swift */; };
 		B459BC4E26DC96F40061EB67 /* EditInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4D26DC96F40061EB67 /* EditInfoVC.swift */; };
 		B459BC5026DC99450061EB67 /* EditInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B459BC4F26DC99450061EB67 /* EditInfoCell.swift */; };
 		B465E4EB26E73CF400D83953 /* EmailLoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B465E4EA26E73CF400D83953 /* EmailLoginVC.swift */; };
@@ -89,6 +90,7 @@
 		B43AC73126C7CE2900C959E4 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		B43AC73326C7CE5F00C959E4 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		B43AC73526C7CFB000C959E4 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		B440F2572705779000CF46E6 /* hideKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hideKeyboard.swift; sourceTree = "<group>"; };
 		B459BC4D26DC96F40061EB67 /* EditInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoVC.swift; sourceTree = "<group>"; };
 		B459BC4F26DC99450061EB67 /* EditInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInfoCell.swift; sourceTree = "<group>"; };
 		B465E4EA26E73CF400D83953 /* EmailLoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginVC.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				B406594026CCBE240008FD26 /* InputTextView.swift */,
 				B41845BC26DF6CE300416A19 /* UIImageViewExtension.swift */,
 				B465E4EE26E7582E00D83953 /* LoginUtil.swift */,
+				B440F2572705779000CF46E6 /* hideKeyboard.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -297,8 +300,8 @@
 		B43AC72E26C7CC9000C959E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B41845BA26DF6C6900416A19 /* Value.swift */,
 				B42A138026F302A5001E2954 /* User.swift */,
+				B41845BA26DF6C6900416A19 /* Value.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				B41790B726CBACE400E4E248 /* CommunityPostCell.swift in Sources */,
 				B40BDB0C26DE104C0060435B /* WriteReviewVC.swift in Sources */,
 				B4AB9C0D26CAA6A900B39556 /* PostHeader.swift in Sources */,
+				B440F2582705779000CF46E6 /* hideKeyboard.swift in Sources */,
 				B406594126CCBE240008FD26 /* InputTextView.swift in Sources */,
 				B4AB9BE326CA1AEC00B39556 /* VideoListCell.swift in Sources */,
 			);

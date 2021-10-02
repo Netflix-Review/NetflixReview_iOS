@@ -26,8 +26,7 @@ class EditInfoVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        collectionView.backgroundColor = .systemGroupedBackground
-        
+        collectionView.backgroundColor = .white
         collectionView.register(EditInfoCell.self, forCellWithReuseIdentifier: cellId)
     }
     
@@ -58,7 +57,7 @@ extension EditInfoVC {
         cell.layer.shadowRadius = 10
         cell.layer.shadowOffset = .init(width: 0, height: -5)
         cell.layer.shadowColor = UIColor.lightGray.cgColor
-        cell.backgroundColor = .systemBackground
+        cell.backgroundColor = .white
         
         guard let option = EditNameOption(rawValue: indexPath.row) else { return cell }
         cell.viewModel = EditNameVM(option: option)

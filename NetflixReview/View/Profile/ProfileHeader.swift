@@ -22,6 +22,7 @@ class ProfileHeader: UICollectionReusableView {
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.text = "User님"
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
     }()

@@ -26,6 +26,7 @@ class HomeCell: UICollectionViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어벤져스: 엔드게임"
+        label.textColor = .black
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 15)
         return label

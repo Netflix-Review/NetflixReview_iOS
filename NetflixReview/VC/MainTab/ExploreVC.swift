@@ -24,7 +24,6 @@ class ExploreVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         configureTableView()
         configureSearchController()
@@ -52,10 +51,11 @@ class ExploreVC: UIViewController {
     // MARK: - Helpers
     
     func configureTableView() {
+        tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(VideoListCell.self, forCellReuseIdentifier: cellId)
-        tableView.rowHeight = 130
+        tableView.rowHeight = 120
         tableView.separatorStyle = .none
         
         view.addSubview(tableView)
@@ -83,6 +83,7 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! VideoListCell
+        cell.backgroundColor = .white
         return cell
     }
 

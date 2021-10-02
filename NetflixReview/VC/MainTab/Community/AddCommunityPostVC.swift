@@ -15,6 +15,7 @@ class AddCommunityPostVC: UIViewController {
     private lazy var captionTextView: InputTextView = {
         let tv = InputTextView()
         tv.placeholderText = "커뮤니티에 새로운 글을 등록해보세요."
+        tv.backgroundColor = .white
         tv.font = UIFont.systemFont(ofSize: 18)
         return tv
     }()

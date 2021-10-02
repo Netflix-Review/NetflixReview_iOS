@@ -73,7 +73,7 @@ extension CommunityVC {
         cell.layer.shadowRadius = 10
         cell.layer.shadowOffset = .init(width: 0, height: -5)
         cell.layer.shadowColor = UIColor.lightGray.cgColor
-        cell.backgroundColor = .systemBackground
+        cell.backgroundColor = .white
         
         return cell
     }

@@ -33,6 +33,7 @@ class LoginVC: UIViewController {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "SNS 및 E-mail 로그인"
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -202,14 +203,14 @@ class LoginVC: UIViewController {
                     self.setKakaoUserInfo()
                 }
             }
-        } else { // 해당 폰에 카카오톡이 안깔려있으면 웹 브라우저로
+        } else { // 해당 폰에 카카오톡이 안깔려있으면 사파리로
             UserApi.shared.loginWithKakaoAccount { oauthToken, error in
                 if let error = error {
                     print(error)
                 } else {
                     print("Web - loginWithKakaoTalk() success")
                     
-                    let url = URL(string: self.baseUrl + "")!
+                    let url = URL(string: self.baseUrl + "oauth/kakao")!
 
                     let accessToken = oauthToken?.accessToken
                     let param = ["access_token": accessToken!] as Dictionary
@@ -228,7 +229,6 @@ class LoginVC: UIViewController {
                 }
             }
         }
-        
     }
     
     @objc func goEmailLogin() {

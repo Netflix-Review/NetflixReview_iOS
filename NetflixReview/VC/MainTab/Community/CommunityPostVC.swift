@@ -65,11 +65,6 @@ class CommunityPostVC: UICollectionViewController {
         return true
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = restoreFrameValue
-        self.view.endEditing(true)
-    }
-    
     
     // MARK: - Action
     

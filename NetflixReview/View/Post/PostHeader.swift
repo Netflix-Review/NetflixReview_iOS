@@ -120,6 +120,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어벤져스: 엔드게임"
+        label.textColor = .black
         label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
@@ -128,6 +129,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .lightGray
         return label
@@ -136,6 +138,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
+        label.textColor = .black
         label.font = UIFont.systemFont(ofSize: 17)
         label.numberOfLines = 4
         return label
@@ -143,7 +146,7 @@ class PostHeader: UICollectionReusableView {
 
     private lazy var textView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .white
 
         view.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
@@ -266,7 +269,7 @@ class PostHeader: UICollectionReusableView {
         percentLabel.text = String(viewModel.rank)
         descriptionLabel.text = viewModel.desciption
         textLabel.attributedText = viewModel.ReviewText
-
+ 
     }
 }
 

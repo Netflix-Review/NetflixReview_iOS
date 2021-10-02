@@ -25,6 +25,7 @@ class SeachCommunityPostVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         configureTableView()
         configureSearchController()
@@ -74,6 +75,7 @@ extension SeachCommunityPostVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! SeachCommunityPostCell
+        cell.backgroundColor = .white
         return cell
     }
     

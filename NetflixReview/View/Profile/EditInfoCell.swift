@@ -18,6 +18,7 @@ class EditInfoCell: UICollectionViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -26,6 +27,7 @@ class EditInfoCell: UICollectionViewCell {
         let tf = UITextField()
         tf.borderStyle = .none
         tf.font = UIFont.systemFont(ofSize: 18)
+        tf.textColor = .black
         tf.textAlignment = .left
         tf.addTarget(self, action: #selector(updataUserInfo), for: .editingDidEnd)
         return tf
@@ -53,7 +55,6 @@ class EditInfoCell: UICollectionViewCell {
     // MARK: - Helpers
     
     func configureUI() {
-        backgroundColor = .white
         
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in

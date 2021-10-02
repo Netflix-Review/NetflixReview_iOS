@@ -51,7 +51,6 @@ class HomeVC: UICollectionViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.sizeToFit()
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Netflix Review"
     }
@@ -87,7 +86,7 @@ extension HomeVC {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment -> NSCollectionLayoutSection? in
             
             let item = NSCollectionLayoutItem(layoutSize: .init(widthDimension: .fractionalWidth(0.5),
-                                                                heightDimension: .absolute(200)))
+                                                                heightDimension: .absolute(180)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 10)
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(0.7), heightDimension: .estimated(1000)), subitems: [item])
@@ -124,6 +123,7 @@ extension HomeVC {
         } else if indexPath.section == 2 {
             header.label.text = "TV 프로그램 TOP 10"
         }
+        header.label.textColor = .black
         return header
     }
     
