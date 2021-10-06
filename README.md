@@ -14,7 +14,7 @@
 
 ## 뷰 구성
 
-### _홈 
+### 홈 
 
 
 <img src = "https://user-images.githubusercontent.com/74236080/136213731-d213ef37-91e0-487e-a0a7-057ee8790e16.png" width="30%" height="30%">
@@ -44,8 +44,9 @@
         }
     }
 ```
+---
 
-### _검색
+### 검색
 
 <img src = "https://user-images.githubusercontent.com/74236080/136213641-67d791ff-ccbf-4801-96ae-2831b53979e8.png" width="30%" height="30%">
 
@@ -65,7 +66,9 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 뷰의 계층 구조가 추가되기 전(**viewWillAppear**)에 서치바를 숨기지 않는다는 코드를 작성한 뒤, 뷰의 계층 구조가 추가된 후(**viewDidAppear**)에 스크롤할때 서치바를 없애주는 코드를 작성하여 서치바 뷰를 띄웠을 때, 처음에 서치바가 로드되고 스크롤할 때, 서치바가 안보이게 해준다.
 
-### _커뮤니티
+---
+
+### 커뮤니티
 
 <img src = "https://user-images.githubusercontent.com/74236080/136213669-cce570c9-09b3-49b3-b651-7a53880fd375.png" width="30%" height="30%">
 
@@ -76,6 +79,8 @@ navigationItem.hidesSearchBarWhenScrolling = true
 뷰 하단에 InputAccesoryView를 띄우기 위해 tabbar를 없애줘야하는데
 
 **viewWillAppear** 메소드를 통해 "tabBarController?.tabBar.isHidden = true" 코드를 작성하여 뷰 계층 구조가 추가되기 전에 tabbar를 숨겨서 전환했을때 자연스레 InputAccesoryView를 띄워준다.
+
+---
 
 ### _프로필
 
@@ -130,6 +135,8 @@ protocol HeaderFilterViewDelegate: AnyObject {
     func filterView(_ view: HeaderFilterView, didSelect index: Int)
 }
 ```
+
+---
 
 ### _로그인
 
@@ -502,13 +509,14 @@ func plusPercentCount() {
     }
 }
 ```
+---
 
 **SwiftyJSON 으로 받아온 값 파싱**
 
 아래 코드와 같이 받아온 데이터를 구조체를 디코딩하게 되면 필요없는 값까지 굳이 옵셔널로 처리해서 가져오지도 못한다. 
 
 내가 받아와야하는 값은 rank = 71; 에서 71만 필요하기 때문에 새로운 구조체를 만들어서 이값만 받아와야하는데 이과정을 **SwiftyJSON 라이브러리**를 사용해서 파싱해와야한다.
-****
+
 
 ```swift
 switch response.result {
@@ -533,8 +541,6 @@ case .failure(let error):
 > 
 
 ![image](https://user-images.githubusercontent.com/74236080/135412598-18bdb66c-cb49-4baf-84ba-7bc0197505e8.png)
-
-
 
 
 
@@ -598,7 +604,7 @@ case .failure(let error):
 > 
 
 
-<img src = "https://user-images.githubusercontent.com/74236080/136214417-8ddaa431-2e3b-4222-8997-2966c6f141d2.png" width="30%" height="30%">
+<img src = "https://user-images.githubusercontent.com/74236080/136214417-8ddaa431-2e3b-4222-8997-2966c6f141d2.png" width="80%" height="80%">
 
 1. 이메일과 비밀번호를 서버로 전송
 2. 서버에서 해당 데이터가 일치하는지 판별 후, JWT 발행
@@ -607,34 +613,32 @@ case .failure(let error):
 서버에서 로그인 인증을 마치면 `SwiftyJSON` 를 통해, *"message"* 가 *"login success"* 를 띄우면 (토큰 값도 함께 발행), 메인탭으로 전환한다. 여기서 메인탭의 `isLogin` 값을 `true` 로 변경해준다.
 
 ```swift
-			AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"])
-				.responseJSON { response in
+AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
             
-            switch response.result {
-            case .success(let data):
-                print("성공, \(data)")
+    switch response.result {
+    case .success(let data):
+          print("성공, \(data)")
                 
-                let json = JSON(data)
-                let result = json["message"].stringValue
+          let json = JSON(data)
+          let result = json["message"].stringValue
                                 
-                if result == "login success" {
-                    // 로그인 성공 후 메인탭으로 전환
-                    guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-                    guard let tab = window.rootViewController as? MainTabVC else { return }
-                    tab.isLogin = true
-                    tab.checkLoginedUser()
+          if result == "login success" {
+             // 로그인 성공 후 메인탭으로 전환
+             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+             guard let tab = window.rootViewController as? MainTabVC else { return }
+             tab.isLogin = true
+	     tab.checkLoginedUser()
                     
-                } else {
-                    let alertSheet = UIAlertController(title: "알림",
-                                                        message: "로그인 실패",
-                                                        preferredStyle: .alert)
+          } else {
+             let alertSheet = UIAlertController(title: "알림",
+                                                message: "로그인 실패",
+                                                preferredStyle: .alert)
                     
-                    let okAction = UIAlertAction(title: "다시하기", style: .default)
+              let okAction = UIAlertAction(title: "다시하기", style: .default)
                     
-                    alertSheet.addAction(okAction)
-                    self.present(alertSheet, animated: true, completion: nil)
-                    
-                }
+              alertSheet.addAction(okAction)
+              self.present(alertSheet, animated: true, completion: nil)
+          }
 ```
 
 ```swift
