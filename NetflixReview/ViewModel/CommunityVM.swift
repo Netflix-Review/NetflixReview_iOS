@@ -10,7 +10,8 @@ import UIKit
 struct CommunityVM {
     
     var CommentText: NSAttributedString {
-        let title = NSMutableAttributedString(string: "댓글", attributes: [.font: UIFont.boldSystemFont(ofSize: 20)])
+        let title = NSMutableAttributedString(string: "댓글", attributes: [.font: UIFont.boldSystemFont(ofSize: 20),
+                                                                         .foregroundColor: UIColor.black])
         
         title.append(NSAttributedString(string: "   2,300개",
                                         attributes: [.font: UIFont.systemFont(ofSize: 15),

@@ -6,23 +6,41 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainTabVC: UITabBarController {
+    
+    // MARK: - Properties
+    
+    var isLogin: Bool = false
+    private let baseUrl = "http://219.249.59.254:3000"
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureViewControllers()
-        tabBarColor()
+        tabBar.barTintColor = .white
+        tabBar.isTranslucent = true
+        
+        checkLoginedUser()
     }
     
     // MARK: - Helpers
     
-    func tabBarColor() {
-        tabBar.barTintColor = .white
-        tabBar.isTranslucent = true
+    func checkLoginedUser() {
+        
+        // 유저 토큰을 받아서 (get), 현재 토큰값으로 체크
+        
+        if isLogin == false {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginVC())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else {
+            configureViewControllers()
+        }
     }
     
     func configureViewControllers() {

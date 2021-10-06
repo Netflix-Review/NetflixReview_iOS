@@ -79,6 +79,7 @@ class HomeVC: UICollectionViewController {
     }
 }
 
+
 // MARK: - UICollectionViewCompositionalLayout
 
 extension HomeVC {

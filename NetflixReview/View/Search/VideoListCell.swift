@@ -24,7 +24,7 @@ class VideoListCell: UITableViewCell {
     
     private let videoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .black
         label.text = "어벤져스: 엔드게임"
         return label
@@ -34,7 +34,7 @@ class VideoListCell: UITableViewCell {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 12)
         label.textColor = .lightGray
         return label
     }()

@@ -38,7 +38,7 @@ class PostReviewVC: UIViewController {
         let label = UILabel()
         label.text = "User"
         label.textColor = .black
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -48,7 +48,7 @@ class PostReviewVC: UIViewController {
         label.textColor = .black
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.font = UIFont.systemFont(ofSize: 18)
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     
@@ -56,7 +56,7 @@ class PostReviewVC: UIViewController {
         let label = UILabel()
         label.text = "5일 전"
         label.textColor = .lightGray
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 16)
         return label
     }()
     

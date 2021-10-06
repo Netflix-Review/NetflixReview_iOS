@@ -21,9 +21,7 @@ class CommunityPostVC: UICollectionViewController {
         cv.delegate = self
         return cv
     }()
-    
-    var restoreFrameValue: CGFloat = 0.0
-    
+        
     // MARK: - Lifecycle
     
     init() {
@@ -37,6 +35,7 @@ class CommunityPostVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
+        hideKeyboard()
         
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))

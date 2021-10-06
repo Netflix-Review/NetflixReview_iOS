@@ -33,9 +33,6 @@ class AddCommunityPostVC: UIViewController {
         return button
     }()
     
-    var restoreFrameValue: CGFloat = 0.0
-    
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -45,11 +42,6 @@ class AddCommunityPostVC: UIViewController {
     
     override var canBecomeFirstResponder: Bool {
         return true
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = restoreFrameValue
-        self.view.endEditing(true)
     }
     
     

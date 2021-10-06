@@ -7,10 +7,15 @@
 
 import UIKit
 import SnapKit
+import JGProgressHUD
+import Alamofire
+import SwiftyJSON
 
 class EmailLoginVC: UIViewController {
     
     // MARK: - Properties
+    
+    private let baseUrl = "http://219.249.59.254:3000"
         
     private var emailTitle: UILabel = {
         let label = UILabel()
@@ -35,6 +40,7 @@ class EmailLoginVC: UIViewController {
     
     private var passwordField: UITextField = {
         let tf = LoginUtil().textField(withPlaceholder: "비밀번호를 입력해주세요.")
+        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -45,6 +51,7 @@ class EmailLoginVC: UIViewController {
     
     private lazy var passwordContainerView: UIView = {
         let view = LoginUtil().inputContainerView(textField: passwordField)
+        
         return view
     }()
     
@@ -74,8 +81,6 @@ class EmailLoginVC: UIViewController {
         return button
     }()
     
-    var restoreFrameValue: CGFloat = 0.0
-    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -93,6 +98,57 @@ class EmailLoginVC: UIViewController {
     
     @objc func handleLogin() {
         print("로그인")
+        
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordField.text else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "로그인 중"
+        hud.show(in: view)
+        
+        let url = URL(string: baseUrl + "/api/login")!
+        let params = ["email": email, "password": password]
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+            
+            switch response.result {
+            case .success(let data):
+                print("성공, \(data)")
+                
+                let json = JSON(data)
+                let result = json["message"].stringValue
+                                
+                if result == "login success" {
+                    // 로그인 성공 후 메인탭으로 전환
+                    guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+                    guard let tab = window.rootViewController as? MainTabVC else { return }
+                    tab.isLogin = true
+                    tab.checkLoginedUser()
+                    
+                } else {
+                    let alertSheet = UIAlertController(title: "알림",
+                                                        message: "로그인 실패",
+                                                        preferredStyle: .alert)
+                    
+                    let okAction = UIAlertAction(title: "다시하기", style: .default)
+                    
+                    alertSheet.addAction(okAction)
+                    self.present(alertSheet, animated: true, completion: nil)
+                    
+                }
+                
+                
+
+                
+                hud.dismiss()
+                self.dismiss(animated: true, completion: nil)
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    
+
     }
     
     @objc func handleShowSignUp() {

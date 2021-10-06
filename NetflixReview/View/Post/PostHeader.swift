@@ -24,7 +24,6 @@ class PostHeader: UICollectionReusableView {
         didSet { configureViewModel() }
     }
     
-    
     private lazy var containerView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
@@ -61,7 +60,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("추천해요", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.tintColor = .systemGreen
         button.layer.cornerRadius = 10
         button.backgroundColor = .white
@@ -72,7 +71,7 @@ class PostHeader: UICollectionReusableView {
     private lazy var unlikeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("별로예요", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.tintColor = .systemPink
         button.layer.cornerRadius = 10
         button.backgroundColor = .white
@@ -103,7 +102,7 @@ class PostHeader: UICollectionReusableView {
         button.setTitleColor(.systemPink, for: .normal)
         button.layer.cornerRadius = 10
         button.backgroundColor = .white
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(TapWish), for: .touchUpInside)
         return button
     }()
@@ -122,7 +121,7 @@ class PostHeader: UICollectionReusableView {
         label.text = "어벤져스: 엔드게임"
         label.textColor = .black
         label.numberOfLines = 2
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 18)
         return label
     }()
     
@@ -130,7 +129,7 @@ class PostHeader: UICollectionReusableView {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .lightGray
         return label
     }()
@@ -139,7 +138,7 @@ class PostHeader: UICollectionReusableView {
         let label = UILabel()
         label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 17)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 4
         return label
     }()
@@ -166,7 +165,45 @@ class PostHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureViewModel()
+        configureUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Action
+    
+    @objc func didTapLike() {
+        delegate?.didTapLike()
+    }
+    
+    @objc func didTapUnLike() {
+        delegate?.didTapUnLike()
+    }
+    
+    @objc func TapWish() {
+        delegate?.TapWish()
+    }
+    
+    // MARK: - ViewModel
+    
+    func configureViewModel() {
+        guard let viewModel = ValueViewModel else { return }
+
+        titleLabel.text = viewModel.title
+        let data = try? Data(contentsOf: viewModel.postImageView!)
+        postImageView.image = UIImage(data: data!)
         
+        let backData = try? Data(contentsOf: viewModel.backgroundView!)
+        backgroundImage.image = UIImage(data: backData!)
+        infoLabel.text = viewModel.info
+        percentLabel.text = String(viewModel.rank)
+        descriptionLabel.text = viewModel.desciption
+        textLabel.attributedText = viewModel.ReviewText
+    }
+    
+    func configureUI() {
         addSubview(containerView)
         containerView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
@@ -232,45 +269,5 @@ class PostHeader: UICollectionReusableView {
             make.trailing.equalTo(-10)
             make.height.equalTo(50)
         }
-        
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Action
-    
-    @objc func didTapLike() {
-        delegate?.didTapLike()
-    }
-    
-    @objc func didTapUnLike() {
-        delegate?.didTapUnLike()
-    }
-    
-    @objc func TapWish() {
-        delegate?.TapWish()
-    }
-    
-    // MARK: - ViewModel
-    
-    func configureViewModel() {
-        guard let viewModel = ValueViewModel else { return }
-
-        titleLabel.text = viewModel.title
-        let data = try? Data(contentsOf: viewModel.postImageView!)
-        postImageView.image = UIImage(data: data!)
-        
-        let backData = try? Data(contentsOf: viewModel.backgroundView!)
-        backgroundImage.image = UIImage(data: backData!)
-        infoLabel.text = viewModel.info
-        percentLabel.text = String(viewModel.rank)
-        descriptionLabel.text = viewModel.desciption
-        textLabel.attributedText = viewModel.ReviewText
- 
     }
 }
-
-

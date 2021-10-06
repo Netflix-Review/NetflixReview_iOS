@@ -31,24 +31,18 @@ class WriteReviewVC: UIViewController {
         button.addTarget(self, action: #selector(handleDone), for: .touchUpInside)
         return button
     }()
-    
-    var restoreFrameValue: CGFloat = 0.0
-    
+        
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        hideKeyboard()
     }
     
     override var canBecomeFirstResponder: Bool {
         return true
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.frame.origin.y = restoreFrameValue
-        self.view.endEditing(true)
     }
     
     

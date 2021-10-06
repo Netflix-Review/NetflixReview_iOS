@@ -7,10 +7,16 @@
 
 import UIKit
 import SnapKit
+import Alamofire
+import JGProgressHUD
+
 
 class RegistrationVC: UIViewController {
     
     // MARK: - Properties
+    
+
+    private let baseUrl = "http://219.249.59.254:3000"
         
     private var emailTitle: UILabel = {
         let label = UILabel()
@@ -43,6 +49,7 @@ class RegistrationVC: UIViewController {
     
     private var passwordField: UITextField = {
         let tf = LoginUtil().textField(withPlaceholder: "비밀번호를 입력해주세요.")
+        tf.isSecureTextEntry = true
         return tf
     }()
     
@@ -85,7 +92,6 @@ class RegistrationVC: UIViewController {
         return button
     }()
     
-    var restoreFrameValue: CGFloat = 0.0
     
     // MARK: - Lifecycle
     
@@ -104,6 +110,41 @@ class RegistrationVC: UIViewController {
     
     @objc func handleSignUp() {
         print("회원가입")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordField.text else { return }
+        guard let username = nameField.text else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "회원가입 중"
+        hud.show(in: view)
+        
+        let url = URL(string: baseUrl + "/api/sign-up")!
+        let params = ["email": email, "password": password, "username": username]
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+            
+            switch response.result {
+            case .success(let data):
+                print("성공, \(data)")
+                
+                let alertSheet = UIAlertController(title: "환영합니다 👏👏",
+                                                    message: "회원가입을 완료했습니다!",
+                                                    preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "로그인 하러가기", style: .default) { _ in
+                    let controller = EmailLoginVC()
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+                
+                alertSheet.addAction(okAction)
+                self.present(alertSheet, animated: true, completion: nil)
+                
+                hud.dismiss()
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
     }
     
     @objc func backLoginView() {
