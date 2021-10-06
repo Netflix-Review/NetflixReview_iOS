@@ -1,5 +1,15 @@
 # 진행중 ~
 
+## ⚒  사용 기술
+
+- Swift
+- CocoPods
+- SnapKit
+- Alamofire
+- Kingfisher
+- SwiftyJSON
+
+
 ## 뷰 구성
 
 ### _홈 
