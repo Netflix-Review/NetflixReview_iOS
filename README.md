@@ -781,12 +781,14 @@ class TokenUtils {
     username = "사용자 이름";
 }
 
+-------
+
 // 토큰 정보 추출
 let username = json["username"].stringValue
 let accessToken = json["token"].stringValue
 ```
 
-1. 추출한 토큰 정보를 키체인에 저장한다.
+2. 추출한 토큰 정보를 키체인에 저장한다.
 
 ```swift
 let tk = TokenUtils()
@@ -794,7 +796,7 @@ tk.create("\(url)", account: "accessToken", value: accessToken)
 tk.create("\(url)", account: "username", value: username)
 ```
 
-1. 메인탭에 `checkToken()` 메서드를 만들어서, 로그인 성공 후 메인탭으로 화면이 넘어갈 때, 메인탭으로 토큰 정보를 가져온다.
+3. 메인탭에 `checkToken()` 메서드를 만들어서, 로그인 성공 후 메인탭으로 화면이 넘어갈 때, 메인탭으로 토큰 정보를 가져온다.
 
 ```swift
 func checkToken() {
