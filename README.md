@@ -1,5 +1,7 @@
 # 진행중 ~
 
+넷플릭스 영상의 **리뷰**를 작성할 수 있는 앱니다.
+
 ## ⚒  사용 기술
 
 - Swift
@@ -12,11 +14,41 @@
 
 ## 뷰 구성
 
-### _홈 
+### 홈 
 
-collectionView 의 섹션을 나눠 스크롤 뷰 (좌, 우)
 
-### _검색
+<img src = "https://user-images.githubusercontent.com/74236080/136213731-d213ef37-91e0-487e-a0a7-057ee8790e16.png" width="30%" height="30%">
+
+- collectionView 의 섹션을 나눠 스크롤 뷰 (좌, 우)
+- Alamofire 를 사용하여 get 메소드로 각 섹션에 해당하는 데이터를 가져온다.
+
+```swift
+   func fetchContentsData() {
+        AF.request(self.baseUrl + "/drama", method: .get).validate().responseDecodable(of: [Value].self) { response in
+            self.contents = response.value ?? []
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchMovieData() {
+        AF.request(self.baseUrl + "/movie", method: .get).validate().responseDecodable(of: [Value].self) { response in
+            self.movies = response.value ?? []
+            self.collectionView.reloadData()
+        }
+    }
+    
+    func fetchTvData() {
+        AF.request(self.baseUrl + "/tv", method: .get).validate().responseDecodable(of: [Value].self) { response in
+            self.tvprograms = response.value ?? []
+            self.collectionView.reloadData()
+        }
+    }
+```
+---
+
+### 검색
+
+<img src = "https://user-images.githubusercontent.com/74236080/136213641-67d791ff-ccbf-4801-96ae-2831b53979e8.png" width="30%" height="30%">
 
 navigation Bar 에서 search Bar 가 바로 나타나지 않는 문제 발생
 
@@ -34,7 +66,11 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 뷰의 계층 구조가 추가되기 전(**viewWillAppear**)에 서치바를 숨기지 않는다는 코드를 작성한 뒤, 뷰의 계층 구조가 추가된 후(**viewDidAppear**)에 스크롤할때 서치바를 없애주는 코드를 작성하여 서치바 뷰를 띄웠을 때, 처음에 서치바가 로드되고 스크롤할 때, 서치바가 안보이게 해준다.
 
-### _커뮤니티
+---
+
+### 커뮤니티
+
+<img src = "https://user-images.githubusercontent.com/74236080/136213669-cce570c9-09b3-49b3-b651-7a53880fd375.png" width="30%" height="30%">
 
 커뮤니티 상세 페이지로 전환이 될때, 헤더에는 글의 내용을 띄우고, 셀에는 리뷰를 띄우는 뷰로 구성
 
@@ -43,6 +79,8 @@ navigationItem.hidesSearchBarWhenScrolling = true
 뷰 하단에 InputAccesoryView를 띄우기 위해 tabbar를 없애줘야하는데
 
 **viewWillAppear** 메소드를 통해 "tabBarController?.tabBar.isHidden = true" 코드를 작성하여 뷰 계층 구조가 추가되기 전에 tabbar를 숨겨서 전환했을때 자연스레 InputAccesoryView를 띄워준다.
+
+---
 
 ### _프로필
 
@@ -97,6 +135,8 @@ protocol HeaderFilterViewDelegate: AnyObject {
     func filterView(_ view: HeaderFilterView, didSelect index: Int)
 }
 ```
+
+---
 
 ### _로그인
 
@@ -469,13 +509,14 @@ func plusPercentCount() {
     }
 }
 ```
+---
 
 **SwiftyJSON 으로 받아온 값 파싱**
 
 아래 코드와 같이 받아온 데이터를 구조체를 디코딩하게 되면 필요없는 값까지 굳이 옵셔널로 처리해서 가져오지도 못한다. 
 
 내가 받아와야하는 값은 rank = 71; 에서 71만 필요하기 때문에 새로운 구조체를 만들어서 이값만 받아와야하는데 이과정을 **SwiftyJSON 라이브러리**를 사용해서 파싱해와야한다.
-****
+
 
 ```swift
 switch response.result {
@@ -503,11 +544,121 @@ case .failure(let error):
 
 
 
-
-
 <img src = "https://user-images.githubusercontent.com/74236080/135412671-9044728f-0750-460d-bb79-f9f237f3ab35.png" width="30%" height="30%">
 
 해당 퍼센트 값을 +1 씩 올리는 것으로 테스트
+
+---
+
+### 일반 로그인
+
+> 회원가입
+> 
+
+1. 이메일, 비밀번호, 이름을 서버에 전송
+2. 성공 → 알림 → 로그인 페이지로 전환
+
+```swift
+  @objc func handleSignUp() {
+        print("회원가입")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordField.text else { return }
+        guard let username = nameField.text else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "회원가입 중"
+        hud.show(in: view)
+        
+        let url = URL(string: baseUrl + "/api/sign-up")!
+        let params = ["email": email, "password": password, "username": username]
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"])
+					.responseJSON { response in
+            
+            switch response.result {
+            case .success(let data):
+                print("성공, \(data)")
+                
+                let alertSheet = UIAlertController(title: "환영합니다 👏👏",
+                                                    message: "회원가입을 완료했습니다!",
+                                                    preferredStyle: .alert)
+                
+                let okAction = UIAlertAction(title: "로그인 하러가기", style: .default) { _ in
+                    let controller = EmailLoginVC()
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+                
+                alertSheet.addAction(okAction)
+                self.present(alertSheet, animated: true, completion: nil)
+                
+                hud.dismiss()
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    }
+```
+
+> 로그인
+> 
+
+
+<img src = "https://user-images.githubusercontent.com/74236080/136214417-8ddaa431-2e3b-4222-8997-2966c6f141d2.png" width="80%" height="80%">
+
+1. 이메일과 비밀번호를 서버로 전송
+2. 서버에서 해당 데이터가 일치하는지 판별 후, JWT 발행
+3. 전달받은 JWT 를 저장
+
+서버에서 로그인 인증을 마치면 `SwiftyJSON` 를 통해, *"message"* 가 *"login success"* 를 띄우면 (토큰 값도 함께 발행), 메인탭으로 전환한다. 여기서 메인탭의 `isLogin` 값을 `true` 로 변경해준다.
+
+```swift
+AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+            
+    switch response.result {
+    case .success(let data):
+          print("성공, \(data)")
+                
+          let json = JSON(data)
+          let result = json["message"].stringValue
+                                
+          if result == "login success" {
+             // 로그인 성공 후 메인탭으로 전환
+             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+             guard let tab = window.rootViewController as? MainTabVC else { return }
+             tab.isLogin = true
+	     tab.checkLoginedUser()
+                    
+          } else {
+             let alertSheet = UIAlertController(title: "알림",
+                                                message: "로그인 실패",
+                                                preferredStyle: .alert)
+                    
+              let okAction = UIAlertAction(title: "다시하기", style: .default)
+                    
+              alertSheet.addAction(okAction)
+              self.present(alertSheet, animated: true, completion: nil)
+          }
+```
+
+```swift
+	// MainTabVC
+
+	func checkLoginedUser() {        
+        if isLogin == false {
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginVC())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav, animated: true, completion: nil)
+            }
+        } else {
+            configureViewControllers()
+        }
+    }
+```
+
+https://user-images.githubusercontent.com/74236080/136214395-34d08d0b-a054-4785-b472-6b27048a84bd.mov
+
 
 
 ---
