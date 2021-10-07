@@ -109,6 +109,7 @@ class EmailLoginVC: UIViewController {
         let url = URL(string: baseUrl + "/api/login")!
         let params = ["email": email, "password": password]
         
+        
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
             
             switch response.result {
@@ -117,13 +118,24 @@ class EmailLoginVC: UIViewController {
                 
                 let json = JSON(data)
                 let result = json["message"].stringValue
-                                
+                
+                // 토큰 정보 추출
+                let accessToken = json["token"].stringValue
+                
+                // 토큰 정보 저장
+                let tk = TokenUtils()
+                tk.create("\(url)", account: "accessToken", value: accessToken)
+                print("test token 받는가 \(accessToken)")
+                print("tk \(tk)")
+                
+                
                 if result == "login success" {
                     // 로그인 성공 후 메인탭으로 전환
                     guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
                     guard let tab = window.rootViewController as? MainTabVC else { return }
                     tab.isLogin = true
                     tab.checkLoginedUser()
+                    tab.checkToken()
                     
                 } else {
                     let alertSheet = UIAlertController(title: "알림",
@@ -136,9 +148,6 @@ class EmailLoginVC: UIViewController {
                     self.present(alertSheet, animated: true, completion: nil)
                     
                 }
-                
-                
-
                 
                 hud.dismiss()
                 self.dismiss(animated: true, completion: nil)

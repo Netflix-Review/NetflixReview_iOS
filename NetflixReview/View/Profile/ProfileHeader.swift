@@ -19,9 +19,13 @@ class ProfileHeader: UICollectionReusableView {
     
     weak var delegate: ProfileHeaderDelegate?
     
+    var vm: ProfileVM? {
+        didSet{ configureVM() }
+    }
+    
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "User님"
+//        label.text = "User님"
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
@@ -49,6 +53,7 @@ class ProfileHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureHeader()
+        configureVM()
     }
     
     required init?(coder: NSCoder) {
@@ -76,6 +81,13 @@ class ProfileHeader: UICollectionReusableView {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(60)
         }
+    }
+    
+    func configureVM() {
+        guard let vm = vm else { return }
+        
+        nameLabel.text = vm.name
+        print("header \(vm.name)")
     }
 }
 
