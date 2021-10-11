@@ -659,7 +659,166 @@ AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.defaul
 
 https://user-images.githubusercontent.com/74236080/136214395-34d08d0b-a054-4785-b472-6b27048a84bd.mov
 
+---
 
+### 서버에서 발행하는 토큰 값 키체인에 저장
+
+- 재사용을 위해 **`TokenUtils`** 클래스를 생성한 후에 작성
+
+```swift
+import Security
+import Alamofire
+ 
+class TokenUtils {
+    
+    // Create
+    // service 파라미터는 url주소를 의미
+    func create(_ service: String, account: String, value: String) {
+        
+        // 1. query작성
+        let keyChainQuery: NSDictionary = [
+            kSecClass : kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecValueData: value.data(using: .utf8, allowLossyConversion: false)!
+        ]
+        // allowLossyConversion은 인코딩 과정에서 손실이 되는 것을 허용할 것인지 설정
+        
+        // 2. Delete
+        // Key Chain은 Key값에 중복이 생기면 저장할 수 없기때문에 먼저 Delete
+        SecItemDelete(keyChainQuery)
+        
+        // 3. Create
+        let status: OSStatus = SecItemAdd(keyChainQuery, nil)
+        assert(status == noErr, "failed to saving Token")
+    }
+    
+    // Read
+    func read(_ service: String, account: String) -> String? {
+        let KeyChainQuery: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecReturnData: kCFBooleanTrue, // CFData타입으로 불러오라는 의미
+            kSecMatchLimit: kSecMatchLimitOne // 중복되는 경우 하나의 값만 가져오라는 의미
+        ]
+        // CFData 타입 -> AnyObject로 받고, Data로 타입변환해서 사용하면됨
+        
+        // Read
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(KeyChainQuery, &dataTypeRef)
+        
+        // Read 성공 및 실패한 경우
+        if(status == errSecSuccess) {
+            let retrievedData = dataTypeRef as! Data
+            let value = String(data: retrievedData, encoding: String.Encoding.utf8)
+            return value
+        } else {
+            print("failed to loading, status code = \(status)")
+            return nil
+        }
+    }
+    
+    // Delete
+    func delete(_ service: String, account: String) {
+        let keyChainQuery: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account
+        ]
+        
+        let status = SecItemDelete(keyChainQuery)
+        assert(status == noErr, "failed to delete the value, status code = \(status)")
+    }
+    
+    // 키 체인에 저장된 값을 읽어옴
+    func load(_ service: String, account: String) -> String? {
+        // 키 체인 쿼리
+        let keyChainQuery: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecReturnData: kCFBooleanTrue,
+            kSecMatchLimit: kSecMatchLimitOne
+        ]
+        
+        // 키 체인에 저장된 값을 읽어옴
+        var dataTypeRef: AnyObject?
+        let status = SecItemCopyMatching(keyChainQuery, &dataTypeRef)
+        
+        // 처리 결과가 성공이면 Data 타입으로 변환 - 다시 String 타입으로 변환
+        if (status == errSecSuccess) {
+            let retrievedData = dataTypeRef as! Data
+            let value = String(data: retrievedData, encoding: String.Encoding.utf8)
+            return value
+        } else { // 실패면 nil 반환
+            print("Nothing was retrieved from the ketchain. Status code \(status)")
+            return nil
+        }
+    }
+    
+    // HTTPHeaders 구성
+    // API에서 Authorization header를 필요로 하는경우에는 Header를 만들어서 REQ를 해야하는데, 이 메소드를 만들어 놓으면 간편
+    
+    func getAuthorizationHeader(serviceID: String) -> HTTPHeaders? {
+        let serviceID = serviceID
+        if let accessToken = self.read(serviceID, account: "accessToken") {
+            return ["Authorization" : "bearer \(accessToken)"] as HTTPHeaders
+        } else {
+            return nil
+        }
+    }
+}
+```
+
+1. 로그인 페이지에서 로그인 버튼을 누르면, SwiftyJSON 라이브러리를 통해 `username` 과 `accessToken` 을 추출한다.
+
+```swift
+// 서버로부터 받는 (추출해야할) json 데이터
+{
+    message = "login success";
+    token = "토큰 값";
+    username = "사용자 이름";
+}
+
+-------
+
+// 토큰 정보 추출
+let username = json["username"].stringValue
+let accessToken = json["token"].stringValue
+```
+
+2. 추출한 토큰 정보를 키체인에 저장한다.
+
+```swift
+let tk = TokenUtils()
+tk.create("\(url)", account: "accessToken", value: accessToken)
+tk.create("\(url)", account: "username", value: username)
+```
+
+3. 메인탭에 `checkToken()` 메서드를 만들어서, 로그인 성공 후 메인탭으로 화면이 넘어갈 때, 메인탭으로 토큰 정보를 가져온다.
+
+```swift
+func checkToken() {
+   let tk = TokenUtils()
+        
+    if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
+        print("메인탭에서 액세스 토큰 확인 = \(accessToken)")
+    } else {
+        print("accessToken is nil,,,")
+    }
+        
+    if let username = tk.load(baseUrl + "/api/login", account: "username") {
+        print("메인탭에서 유저네임 확인 = \(username)")
+    } else {
+        print("username is nil,,,")
+    }
+ }
+
+// 출력 값
+메인탭에서 액세스 토큰 확인 = 토큰 값
+메인탭에서 유저네임 확인 = 사용자 이름
+```
 
 ---
 
