@@ -31,15 +31,22 @@ class MainTabVC: UITabBarController {
     
     func checkToken() {
         let tk = TokenUtils()
+        
         if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
             print("메인탭에서 액세스 토큰 확인 = \(accessToken)")
         } else {
             print("accessToken is nil,,,")
         }
+        
+        if let username = tk.load(baseUrl + "/api/login", account: "username") {
+            print("메인탭에서 유저네임 확인 = \(username)")
+        } else {
+            print("username is nil,,,")
+        }
     }
     
     func checkLoginedUser() {
-                
+        print(isLogin)
         if isLogin == false {
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginVC())

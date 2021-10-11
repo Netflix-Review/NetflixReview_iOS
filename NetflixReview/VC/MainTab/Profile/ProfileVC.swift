@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Alamofire
 
 class ProfileVC: UICollectionViewController {
     
     // MARK: - Properties
+    
+    private let baseUrl = "http://219.249.59.254:3000"
     
     private let cellId = "ProfileWishCell"
     private let headerId = "ProfileHeader"
@@ -17,7 +20,7 @@ class ProfileVC: UICollectionViewController {
     private var selectedFilter: HeaderFIlterOptions = .Wish {
         didSet { collectionView.reloadData() }
     }
-    
+        
     // MARK: - Lifecycle
     
     init() {
@@ -31,6 +34,7 @@ class ProfileVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        checkToken()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +49,23 @@ class ProfileVC: UICollectionViewController {
     }
     
     // MARK: - Helpers
+    
+    func checkToken() {
+        let tk = TokenUtils()
+        
+        if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
+            print("프로필에서 액세스 토큰 확인 = \(accessToken)")
+        } else {
+            print("accessToken is nil,,,")
+        }
+        
+        if let username = tk.load(baseUrl + "/api/login", account: "username") {
+            print("프로필에서 유저네임 확인 = \(username)")
+        } else {
+            print("username is nil,,,")
+        }
+    }
+    
     
     func configureCollectionView() {
         collectionView.backgroundColor = .white

@@ -85,7 +85,6 @@ class EmailLoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboard()
         configureUI()
 
     }
@@ -118,16 +117,17 @@ class EmailLoginVC: UIViewController {
                 
                 let json = JSON(data)
                 let result = json["message"].stringValue
+                let username = json["username"].stringValue
+                print("username -> \(username)")
                 
                 // 토큰 정보 추출
                 let accessToken = json["token"].stringValue
                 
-                // 토큰 정보 저장
+                // 토큰 정보 키체인에 저장
                 let tk = TokenUtils()
                 tk.create("\(url)", account: "accessToken", value: accessToken)
-                print("test token 받는가 \(accessToken)")
-                print("tk \(tk)")
-                
+                tk.create("\(url)", account: "username", value: username)
+                print("accessToken -> \(accessToken)")
                 
                 if result == "login success" {
                     // 로그인 성공 후 메인탭으로 전환

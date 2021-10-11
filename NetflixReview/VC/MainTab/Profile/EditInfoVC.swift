@@ -6,12 +6,16 @@
 //
 
 import UIKit
+import Alamofire
 
 class EditInfoVC: UICollectionViewController {
     
     // MARK: - Properties
     
     private let cellId = "EditInfoCell"
+    
+    let tk = TokenUtils()
+    private let baseUrl = "http://219.249.59.254:3000"
     
     // MARK: - Lifecycle
     
@@ -28,6 +32,8 @@ class EditInfoVC: UICollectionViewController {
         
         collectionView.backgroundColor = .white
         collectionView.register(EditInfoCell.self, forCellWithReuseIdentifier: cellId)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.checkmark"), style: .plain, target: self, action: #selector(updataUserInfo))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +45,27 @@ class EditInfoVC: UICollectionViewController {
         navigationItem.title = "이름 변경"
     }
     
+    // MARK: - Action
+    
+    @objc func updataUserInfo() {
+        print("업데이트")
+        
+        let token = tk.load(baseUrl + "/api/login", account: "accessToken")
+        let params = ["token": token ?? ""]
+        print(params)
+        
+        let url = URL(string: baseUrl + "/api/auth")!
+                
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+            
+            switch response.result {
+            case .success(let data):
+                print("이름 변경 post 성공, \(data)")
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    }
     
 }
 
@@ -46,7 +73,7 @@ class EditInfoVC: UICollectionViewController {
 
 extension EditInfoVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return EditNameOption.allCases.count
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,9 +85,6 @@ extension EditInfoVC {
         cell.layer.shadowOffset = .init(width: 0, height: -5)
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.backgroundColor = .white
-        
-        guard let option = EditNameOption(rawValue: indexPath.row) else { return cell }
-        cell.viewModel = EditNameVM(option: option)
         
         return cell
     }

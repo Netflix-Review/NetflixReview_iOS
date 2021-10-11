@@ -35,7 +35,6 @@ class CommunityPostVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        hideKeyboard()
         
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(handleCancel))
@@ -54,7 +53,6 @@ class CommunityPostVC: UICollectionViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    
     override var inputAccessoryView: UIView? {
         get { return coummunityInputView }
     }
@@ -63,7 +61,6 @@ class CommunityPostVC: UICollectionViewController {
     override var canBecomeFirstResponder: Bool {
         return true
     }
-    
     
     // MARK: - Action
     

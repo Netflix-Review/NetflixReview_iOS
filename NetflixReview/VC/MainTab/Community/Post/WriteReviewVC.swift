@@ -38,7 +38,6 @@ class WriteReviewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        hideKeyboard()
     }
     
     override var canBecomeFirstResponder: Bool {

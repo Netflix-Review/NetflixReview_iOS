@@ -19,13 +19,11 @@ class ProfileHeader: UICollectionReusableView {
     
     weak var delegate: ProfileHeaderDelegate?
     
-    var vm: ProfileVM? {
-        didSet{ configureVM() }
-    }
+    let tk = TokenUtils()
+    private let baseUrl = "http://219.249.59.254:3000"
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-//        label.text = "User님"
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 30)
         return label
@@ -53,7 +51,7 @@ class ProfileHeader: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureHeader()
-        configureVM()
+        configureUserName()
     }
     
     required init?(coder: NSCoder) {
@@ -83,11 +81,9 @@ class ProfileHeader: UICollectionReusableView {
         }
     }
     
-    func configureVM() {
-        guard let vm = vm else { return }
-        
-        nameLabel.text = vm.name
-        print("header \(vm.name)")
+    func configureUserName() {
+        let username = tk.load(baseUrl + "/api/login", account: "username")
+        nameLabel.text = "\(username ?? "")님"
     }
 }
 

@@ -97,7 +97,6 @@ class RegistrationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        hideKeyboard()
         configureUI()
 
     }

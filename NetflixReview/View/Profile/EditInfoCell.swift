@@ -12,12 +12,12 @@ class EditInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
     
-    var viewModel: EditNameVM? {
-        didSet { configureViewModel() }
-    }
+    let tk = TokenUtils()
+    private let baseUrl = "http://219.249.59.254:3000"
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.text = "이름"
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
@@ -29,7 +29,6 @@ class EditInfoCell: UICollectionViewCell {
         tf.font = UIFont.systemFont(ofSize: 18)
         tf.textColor = .black
         tf.textAlignment = .left
-        tf.addTarget(self, action: #selector(updataUserInfo), for: .editingDidEnd)
         return tf
     }()
     
@@ -39,16 +38,11 @@ class EditInfoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
+        configureUserName()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Action
-    
-    @objc func updataUserInfo() {
-        print("이름 업데이트")
     }
     
     
@@ -69,11 +63,9 @@ class EditInfoCell: UICollectionViewCell {
         }
     }
     
-    func configureViewModel() {
-        guard let viewModel = viewModel else { return }
-        
-        titleLabel.text = viewModel.titleText
-        infoText.text = viewModel.optionValue
+    func configureUserName() {
+        let username = tk.load(baseUrl + "/api/login", account: "username")
+        infoText.text = username
     }
     
 }

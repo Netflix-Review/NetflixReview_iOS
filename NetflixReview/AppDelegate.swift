@@ -7,6 +7,7 @@
 
 import UIKit
 import KakaoSDKCommon
+import IQKeyboardManagerSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // 뒤로가기 버튼에 title 삭제
         UIBarButtonItem.appearance().setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000.0, vertical: 0.0), for: .default)
+        
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
         KakaoSDKCommon.initSDK(appKey: "fb42e0628d55a35f779407d9b7aa79f7")
         
