@@ -799,28 +799,30 @@ let tk = TokenUtils()
 tk.create("\(url)", account: "accessToken", value: accessToken)
 tk.create("\(url)", account: "username", value: username)
 ```
-
-3. 메인탭에 `checkToken()` 메서드를 만들어서, 로그인 성공 후 메인탭으로 화면이 넘어갈 때, 메인탭으로 토큰 정보를 가져온다.
+3. 로그인을 성공하면 메인탭으로 전환한다.
 
 ```swift
-func checkToken() {
-   let tk = TokenUtils()
-        
-    if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
-        print("메인탭에서 액세스 토큰 확인 = \(accessToken)")
-    } else {
-        print("accessToken is nil,,,")
-    }
-        
-    if let username = tk.load(baseUrl + "/api/login", account: "username") {
-        print("메인탭에서 유저네임 확인 = \(username)")
-    } else {
-        print("username is nil,,,")
-    }
- }
-
-// 출력 값
-메인탭에서 액세스 토큰 확인 = 토큰 값
-메인탭에서 유저네임 확인 = 사용자 이름
+if result == "login success" {
+    guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+    guard let tab = window.rootViewController as? MainTabVC else { return }
+    tab.checkLoginedUser()
+}
 ```
 
+메인탭에서 checkLoginedUser() 메서드를 통해 해당 사용자의 토큰을 불러와서, 해당 토큰 값이 있으면 다시 앱을 실행할 때, 로그인페이지가 아닌 메인페이지를 로드한다.
+
+```swift
+func checkLoginedUser() {
+   let token = tk.load(baseUrl + "/api/login", account: "accessToken")
+        
+   if ((token?.isEmpty) == nil) {
+      DispatchQueue.main.async {
+          let nav = UINavigationController(rootViewController: LoginVC())
+          nav.modalPresentationStyle = .fullScreen
+          self.present(nav, animated: true, completion: nil)
+      }
+   } else {
+      configureViewControllers()
+   }
+}
+```
