@@ -10,6 +10,7 @@
 - Alamofire
 - Kingfisher
 - SwiftyJSON
+- IQKeyboardManagerSwift
 
 
 ## 뷰 구성
@@ -140,7 +141,7 @@ protocol HeaderFilterViewDelegate: AnyObject {
 
 ### _로그인
 
-<img src = "https://user-images.githubusercontent.com/74236080/135412077-ebc462ec-caf0-49fc-a274-25cbf642a361.png" width="30%" height="30%"><img src = "https://user-images.githubusercontent.com/74236080/135412146-c9a6e73a-fcd8-4810-92a2-40a51cfb67c5.png" width="30%" height="30%">
+<img src = "https://user-images.githubusercontent.com/74236080/135412077-ebc462ec-caf0-49fc-a274-25cbf642a361.png" width="30%" height="30%"><img src = "https://user-images.githubusercontent.com/74236080/136971221-57cebe3d-6ccb-4324-b8f5-973b62c032c0.png" width="30%" height="30%">
 
 
 
@@ -209,6 +210,9 @@ UIView.animate(withDuration: 0.5,
 }
 
 ```
+
+https://user-images.githubusercontent.com/74236080/136971537-c89056b1-1de5-427a-8659-1b94378d0887.mov
+
 
 ---
 
@@ -820,123 +824,3 @@ func checkToken() {
 메인탭에서 유저네임 확인 = 사용자 이름
 ```
 
----
-
-### 카카오 로그인
-
-OAuth 인증절차
-
-![image](https://user-images.githubusercontent.com/74236080/135412956-c60ca93d-01d4-4a3c-968e-bd9d3c5d6d7d.png)
-
-
-1. 사용자가 [카카오 로그인] 버튼을 클릭합니다.
-2. 이용자가 자신의 카카오 아이디와 비밀번호로 로그인을 하면 제한된 정보에 대한 접근에 대해 이용자의 동의를 구하는 화면으로 이동합니다.
-3. 사용자가 권한을 승인하면 카카오 인증 서버에서 사용자의 자격 증명을 확인하고 인증 코드를 발급합니다. 
-사용자는 인증 코드 를 통해 앱으로 다시 리디렉션됩니다 .`redirect_uri`
-4. 애플리케이션이 인증 코드의 유효성을 검사하면 앱에서 액세스 토큰 및 새로 고침 토큰을 요청합니다.
-5. 카카오 인증 서버는 인증 코드를 기반으로 Access Token과 Refresh Token을 검증 및 발급하고 인증을 제공합니다.
-
-### 카카오 로그인 연동
-
-1. 인증
-
-인증 코드 받기 → 엑세스 토큰 받기 → 액세스 토큰 새로고침 → 액세스 토큰 확인 및 정보 가져오기
-
-1️⃣ 승인 코드 받기
-
-```swift
-// 해당 폰에 카카오톡이 안깔려있으면 사파리로
-UserApi.shared.loginWithKakaoAccount { oauthToken, error in
-    if let error = error {
-        print(error)
-    } else {
-        print("Web - loginWithKakaoTalk() success")
-                    
-        let url = URL(string: self.baseUrl + "")!
-
-        let accessToken = oauthToken?.accessToken
-        let param = ["access_token": accessToken!] as Dictionary
-        print("access_token: \(accessToken!)")
-                    
-        AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-            switch response.result {
-            case .success(let data):
-                 print("Success \(data)")
-            case .failure(let error):
-                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-            }
-        }
-    }
-}
-```
-
-2️⃣ 액세스 토큰 받기
-
-사용자가 권한 부여 코드를 얻은 후 사용자는 API 호출에 사용되는 권한 부여 코드를 통해 액세스 토큰 및 새로고침 토큰을 얻을 수 있다.
-
-![image](https://user-images.githubusercontent.com/74236080/135413021-293cd008-75f9-469f-ac5c-75080e8e3b94.png)
-
-**grant_type** - 승인 코드
-
-**client_id** - 애플리케이션의 식별자이며, 애플리케이션 생성 시 카카오에서 발급하는 REST API 키입니다.
-
-**redirect_uri** - 사용자가 리디렉션되는 콜백 URL입니다. 이 URL은 [설정] > [사용자 관리] > [로그인 리디렉션 URL] 에서 지정된 URL과 일치해야 합니다.
-
-**code** - authorization_code 액세스 토큰을 얻기 위해 [Step 1: 승인 코드 받기]
-
-**client_secret** - `client_secret code` 앱 생성 시 카카오에서 발급하는 [설정] > [고급] > [클라이언트 비밀번호]에서 확인할 수 있습니다.
-
-위와 같이 POST 메서드로 요청하는 경우
-
-[응답] 성공하면 리소스를 JSON 형식으로 반환한다.
-
-![image](https://user-images.githubusercontent.com/74236080/135413060-569827da-011e-4424-92cb-a75277a71439.png)
-
-**access_token** - API 호출에 사용되는 토큰
-
-**token_type** - bearer
-
-**refresh_token** - 새 액세스 토큰을 얻는데 사용되는 토큰
-
-**expires_in** - 액세스 토큰이 만료될 때까지의 시간 (초)
-
-**scope** - 사용자가 부여한 권한
-
-3️⃣  액세스 토큰 새로 고침
-
-'사용자 토큰 갱신하기' 항목
-
-4️⃣  액세스 토큰 확인 및 정보 가져오기
-
-'내 구성과 정보' 항목
-
----
-
-### 사용자 정보 불러오기
-
-사용자의 닉네임을 앱에서 사용하기 위해
-
-```swift
-func setKakaoUserInfo() {
-   UserApi.shared.me() {(user, error) in
-       if let error = error {
-           print(error)
-       }
-       else {
-           print("me() success.")
-           //do something
-           _ = user
-       }
-    }
-}
-```
-
-사용자 정보는 User 클래스 객체로 전달된다.
-
-회원번호 값을 조회하려면 `user.id`
-
-카카오계정 프로필 정보들은 `user.kakaoAccount.profile`
-
-이메일은 `user.kakaoAccount.email`
-
-하지만 값이 존재하지 않는 사용자가 있을 수 있으므로 예외 처리
