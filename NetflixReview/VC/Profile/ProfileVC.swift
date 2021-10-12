@@ -35,6 +35,8 @@ class ProfileVC: UICollectionViewController {
         super.viewDidLoad()
         configureCollectionView()
         checkToken()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: .plain, target: self, action: #selector(logout))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,6 +74,18 @@ class ProfileVC: UICollectionViewController {
         
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+    }
+    
+    // MARK: - Action
+    
+    @objc func logout() {
+        // 알림
+        
+        let url = URL(string: baseUrl + "/api/login")!
+        let tk = TokenUtils()
+        tk.delete("\(url)", account: "accessToken")
+        
+        // 로그아웃 후 화면전환
     }
 }
 

@@ -2,17 +2,6 @@ PODS:
   - Alamofire (5.4.3)
   - IQKeyboardManagerSwift (6.5.6)
   - JGProgressHUD (2.0.4)
-  - KakaoSDKAuth (2.7.1):
-    - KakaoSDKCommon (= 2.7.1)
-  - KakaoSDKCommon (2.7.1):
-    - KakaoSDKCommon/Common (= 2.7.1)
-    - KakaoSDKCommon/Network (= 2.7.1)
-  - KakaoSDKCommon/Common (2.7.1)
-  - KakaoSDKCommon/Network (2.7.1):
-    - Alamofire (~> 5.1)
-    - KakaoSDKCommon/Common (= 2.7.1)
-  - KakaoSDKUser (2.7.1):
-    - KakaoSDKAuth (= 2.7.1)
   - Kingfisher (6.3.1)
   - SnapKit (5.0.1)
   - SwiftyJSON (4.3.0)
@@ -21,9 +10,6 @@ DEPENDENCIES:
   - Alamofire (~> 5.2)
   - IQKeyboardManagerSwift
   - JGProgressHUD (~> 2.0.3)
-  - KakaoSDKAuth
-  - KakaoSDKCommon
-  - KakaoSDKUser
   - Kingfisher
   - SnapKit
   - SwiftyJSON (~> 4.0)
@@ -33,9 +19,6 @@ SPEC REPOS:
     - Alamofire
     - IQKeyboardManagerSwift
     - JGProgressHUD
-    - KakaoSDKAuth
-    - KakaoSDKCommon
-    - KakaoSDKUser
     - Kingfisher
     - SnapKit
     - SwiftyJSON
@@ -44,13 +27,10 @@ SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   JGProgressHUD: 62658b14e72cccf179efc7a13bcb54d30b92fc22
-  KakaoSDKAuth: 70cfb1e4e60f543fd5f0ece2995c3b0e879c532e
-  KakaoSDKCommon: 48fe293e8970a8db8d10d5ca63600a7a8cc5f74c
-  KakaoSDKUser: 5609a2679b6beda86298d63c45961953c7203101
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 563ecbcce98654a1711d2e9d3bdde9d6ea12c84d
+PODFILE CHECKSUM: e4efb2dc3474d99c22631cc4942076828de66f00
 
 COCOAPODS: 1.11.2

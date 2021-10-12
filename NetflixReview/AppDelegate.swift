@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KakaoSDKCommon
 import IQKeyboardManagerSwift
 
 @main
@@ -20,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        
-        KakaoSDKCommon.initSDK(appKey: "fb42e0628d55a35f779407d9b7aa79f7")
         
         return true
     }

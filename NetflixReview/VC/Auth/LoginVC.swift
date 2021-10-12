@@ -8,8 +8,6 @@
 import UIKit
 import SnapKit
 import Alamofire
-import KakaoSDKAuth
-import KakaoSDKUser
 
 class LoginVC: UIViewController {
     
@@ -32,34 +30,27 @@ class LoginVC: UIViewController {
     
     private var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "SNS 및 E-mail 로그인"
+        label.text = "로그인"
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
-    private lazy var kakaoImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "kakao_login_medium_wide")
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(kakaoLogin))
-        iv.isUserInteractionEnabled = true
-        iv.addGestureRecognizer(tap)
-        
-        return iv
-    }()
-    
-    private lazy var emailLabel: UILabel = {
-        let label = UILabel()
-        label.text = "email로 시작하기"
-        label.font = UIFont.boldSystemFont(ofSize: 15)
-        label.textColor = .lightGray
-        
-        let emailTap = UITapGestureRecognizer(target: self, action: #selector(goEmailLogin))
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(emailTap)
-        
-        return label
+    private lazy var emailButton: UIButton = {
+        let button = UIButton()
+        button.configuration = .tinted()
+        button.configuration?.title = "email로 시작하기"
+        button.configuration?.baseBackgroundColor = .systemPink
+        button.configuration?.baseForegroundColor = .systemPink
+        button.configuration?.imagePadding = 20
+        button.configurationUpdateHandler = { button in
+            var config = button.configuration
+            config?.image = button.isHighlighted ? UIImage(systemName: "person.fill") : UIImage(systemName: "person.fill.turn.down")
+            button.configuration = config
+        }
+        button.addTarget(self, action: #selector(goEmailLogin), for: .touchUpInside)
+
+        return button
     }()
     
     // MARK: - Lifecycle
@@ -97,30 +88,12 @@ class LoginVC: UIViewController {
             make.leading.equalTo(25)
         }
         
-        slideUpView.addSubview(kakaoImage)
-        kakaoImage.snp.makeConstraints { make in
+        slideUpView.addSubview(emailButton)
+        emailButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(50)
-            make.centerX.equalToSuperview()
-        }
-        
-        slideUpView.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(kakaoImage.snp.bottom).offset(40)
-            make.centerX.equalToSuperview()
-        }
-    }
-    
-    // 사용자 정보 불러오기
-    func setKakaoUserInfo() {
-        UserApi.shared.me() {(user, error) in
-            if let error = error {
-                print(error)
-            }
-            else {
-                print("me() success.")
-                //do something
-                _ = user
-            }
+            make.leading.equalTo(40)
+            make.trailing.equalTo(-40)
+            make.height.equalTo(50)
         }
     }
     
@@ -185,50 +158,6 @@ class LoginVC: UIViewController {
                                                         width: screenSize.width,
                                                         height: self.slideUpViewHeight)
                        }, completion: nil)
-    }
-    
-    @objc func kakaoLogin() {
-        print("카카오 로그인")
-        
-        if UserApi.isKakaoTalkLoginAvailable() { // 해당 폰에 카카오톡 앱이 깔려있을 때
-            UserApi.shared.loginWithKakaoTalk { oauthToken, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("KakaoApp - loginWithKakaoTalk() success")
-                    
-                    // 발행된 access token 을 서버에 전달 (post)
-                    _ = oauthToken
-                    
-                    self.setKakaoUserInfo()
-                }
-            }
-        } else { // 해당 폰에 카카오톡이 안깔려있으면 사파리로
-            UserApi.shared.loginWithKakaoAccount { oauthToken, error in
-                if let error = error {
-                    print(error)
-                } else {
-                    print("Web - loginWithKakaoTalk() success")
-                    
-                    let url = URL(string: self.baseUrl + "oauth/kakao")!
-
-                    let accessToken = oauthToken?.accessToken
-                    let param = ["access_token": accessToken!] as Dictionary
-                    print("access_token: \(accessToken!)")
-                    
-                    AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-                        switch response.result {
-                        case .success(let data):
-                            print("Success \(data)")
-                        case .failure(let error):
-                            print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-                        }
-                    }
-                    
-                    self.setKakaoUserInfo()
-                }
-            }
-        }
     }
     
     @objc func goEmailLogin() {

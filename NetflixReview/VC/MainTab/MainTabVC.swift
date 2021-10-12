@@ -12,7 +12,7 @@ class MainTabVC: UITabBarController {
     
     // MARK: - Properties
     
-    var isLogin: Bool = false
+    let tk = TokenUtils()
     private let baseUrl = "http://219.249.59.254:3000"
     
     // MARK: - Lifecycle
@@ -24,30 +24,15 @@ class MainTabVC: UITabBarController {
         tabBar.isTranslucent = true
         
         checkLoginedUser()
-        checkToken()
     }
     
     // MARK: - Helpers
     
-    func checkToken() {
-        let tk = TokenUtils()
-        
-        if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
-            print("메인탭에서 액세스 토큰 확인 = \(accessToken)")
-        } else {
-            print("accessToken is nil,,,")
-        }
-        
-        if let username = tk.load(baseUrl + "/api/login", account: "username") {
-            print("메인탭에서 유저네임 확인 = \(username)")
-        } else {
-            print("username is nil,,,")
-        }
-    }
-    
     func checkLoginedUser() {
-        print(isLogin)
-        if isLogin == false {
+        
+        let token = tk.load(baseUrl + "/api/login", account: "accessToken")
+        
+        if ((token?.isEmpty) == nil) {
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginVC())
                 nav.modalPresentationStyle = .fullScreen

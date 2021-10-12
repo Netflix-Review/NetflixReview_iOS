@@ -13,8 +13,4 @@ pod 'JGProgressHUD','~>2.0.3'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'IQKeyboardManagerSwift'
 
-pod 'KakaoSDKCommon'
-pod 'KakaoSDKAuth'
-pod 'KakaoSDKUser'
-
 end

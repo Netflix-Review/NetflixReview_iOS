@@ -14,7 +14,6 @@ import JGProgressHUD
 class RegistrationVC: UIViewController {
     
     // MARK: - Properties
-    
 
     private let baseUrl = "http://219.249.59.254:3000"
         

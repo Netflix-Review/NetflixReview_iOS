@@ -51,7 +51,8 @@ class EditInfoVC: UICollectionViewController {
         print("업데이트")
         
         let token = tk.load(baseUrl + "/api/login", account: "accessToken")
-        let params = ["token": token ?? ""]
+        let username = tk.load(baseUrl + "/api/login", account: "username")
+        let params = ["token": token ?? "", "username": username ?? ""]
         print(params)
         
         let url = URL(string: baseUrl + "/api/auth")!
