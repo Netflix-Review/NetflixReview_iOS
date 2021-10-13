@@ -38,18 +38,13 @@ class LoginVC: UIViewController {
     
     private lazy var emailButton: UIButton = {
         let button = UIButton()
-        button.configuration = .tinted()
-        button.configuration?.title = "email로 시작하기"
-        button.configuration?.baseBackgroundColor = .systemPink
-        button.configuration?.baseForegroundColor = .systemPink
-        button.configuration?.imagePadding = 20
-        button.configurationUpdateHandler = { button in
-            var config = button.configuration
-            config?.image = button.isHighlighted ? UIImage(systemName: "person.fill") : UIImage(systemName: "person.fill.turn.down")
-            button.configuration = config
-        }
+        button.setTitle("email로 시작하기", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemPink
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.layer.cornerRadius = 10
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
         button.addTarget(self, action: #selector(goEmailLogin), for: .touchUpInside)
-
         return button
     }()
     

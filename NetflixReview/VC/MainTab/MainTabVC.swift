@@ -23,7 +23,8 @@ class MainTabVC: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.isTranslucent = true
         
-        checkLoginedUser()
+//        checkLoginedUser()
+        configureViewControllers()
     }
     
     // MARK: - Helpers
@@ -46,10 +47,10 @@ class MainTabVC: UITabBarController {
     func configureViewControllers() {
         let home = templateNavigationController(image: UIImage(systemName: "house")!, title: "홈", rootViewController: HomeVC())
         let explore = templateNavigationController(image: UIImage(systemName: "antenna.radiowaves.left.and.right")!, title: "탐색", rootViewController: ExploreVC())
-        let community = templateNavigationController(image: UIImage(systemName: "heart.text.square")!, title: "커뮤니티", rootViewController: CommunityVC())
+        let new = templateNavigationController(image: UIImage(systemName: "heart.text.square")!, title: "신규", rootViewController: NewVC())
         let profile = templateNavigationController(image: UIImage(systemName: "person")!, title: "프로필", rootViewController: ProfileVC())
         
-        viewControllers = [home, explore, community, profile]
+        viewControllers = [home, explore, new, profile]
     }
     
     func templateNavigationController(image: UIImage, title: String, rootViewController: UIViewController) -> UINavigationController {

@@ -1,5 +1,5 @@
 //
-//  CommunityVC.swift
+//  NewVC.swift
 //  NetflixReview
 //
 //  Created by 강호성 on 2021/08/17.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class CommunityVC: UICollectionViewController {
+class NewVC: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let cellId = "CommunityCell"
+    private let cellId = "NewCell"
     
     // MARK: - Lifecycle
     
@@ -26,15 +26,7 @@ class CommunityVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.backgroundColor = .white
-        
-        let search = UIBarButtonItem(image: UIImage(systemName: "magnifyingglass"),
-                                     style: .plain, target: self, action: #selector(searchPost))
-        
-        let write = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"),
-                                    style: .plain, target: self, action: #selector(writePost))
-        navigationItem.rightBarButtonItems = [write, search]
-        
-        collectionView.register(CommunityCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(NewCell.self, forCellWithReuseIdentifier: cellId)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,57 +35,42 @@ class CommunityVC: UICollectionViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
-        navigationItem.title = "커뮤니티"
-    }
-    
-    // MARK: - Action
-    
-    @objc func searchPost() {
-        let controller = SeachCommunityPostVC()
-        navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    @objc func writePost() {
-        let controller = AddCommunityPostVC()
-        navigationController?.pushViewController(controller, animated: true)
+        navigationItem.title = "신규 콘텐츠"
     }
 }
 
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 
-extension CommunityVC {
+extension NewVC {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! CommunityCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NewCell
         cell.layer.cornerRadius = 20
         cell.layer.shadowOpacity = 0.2
         cell.layer.shadowRadius = 10
         cell.layer.shadowOffset = .init(width: 0, height: -5)
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.backgroundColor = .white
-        
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = CommunityPostVC()
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalTransitionStyle = .crossDissolve
-        present(nav, animated: true, completion: nil)
+        let controller = PostVC()
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension CommunityVC: UICollectionViewDelegateFlowLayout {
+extension NewVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width - 15, height: 150)
+        return CGSize(width: view.frame.width - 15, height: 350)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 50)
+        return CGSize(width: view.frame.width, height: 30)
     }
 }

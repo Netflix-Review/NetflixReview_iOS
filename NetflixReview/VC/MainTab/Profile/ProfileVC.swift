@@ -34,7 +34,6 @@ class ProfileVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        checkToken()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: .plain, target: self, action: #selector(logout))
     }
@@ -43,7 +42,6 @@ class ProfileVC: UICollectionViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
-        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
         navigationItem.largeTitleDisplayMode = .always
@@ -52,26 +50,8 @@ class ProfileVC: UICollectionViewController {
     
     // MARK: - Helpers
     
-    func checkToken() {
-        let tk = TokenUtils()
-        
-        if let accessToken = tk.load(baseUrl + "/api/login", account: "accessToken") {
-            print("프로필에서 액세스 토큰 확인 = \(accessToken)")
-        } else {
-            print("accessToken is nil,,,")
-        }
-        
-        if let username = tk.load(baseUrl + "/api/login", account: "username") {
-            print("프로필에서 유저네임 확인 = \(username)")
-        } else {
-            print("username is nil,,,")
-        }
-    }
-    
-    
     func configureCollectionView() {
         collectionView.backgroundColor = .white
-        
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
