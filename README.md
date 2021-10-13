@@ -69,17 +69,9 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 ---
 
-### 커뮤니티
+### 신규 콘텐츠
 
-<img src = "https://user-images.githubusercontent.com/74236080/136213669-cce570c9-09b3-49b3-b651-7a53880fd375.png" width="30%" height="30%">
-
-커뮤니티 상세 페이지로 전환이 될때, 헤더에는 글의 내용을 띄우고, 셀에는 리뷰를 띄우는 뷰로 구성
-
-상세 페이지에서 댓글기능을 적용하기 위해 InputAccesoryView를 추가해준다.
-
-뷰 하단에 InputAccesoryView를 띄우기 위해 tabbar를 없애줘야하는데
-
-**viewWillAppear** 메소드를 통해 "tabBarController?.tabBar.isHidden = true" 코드를 작성하여 뷰 계층 구조가 추가되기 전에 tabbar를 숨겨서 전환했을때 자연스레 InputAccesoryView를 띄워준다.
+<img src = "https://user-images.githubusercontent.com/74236080/137146236-86f5b2b6-bfe7-46c3-be1b-dbbb2d9cda81.png" width="30%" height="30%">
 
 ---
 
