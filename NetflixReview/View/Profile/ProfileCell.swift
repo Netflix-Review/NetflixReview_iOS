@@ -33,7 +33,8 @@ class ProfileCell: UICollectionViewCell {
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
             make.top.equalTo(15)
-            make.leading.trailing.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(180)
         }
     }
     

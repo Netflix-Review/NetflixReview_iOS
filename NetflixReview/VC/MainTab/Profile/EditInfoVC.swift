@@ -32,40 +32,16 @@ class EditInfoVC: UICollectionViewController {
         
         collectionView.backgroundColor = .white
         collectionView.register(EditInfoCell.self, forCellWithReuseIdentifier: cellId)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.checkmark"), style: .plain, target: self, action: #selector(updataUserInfo))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
         navigationItem.title = "이름 변경"
-    }
-    
-    // MARK: - Action
-    
-    @objc func updataUserInfo() {
-        print("업데이트")
-        
-        let token = tk.load(baseUrl + "/api/login", account: "accessToken")
-        let username = tk.load(baseUrl + "/api/login", account: "username")
-        let params = ["token": token ?? "", "username": username ?? ""]
-        print(params)
-        
-        let url = URL(string: baseUrl + "/api/auth")!
-                
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-            
-            switch response.result {
-            case .success(let data):
-                print("이름 변경 post 성공, \(data)")
-            case .failure(let error):
-                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-            }
-        }
     }
     
 }
@@ -87,6 +63,7 @@ extension EditInfoVC {
         cell.layer.shadowColor = UIColor.lightGray.cgColor
         cell.backgroundColor = .white
         
+        cell.delegate = self
         return cell
     }
 }
@@ -101,4 +78,41 @@ extension EditInfoVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
+}
+
+// MARK: - EditNameDelegate
+
+extension EditInfoVC: EditNameDelegate {
+    func changeName(_ cell: EditInfoCell) {
+        print(cell.infoText.text!)
+        
+        let tkUrl = URL(string: baseUrl + "/api/login")!
+        let username = tk.load("\(tkUrl)", account: "username")
+        let token = tk.load("\(tkUrl)", account: "accessToken")
+        
+        let params = ["username": username ?? "", "cusername": cell.infoText.text ?? "", "token": token ?? ""]
+        print(params)
+
+        let url = URL(string: baseUrl + "/api/changename")!
+
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+
+            switch response.result {
+            case .success(let data):
+                print("이름 변경 post 성공, \(data)")
+                
+                // 키체인 업데이트
+                print(cell.infoText.text ?? "")
+                
+                let edit = cell.infoText.text ?? ""
+                self.tk.update("\(tkUrl)", value: edit)
+                
+                self.navigationController?.popViewController(animated: true)
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+    }
+    
 }

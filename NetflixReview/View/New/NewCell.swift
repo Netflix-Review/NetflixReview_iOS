@@ -19,6 +19,7 @@ class NewCell: UICollectionViewCell {
         iv.isUserInteractionEnabled = true
         iv.image = #imageLiteral(resourceName: "marvel post")
         iv.layer.cornerRadius = 10
+        iv.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         return iv
     }()
     
@@ -73,11 +74,10 @@ class NewCell: UICollectionViewCell {
         
         let stack = UIStackView(arrangedSubviews: [titleLabel, infoLabel])
         stack.axis = .vertical
-        stack.spacing = 5
         
         addSubview(stack)
         stack.snp.makeConstraints { make in
-            make.top.equalTo(backgroundImage.snp.bottom).offset(10)
+            make.top.equalTo(backgroundImage.snp.bottom).offset(15)
             make.leading.equalTo(20)
             make.trailing.equalTo(-20)
         }

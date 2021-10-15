@@ -32,32 +32,6 @@ class TokenUtils {
         assert(status == noErr, "failed to saving Token")
     }
     
-    // Read
-    func read(_ service: String, account: String) -> String? {
-        let KeyChainQuery: NSDictionary = [
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: service,
-            kSecAttrAccount: account,
-            kSecReturnData: kCFBooleanTrue, // CFData타입으로 불러오라는 의미
-            kSecMatchLimit: kSecMatchLimitOne // 중복되는 경우 하나의 값만 가져오라는 의미
-        ]
-        // CFData 타입 -> AnyObject로 받고, Data로 타입변환해서 사용하면됨
-        
-        // Read
-        var dataTypeRef: AnyObject?
-        let status = SecItemCopyMatching(KeyChainQuery, &dataTypeRef)
-        
-        // Read 성공 및 실패한 경우
-        if(status == errSecSuccess) {
-            let retrievedData = dataTypeRef as! Data
-            let value = String(data: retrievedData, encoding: String.Encoding.utf8)
-            return value
-        } else {
-            print("failed to loading, status code = \(status)")
-            return nil
-        }
-    }
-    
     // Delete
     func delete(_ service: String, account: String) {
         let keyChainQuery: NSDictionary = [
@@ -96,16 +70,19 @@ class TokenUtils {
         }
     }
     
-    // HTTPHeaders 구성
-    // API에서 Authorization header를 필요로 하는경우에는 Header를 만들어서 REQ를 해야하는데, 이 메소드를 만들어 놓으면 간편
-    
-    func getAuthorizationHeader(serviceID: String) -> HTTPHeaders? {
-        let serviceID = serviceID
-        if let accessToken = self.read(serviceID, account: "accessToken") {
-            return ["Authorization" : "bearer \(accessToken)"] as HTTPHeaders
-        } else {
-            return nil
-        }
+    func update(_ service: String, value: String) {
+        
+        let query: NSDictionary = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service
+        ]
+        
+        let updateFields: NSDictionary = [
+            kSecValueData: value.data(using: .utf8, allowLossyConversion: false)!
+        ]
+        
+        let status = SecItemUpdate(query, updateFields)
+        print("Operation finished with status: \(status)")
     }
 }
  

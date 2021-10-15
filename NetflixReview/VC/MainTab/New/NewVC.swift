@@ -31,6 +31,7 @@ class NewVC: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -49,7 +50,7 @@ extension NewVC {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! NewCell
         cell.layer.cornerRadius = 20
-        cell.layer.shadowOpacity = 0.2
+        cell.layer.shadowOpacity = 0.5
         cell.layer.shadowRadius = 10
         cell.layer.shadowOffset = .init(width: 0, height: -5)
         cell.layer.shadowColor = UIColor.lightGray.cgColor
@@ -66,6 +67,10 @@ extension NewVC {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension NewVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 30
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width - 15, height: 350)
     }

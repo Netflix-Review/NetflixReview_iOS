@@ -21,6 +21,8 @@ class ProfileVC: UICollectionViewController {
         didSet { collectionView.reloadData() }
     }
         
+    let tk = TokenUtils()
+
     // MARK: - Lifecycle
     
     init() {
@@ -40,12 +42,16 @@ class ProfileVC: UICollectionViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.sizeToFit()
-        navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "안녕하세요"
+        
+        let tkUrl = URL(string: baseUrl + "/api/login")!
+        let user = tk.load("\(tkUrl)", account: "username")
+        print("user -> \(user!)")
     }
     
     // MARK: - Helpers
@@ -59,13 +65,22 @@ class ProfileVC: UICollectionViewController {
     // MARK: - Action
     
     @objc func logout() {
-        // 알림
-        
+
         let url = URL(string: baseUrl + "/api/login")!
-        let tk = TokenUtils()
-        tk.delete("\(url)", account: "accessToken")
         
-        // 로그아웃 후 화면전환
+        let alertSheet = UIAlertController(title: "로그아웃 하시겠습니까?",
+                                            message: nil,
+                                            preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.tk.delete("\(url)", account: "accessToken")
+        }
+        
+        let noAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+        
+        alertSheet.addAction(okAction)
+        alertSheet.addAction(noAction)
+        self.present(alertSheet, animated: true, completion: nil)
     }
 }
 
@@ -103,7 +118,7 @@ extension ProfileVC: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return -10
+        return 1
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

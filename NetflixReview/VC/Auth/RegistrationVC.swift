@@ -53,7 +53,7 @@ class RegistrationVC: UIViewController {
     }()
     
     private var nameField: UITextField = {
-        let tf = LoginUtil().textField(withPlaceholder: "예) 넷플릭스")
+        let tf = LoginUtil().textField(withPlaceholder: "닉네임은 3~15자리로 입력해주세요.")
         return tf
     }()
     

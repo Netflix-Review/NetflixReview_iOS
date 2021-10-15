@@ -279,13 +279,29 @@
 			isa = PBXGroup;
 			children = (
 				B43AC72F26C7CCA600C959E4 /* MainTabVC.swift */,
-				B43AC73126C7CE2900C959E4 /* HomeVC.swift */,
-				B43AC73326C7CE5F00C959E4 /* ExploreVC.swift */,
-				B436AE0C26CE29E300EDE028 /* Profile */,
+				B459D18F2717267C00AAB202 /* Home */,
+				B459D1902717268A00AAB202 /* Explore */,
 				B41790AA26CB947700E4E248 /* New */,
+				B436AE0C26CE29E300EDE028 /* Profile */,
 				B41790A126CB729600E4E248 /* Post */,
 			);
 			path = MainTab;
+			sourceTree = "<group>";
+		};
+		B459D18F2717267C00AAB202 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B43AC73126C7CE2900C959E4 /* HomeVC.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B459D1902717268A00AAB202 /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				B43AC73326C7CE5F00C959E4 /* ExploreVC.swift */,
+			);
+			path = Explore;
 			sourceTree = "<group>";
 		};
 		B4AB9BE626CA2CCA00B39556 /* Profile */ = {

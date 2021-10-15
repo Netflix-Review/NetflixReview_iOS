@@ -8,9 +8,15 @@
 import UIKit
 import SnapKit
 
+protocol EditNameDelegate: AnyObject {
+    func changeName(_ cell: EditInfoCell)
+}
+
 class EditInfoCell: UICollectionViewCell {
     
     // MARK: - Properties
+    
+    weak var delegate: EditNameDelegate?
     
     let tk = TokenUtils()
     private let baseUrl = "http://219.249.59.254:3000"
@@ -30,6 +36,22 @@ class EditInfoCell: UICollectionViewCell {
         tf.textColor = .black
         tf.textAlignment = .left
         return tf
+    }()
+    
+    let changeButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("변경", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(changeName), for: .touchUpInside)
+        return button
+    }()
+    
+    let explanationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "닉네임은 3~15자리로 입력해주세요."
+        label.textColor = .lightGray
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        return label
     }()
     
     
@@ -58,14 +80,33 @@ class EditInfoCell: UICollectionViewCell {
         
         contentView.addSubview(infoText)
         infoText.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.trailing).offset(30)
             make.centerY.equalToSuperview()
+            make.leading.equalTo(titleLabel.snp.trailing).offset(25)
+            make.width.equalTo(200)
+        }
+        
+        contentView.addSubview(changeButton)
+        changeButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-20)
+        }
+        
+        addSubview(explanationLabel)
+        explanationLabel.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.bottom).offset(10)
+            make.leading.equalTo(30)
         }
     }
     
     func configureUserName() {
         let username = tk.load(baseUrl + "/api/login", account: "username")
         infoText.text = username
+    }
+    
+    // MARK: - Action
+    
+    @objc func changeName() {
+        delegate?.changeName(self)
     }
     
 }
