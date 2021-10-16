@@ -560,17 +560,13 @@ case .failure(let error):
         guard let email = emailTextField.text else { return }
         guard let password = passwordField.text else { return }
         guard let username = nameField.text else { return }
-        
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "회원가입 중"
-        hud.show(in: view)
-        
+ 
+        ...
+	
         let url = URL(string: baseUrl + "/api/sign-up")!
         let params = ["email": email, "password": password, "username": username]
         
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"])
-					.responseJSON { response in
-            
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
             switch response.result {
             case .success(let data):
                 print("성공, \(data)")
@@ -595,7 +591,7 @@ case .failure(let error):
 2. 서버에서 해당 데이터가 일치하는지 판별 후, JWT 발행
 3. 전달받은 JWT 를 저장
 
-서버에서 로그인 인증을 마치면 `SwiftyJSON` 를 통해, *"message"* 가 *"login success"* 를 띄우면 (토큰 값도 함께 발행), 메인탭으로 전환한다. 여기서 메인탭의 `isLogin` 값을 `true` 로 변경해준다.
+서버에서 로그인 인증을 마치면 `SwiftyJSON` 를 통해, *"message"* 가 *"login success"* 를 띄우면 (토큰 값도 함께 발행), 메인탭으로 전환한다.
 
 ```swift
 AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
@@ -611,28 +607,28 @@ AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.defaul
              // 로그인 성공 후 메인탭으로 전환
              guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
              guard let tab = window.rootViewController as? MainTabVC else { return }
-             tab.isLogin = true
 	     tab.checkLoginedUser()
-                    
           } else {
              // 실패
           }
 ```
 
 ```swift
-	// MainTabVC
+// MainTabVC
 
-	func checkLoginedUser() {        
-        if isLogin == false {
-            DispatchQueue.main.async {
-                let nav = UINavigationController(rootViewController: LoginVC())
-                nav.modalPresentationStyle = .fullScreen
-                self.present(nav, animated: true, completion: nil)
-            }
-        } else {
-            configureViewControllers()
-        }
-    }
+func checkLoginedUser() {        
+      let token = tk.load(baseUrl + "/api/login", account: "accessToken")
+      
+      if ((token?.isEmpty) == nil) {
+         DispatchQueue.main.async {
+             let nav = UINavigationController(rootViewController: LoginVC())
+              nav.modalPresentationStyle = .fullScreen
+              self.present(nav, animated: true, completion: nil)
+         }
+      } else {
+          configureViewControllers()
+      }
+ }
 ```
 
 https://user-images.githubusercontent.com/74236080/136214395-34d08d0b-a054-4785-b472-6b27048a84bd.mov
@@ -700,7 +696,7 @@ func checkLoginedUser() {
 
 ### ✅ 프로필 이름
 
-<img src = "https://user-images.githubusercontent.com/74236080/137573352-aaba5b55-d4b9-4b87-ad69-c44c53b8737e.png" width="80%" height="80%">
+<img src = "https://user-images.githubusercontent.com/74236080/137573352-aaba5b55-d4b9-4b87-ad69-c44c53b8737e.png" width="30%" height="30%">
 
 
 로그인할 때, 서버로부터 받은 "username" 값을 `ProfileHeader`에서 해당 `nameLabel`에 넣는다.
@@ -712,7 +708,7 @@ nameLabel.text = "\(username ?? "")님"
 
 ### ✅ 이름 변경
 
-<img src = "https://user-images.githubusercontent.com/74236080/137573356-b7f5bf7f-7230-43f1-8762-fe6c39c4b289.png" width="80%" height="80%">
+<img src = "https://user-images.githubusercontent.com/74236080/137573356-b7f5bf7f-7230-43f1-8762-fe6c39c4b289.png" width="30%" height="30%">
 
 
 현재 사용자의 이름이 적힌 TextField 에는 프로필 View 와 같이 사용자의 이름을 넣어준다.
