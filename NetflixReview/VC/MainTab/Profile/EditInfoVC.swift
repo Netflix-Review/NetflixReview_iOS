@@ -107,7 +107,14 @@ extension EditInfoVC: EditNameDelegate {
                 let edit = cell.infoText.text ?? ""
                 self.tk.update("\(tkUrl)", value: edit)
                 
-                self.navigationController?.popViewController(animated: true)
+                let alert = UIAlertController(title: "변경을 완료했습니다 !", message: nil, preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    self.navigationController?.popViewController(animated: true)
+                }
+                
+                alert.addAction(okAction)
+                self.present(alert, animated: true, completion: nil)
+                
                 
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")

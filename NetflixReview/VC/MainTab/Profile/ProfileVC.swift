@@ -22,7 +22,7 @@ class ProfileVC: UICollectionViewController {
     }
         
     let tk = TokenUtils()
-
+    
     // MARK: - Lifecycle
     
     init() {
@@ -49,9 +49,7 @@ class ProfileVC: UICollectionViewController {
         navigationController?.navigationBar.sizeToFit()
         navigationItem.title = "안녕하세요"
         
-        let tkUrl = URL(string: baseUrl + "/api/login")!
-        let user = tk.load("\(tkUrl)", account: "username")
-        print("user -> \(user!)")
+        collectionView.reloadData()
     }
     
     // MARK: - Helpers
@@ -101,6 +99,9 @@ extension ProfileVC {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! ProfileHeader
         
         header.delegate = self
+        
+        let userName = tk.load(baseUrl + "/api/login", account: "username")
+        header.nameLabel.text = "\(userName ?? "")님"
         return header
     }
     

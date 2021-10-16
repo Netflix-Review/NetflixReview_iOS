@@ -22,7 +22,7 @@ class ProfileHeader: UICollectionReusableView {
     let tk = TokenUtils()
     private let baseUrl = "http://219.249.59.254:3000"
     
-    private let nameLabel: UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 30)
