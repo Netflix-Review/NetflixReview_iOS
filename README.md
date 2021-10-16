@@ -15,7 +15,7 @@
 
 ## 뷰 구성
 
-### 홈 
+### 1️⃣ 홈 
 
 
 <img src = "https://user-images.githubusercontent.com/74236080/136213731-d213ef37-91e0-487e-a0a7-057ee8790e16.png" width="30%" height="30%">
@@ -47,7 +47,7 @@
 ```
 ---
 
-### 검색
+### 2️⃣ 검색
 
 <img src = "https://user-images.githubusercontent.com/74236080/136213641-67d791ff-ccbf-4801-96ae-2831b53979e8.png" width="30%" height="30%">
 
@@ -69,13 +69,13 @@ navigationItem.hidesSearchBarWhenScrolling = true
 
 ---
 
-### 신규 콘텐츠
+### 3️⃣ 신규 콘텐츠
 
 <img src = "https://user-images.githubusercontent.com/74236080/137146236-86f5b2b6-bfe7-46c3-be1b-dbbb2d9cda81.png" width="30%" height="30%">
 
 ---
 
-### _프로필
+### 4️⃣ 프로필
 
 <img src = "https://user-images.githubusercontent.com/74236080/135413848-bd26f389-726e-4b8d-be68-4f070578d127.png" width="30%" height="30%">
 
@@ -131,7 +131,7 @@ protocol HeaderFilterViewDelegate: AnyObject {
 
 ---
 
-### _로그인
+### ✅ 로그인
 
 <img src = "https://user-images.githubusercontent.com/74236080/135412077-ebc462ec-caf0-49fc-a274-25cbf642a361.png" width="30%" height="30%"><img src = "https://user-images.githubusercontent.com/74236080/136971221-57cebe3d-6ccb-4324-b8f5-973b62c032c0.png" width="30%" height="30%">
 
@@ -208,7 +208,7 @@ https://user-images.githubusercontent.com/74236080/136971537-c89056b1-1de5-427a-
 
 ---
 
-### Alamofire
+### ✔️ Alamofire
 
 백단에서 데이터를 get, post 하기 위해 **Alamofire 라이브러리** 사용
 
@@ -546,7 +546,7 @@ case .failure(let error):
 
 ---
 
-### 일반 로그인
+### ✅ 일반 로그인
 
 > 회원가입
 > 
@@ -574,21 +574,10 @@ case .failure(let error):
             switch response.result {
             case .success(let data):
                 print("성공, \(data)")
-                
-                let alertSheet = UIAlertController(title: "환영합니다 👏👏",
-                                                    message: "회원가입을 완료했습니다!",
-                                                    preferredStyle: .alert)
-                
-                let okAction = UIAlertAction(title: "로그인 하러가기", style: .default) { _ in
-                    let controller = EmailLoginVC()
-                    self.navigationController?.pushViewController(controller, animated: true)
-                }
-                
-                alertSheet.addAction(okAction)
-                self.present(alertSheet, animated: true, completion: nil)
-                
-                hud.dismiss()
-                
+                ...
+                let controller = EmailLoginVC()
+                self.navigationController?.pushViewController(controller, animated: true)
+                ...
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }
@@ -626,14 +615,7 @@ AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.defaul
 	     tab.checkLoginedUser()
                     
           } else {
-             let alertSheet = UIAlertController(title: "알림",
-                                                message: "로그인 실패",
-                                                preferredStyle: .alert)
-                    
-              let okAction = UIAlertAction(title: "다시하기", style: .default)
-                    
-              alertSheet.addAction(okAction)
-              self.present(alertSheet, animated: true, completion: nil)
+             // 실패
           }
 ```
 
@@ -657,7 +639,7 @@ https://user-images.githubusercontent.com/74236080/136214395-34d08d0b-a054-4785-
 
 ---
 
-### 서버에서 발행하는 토큰 값 키체인에 저장
+### ✅ 서버에서 발행하는 토큰 값 키체인에 저장
 
 - 재사용을 위해 **`TokenUtils`** 클래스를 생성한 후에 작성
 [TokenUtils](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift)
@@ -713,3 +695,113 @@ func checkLoginedUser() {
    }
 }
 ```
+
+---
+
+### ✅ 프로필 이름
+
+<img src = "https://user-images.githubusercontent.com/74236080/137573352-aaba5b55-d4b9-4b87-ad69-c44c53b8737e.png" width="80%" height="80%">
+
+
+로그인할 때, 서버로부터 받은 "username" 값을 `ProfileHeader`에서 해당 `nameLabel`에 넣는다.
+
+```swift
+let username = tk.load(baseUrl + "/api/login", account: "username")
+nameLabel.text = "\(username ?? "")님"
+```
+
+### ✅ 이름 변경
+
+<img src = "https://user-images.githubusercontent.com/74236080/137573356-b7f5bf7f-7230-43f1-8762-fe6c39c4b289.png" width="80%" height="80%">
+
+
+현재 사용자의 이름이 적힌 TextField 에는 프로필 View 와 같이 사용자의 이름을 넣어준다.
+
+그리고 변경할 이름을 TextField 에 입력하고 `변경` 버튼을 누른다.
+
+- EditInfoCell 의 변경버튼에서 일어나는 이벤트의 코드를 **Delegation Pattern** 으로 처리해준다.
+
+```swift
+// EditInfoCell
+
+protocol EditNameDelegate: AnyObject {
+    func changeName(_ cell: EditInfoCell)
+}
+
+weak var delegate: EditNameDelegate?
+
+// MARK: - Action
+
+@objc func changeName() {
+     delegate?.changeName(self)
+}
+```
+
+```swift
+// EditInfoVC
+
+extension EditInfoVC: EditNameDelegate {
+    func changeName(_ cell: EditInfoCell) { ... }
+}
+```
+
+- 서버에 변경한 이름을 업데이트 하기 위해, EditInfoVC 에서 "username" 의 **키체인을 업데이트**해줘야 한다.
+
+```swift
+func update(_ service: String, value: String) {
+        
+    let query: NSDictionary = [
+        kSecClass: kSecClassGenericPassword,
+        kSecAttrService: service
+		]
+        
+    let updateFields: NSDictionary = [
+         kSecValueData: value.data(using: .utf8, allowLossyConversion: false)!
+     ]
+        
+     let status = SecItemUpdate(query, updateFields)
+     print("Operation finished with status: \(status)")
+}
+```
+
+```swift
+
+// EditInfoVC
+
+extension EditInfoVC: EditNameDelegate {
+    func changeName(_ cell: EditInfoCell) {
+				...
+				
+				// 키체인 업데이트
+				let edit = cell.infoText.text ?? ""
+        self.tk.update("\(tkUrl)", value: edit)
+}
+```
+
+- 변경이 완료되면 프로필 View 로 다시 넘어가는데, 변경된 "username" 키체인 정보를 **리로드**한다.
+
+```swift
+// ProfileVC
+
+override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+     let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! ProfileHeader
+		 ... 
+     
+		 // 업데이트해서 저장된 "username"의 값을 로드
+     let userName = tk.load(baseUrl + "/api/login", account: "username")
+     header.nameLabel.text = "\(userName ?? "")님"
+     return header
+ }
+```
+
+- ProfileVC 의 viewWillAppear 에서 업데이트된 데이터로 collectionView 를 다시 그린다.
+
+```swift
+override func viewWillAppear(_ animated: Bool) {
+     super.viewWillAppear(animated)
+     ...
+     collectionView.reloadData()
+}
+```
+
+https://user-images.githubusercontent.com/74236080/137573370-1bb9eac0-a85b-4e62-b22a-dacbe60bb8f9.mov
