@@ -66,19 +66,12 @@ class ProfileVC: UICollectionViewController {
 
         let url = URL(string: baseUrl + "/api/login")!
         
-        let alertSheet = UIAlertController(title: "로그아웃 하시겠습니까?",
-                                            message: nil,
-                                            preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+        AlertHelper.okHandlerAlert(title: "로그아웃 하시겠습니까?", message: nil, onConfirm: {
             self.tk.delete("\(url)", account: "accessToken")
-        }
-        
-        let noAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-        
-        alertSheet.addAction(okAction)
-        alertSheet.addAction(noAction)
-        self.present(alertSheet, animated: true, completion: nil)
+            let nav = UINavigationController(rootViewController: LoginVC())
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        }, over: self)
     }
 }
 

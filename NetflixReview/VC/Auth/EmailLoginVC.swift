@@ -131,15 +131,7 @@ class EmailLoginVC: UIViewController {
                     tab.checkLoginedUser()
                     
                 } else {
-                    let alertSheet = UIAlertController(title: "알림",
-                                                        message: "로그인 실패",
-                                                        preferredStyle: .alert)
-                    
-                    let okAction = UIAlertAction(title: "다시하기", style: .default)
-                    
-                    alertSheet.addAction(okAction)
-                    self.present(alertSheet, animated: true, completion: nil)
-                    
+                    AlertHelper.defaultAlert(title: "로그인 실패", message: "이메일과 비밀번호를 다시한번 확인해주세요.", okMessage: "로그인 다시하기", over: self)
                 }
                 
                 hud.dismiss()

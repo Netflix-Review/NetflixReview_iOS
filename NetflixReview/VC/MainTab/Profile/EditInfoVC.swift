@@ -84,8 +84,6 @@ extension EditInfoVC: UICollectionViewDelegateFlowLayout {
 
 extension EditInfoVC: EditNameDelegate {
     func changeName(_ cell: EditInfoCell) {
-        print(cell.infoText.text!)
-        
         let tkUrl = URL(string: baseUrl + "/api/login")!
         let username = tk.load("\(tkUrl)", account: "username")
         let token = tk.load("\(tkUrl)", account: "accessToken")
@@ -102,19 +100,10 @@ extension EditInfoVC: EditNameDelegate {
                 print("이름 변경 post 성공, \(data)")
                 
                 // 키체인 업데이트
-                print(cell.infoText.text ?? "")
-                
                 let edit = cell.infoText.text ?? ""
                 self.tk.update("\(tkUrl)", value: edit)
                 
-                let alert = UIAlertController(title: "변경을 완료했습니다 !", message: nil, preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-                    self.navigationController?.popViewController(animated: true)
-                }
-                
-                alert.addAction(okAction)
-                self.present(alert, animated: true, completion: nil)
-                
+                AlertHelper.defaultAlert(title: "변경을 완료했습니다 !", message: nil, okMessage: "확인", over: self)
                 
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")

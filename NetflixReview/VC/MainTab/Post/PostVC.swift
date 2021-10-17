@@ -115,60 +115,30 @@ extension PostVC: PostHeaderDelegate {
     
     func didTapLike() {
         print("추천해요")
-
-        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !",
-                                            message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?",
-                                            preferredStyle: .actionSheet)
-        let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+        
+        AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
             self.plusPercentCount()
-            
             let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
-        }
-
-        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
+        }, onCancel: {
             self.plusPercentCount()
             self.dismiss(animated: true, completion: nil)
-        }
+        }, over: self)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        actionSheet.addAction(okAction)
-        actionSheet.addAction(noAction)
-        actionSheet.addAction(cancelAction)
-        present(actionSheet, animated: true, completion: nil)
     }
     
     func didTapUnLike() {
         print("별로예요")
         
-        let actionSheet = UIAlertController(title: "소중한 의견 감사해요 !",
-                                            message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?",
-                                            preferredStyle: .actionSheet)
-        
-        let okAction = UIAlertAction(title: "리뷰 쓰러가기", style: .default) { _ in
+        AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
             self.minusPercentCount()
-            
             let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
-        }
-        
-        let noAction = UIAlertAction(title: "다음에 할게요", style: .destructive) { _ in
+        }, onCancel: {
             self.minusPercentCount()
-            
             self.dismiss(animated: true, completion: nil)
-        }
+        }, over: self)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-            self.dismiss(animated: true, completion: nil)
-        }
-        
-        actionSheet.addAction(okAction)
-        actionSheet.addAction(noAction)
-        actionSheet.addAction(cancelAction)
-        present(actionSheet, animated: true, completion: nil)
     }
 }
 

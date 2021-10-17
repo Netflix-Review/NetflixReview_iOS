@@ -47,7 +47,7 @@ class RegistrationVC: UIViewController {
     }()
     
     private var passwordField: UITextField = {
-        let tf = LoginUtil().textField(withPlaceholder: "비밀번호를 입력해주세요.")
+        let tf = LoginUtil().textField(withPlaceholder: "비밀번호는 6자리이상 입력해주세요.")
         tf.isSecureTextEntry = true
         return tf
     }()
@@ -125,18 +125,7 @@ class RegistrationVC: UIViewController {
             case .success(let data):
                 print("성공, \(data)")
                 
-                let alertSheet = UIAlertController(title: "환영합니다 👏👏",
-                                                    message: "회원가입을 완료했습니다!",
-                                                    preferredStyle: .alert)
-                
-                let okAction = UIAlertAction(title: "로그인 하러가기", style: .default) { _ in
-                    let controller = EmailLoginVC()
-                    self.navigationController?.pushViewController(controller, animated: true)
-                }
-                
-                alertSheet.addAction(okAction)
-                self.present(alertSheet, animated: true, completion: nil)
-                
+                AlertHelper.defaultAlert(title: "환영합니다 👏👏", message: "회원가입을 완료했습니다!", okMessage: "로그인 하러가기", over: self)
                 hud.dismiss()
                 
             case .failure(let error):
