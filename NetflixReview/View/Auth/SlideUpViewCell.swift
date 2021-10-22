@@ -23,8 +23,7 @@ class SlideUpViewCell: UITableViewCell {
     }()
 
     lazy var labelView: UILabel = {
-        let view = UILabel(frame: CGRect(x: 100, y: 10,
-                                         width: self.frame.width, height: 30))
+        let view = UILabel(frame: CGRect(x: 100, y: 10, width: self.frame.width, height: 30))
         return view
     }()
 

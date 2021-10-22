@@ -12,7 +12,7 @@ class ProfileVC: UICollectionViewController {
     
     // MARK: - Properties
     
-    private let baseUrl = "http://219.249.59.254:3000"
+    private let baseUrl = "http://61.254.56.218:3000"
     
     private let cellId = "ProfileWishCell"
     private let headerId = "ProfileHeader"

@@ -13,7 +13,7 @@ class MainTabVC: UITabBarController {
     // MARK: - Properties
     
     let tk = TokenUtils()
-    private let baseUrl = "http://219.249.59.254:3000"
+    private let baseUrl = "http://61.254.56.218:3000"
     
     // MARK: - Lifecycle
     
@@ -23,8 +23,8 @@ class MainTabVC: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.isTranslucent = true
         
-//        checkLoginedUser()
-        configureViewControllers()
+        checkLoginedUser()
+//        configureViewControllers()
     }
     
     // MARK: - Helpers

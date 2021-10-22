@@ -9,8 +9,6 @@ import UIKit
 import SnapKit
 
 protocol PostHeaderDelegate: AnyObject {
-    func didTapLike()
-    func didTapUnLike()
     func TapWish()
 }
 
@@ -57,28 +55,6 @@ class PostHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("추천해요", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.tintColor = .systemGreen
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .white
-        button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var unlikeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("별로예요", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.tintColor = .systemPink
-        button.layer.cornerRadius = 10
-        button.backgroundColor = .white
-        button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
-        return button
-    }()
-    
     private lazy var percentLabel: UILabel = {
         let label = UILabel()
         label.text = "87%"
@@ -118,7 +94,7 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어벤져스: 엔드게임"
+        label.text = "어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 "
         label.textColor = .black
         label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -129,36 +105,10 @@ class PostHeader: UICollectionReusableView {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
         return label
     }()
-    
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.numberOfLines = 4
-        return label
-    }()
-
-    private lazy var textView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .white
-
-        view.addSubview(textLabel)
-        textLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.leading.equalTo(16)
-            make.width.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        return view
-    }()
-
-    private let textLabel = UILabel()
     
     // MARK: - Lifecycle
     
@@ -173,14 +123,6 @@ class PostHeader: UICollectionReusableView {
     }
     
     // MARK: - Action
-    
-    @objc func didTapLike() {
-        delegate?.didTapLike()
-    }
-    
-    @objc func didTapUnLike() {
-        delegate?.didTapUnLike()
-    }
     
     @objc func TapWish() {
         delegate?.TapWish()
@@ -199,8 +141,6 @@ class PostHeader: UICollectionReusableView {
         backgroundImage.image = UIImage(data: backData!)
         infoLabel.text = viewModel.info
         percentLabel.text = String(viewModel.rank)
-        descriptionLabel.text = viewModel.desciption
-        textLabel.attributedText = viewModel.ReviewText
     }
     
     func configureUI() {
@@ -209,16 +149,6 @@ class PostHeader: UICollectionReusableView {
             make.top.leading.trailing.equalToSuperview()
             make.height.equalTo(250)
         }
-
-        addSubview(textView)
-        textView.snp.makeConstraints { make in
-            make.bottom.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
-        }
-        textView.layer.shadowOpacity = 0.25
-        textView.layer.shadowRadius = 10
-        textView.layer.shadowOffset = .init(width: 0, height: -5)
-        textView.layer.shadowColor = UIColor.lightGray.cgColor
         
         addSubview(postImageView)
         postImageView.snp.makeConstraints { make in
@@ -237,37 +167,13 @@ class PostHeader: UICollectionReusableView {
         infoStack.snp.makeConstraints { make in
             make.top.equalTo(containerView.snp.bottom).offset(13)
             make.leading.equalTo(postImageView.snp.trailing).offset(10)
-            make.trailing.equalTo(-50)
+            make.trailing.equalTo(-20)
         }
         
         addSubview(percentLabel)
         percentLabel.snp.makeConstraints { make in
-            make.top.equalTo(containerView.snp.bottom).offset(40)
-            make.trailing.equalTo(-17)
-        }
-        
-        addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
-            make.top.equalTo(postImageView.snp.bottom).offset(20)
-            make.leading.equalTo(15)
-            make.trailing.equalTo(-15)
-        }
-        
-        
-        addSubview(likeButton)
-        likeButton.snp.makeConstraints { make in
-            make.bottom.equalTo(textView.snp.top).offset(-15)
-            make.leading.equalTo(10)
-            make.width.equalTo(frame.width/2-10)
-            make.height.equalTo(50)
-        }
-        
-        addSubview(unlikeButton)
-        unlikeButton.snp.makeConstraints { make in
-            make.top.equalTo(likeButton)
-            make.leading.equalTo(likeButton.snp.trailing).offset(10)
-            make.trailing.equalTo(-10)
-            make.height.equalTo(50)
+            make.leading.equalTo(postImageView.snp.trailing).offset(10)
+            make.bottom.equalTo(infoStack.snp.top).offset(-20)
         }
     }
 }

@@ -19,7 +19,7 @@ class EditInfoCell: UICollectionViewCell {
     weak var delegate: EditNameDelegate?
     
     let tk = TokenUtils()
-    private let baseUrl = "http://219.249.59.254:3000"
+    private let baseUrl = "http://61.254.56.218:3000"
     
     let titleLabel: UILabel = {
         let label = UILabel()

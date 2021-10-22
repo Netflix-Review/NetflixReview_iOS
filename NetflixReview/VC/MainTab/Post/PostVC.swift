@@ -22,14 +22,17 @@ class PostVC: UICollectionViewController {
     
     private let headerId = "PostHeader"
     private let cellId = "PostCell"
+    private let headerCellId = "PostHeaderCell"
     
     var value: Value?
     
-    private let baseUrl = "http://219.249.59.254:3000"
-    
+    private let baseUrl = "http://61.254.56.218:3000"
+
     var type: Type = .contents
     
     let hud = JGProgressHUD(style: .dark)
+    
+    var expand = false
     
     // MARK: - Lifecycle
     
@@ -54,7 +57,15 @@ class PostVC: UICollectionViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(PostHeaderCell.self, forCellWithReuseIdentifier: headerCellId)
         collectionView.register(PostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+    }
+    
+    // MARK: - Action
+    
+    @objc func TapSeeMoreButton() {
+        expand.toggle()
+        collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
     }
 }
 
@@ -67,6 +78,19 @@ extension PostVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.row == 0 {
+            let headerCell = collectionView.dequeueReusableCell(withReuseIdentifier: headerCellId, for: indexPath) as! PostHeaderCell
+            headerCell.backgroundColor = .white
+            headerCell.delegate = self
+            
+            headerCell.descriptionLabel.numberOfLines = expand ? 0 : 3
+            let img = expand ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down")
+            headerCell.seeMoreButton.setImage(img, for: .normal)
+            headerCell.seeMoreButton.addTarget(self, action: #selector(TapSeeMoreButton), for: .touchUpInside)
+            return headerCell
+        }
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell
         return cell
     }
@@ -85,10 +109,12 @@ extension PostVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let controller = PostReviewVC()
-        let nav = UINavigationController(rootViewController: controller)
-        nav.modalTransitionStyle = .crossDissolve
-        present(nav, animated: true, completion: nil)
+        if indexPath.row != 0 {
+            let controller = PostReviewVC()
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalTransitionStyle = .crossDissolve
+            present(nav, animated: true, completion: nil)
+        }
     }
 }
 
@@ -97,25 +123,33 @@ extension PostVC {
 
 extension PostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.row == 0 {
+            if expand == false {
+                return CGSize(width: view.frame.width, height: 220)
+            }
+            return CGSize(width: view.frame.width, height: 350)
+        }
         return CGSize(width: view.frame.width, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 560)
+        return CGSize(width: view.frame.width, height: 350)
     }
 }
 
 // MARK: - PostHeaderDelegate
 
 extension PostVC: PostHeaderDelegate {
-    
     func TapWish() {
         print("찜하기")
     }
     
+}
+
+extension PostVC: PostHeaderCellDelegate {
     func didTapLike() {
         print("추천해요")
-        
+
         AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
             self.plusPercentCount()
             let controller = WriteReviewVC()
@@ -124,12 +158,12 @@ extension PostVC: PostHeaderDelegate {
             self.plusPercentCount()
             self.dismiss(animated: true, completion: nil)
         }, over: self)
-        
+
     }
-    
+
     func didTapUnLike() {
         print("별로예요")
-        
+
         AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
             self.minusPercentCount()
             let controller = WriteReviewVC()
@@ -138,7 +172,6 @@ extension PostVC: PostHeaderDelegate {
             self.minusPercentCount()
             self.dismiss(animated: true, completion: nil)
         }, over: self)
-        
     }
 }
 

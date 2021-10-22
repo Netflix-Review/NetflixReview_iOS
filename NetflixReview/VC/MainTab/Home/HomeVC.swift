@@ -17,7 +17,7 @@ class HomeVC: UICollectionViewController {
     let headerId = "HomeHeaderLabel"
     static let categoryHeaderId = "categoryHeaderId"
     
-    private let baseUrl = "http://219.249.59.254:3000"
+    private let baseUrl = "http://61.254.56.218:3000"
     private var contents = [Value]()
     private var movies = [Value]()
     private var tvprograms = [Value]()

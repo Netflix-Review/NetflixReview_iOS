@@ -12,6 +12,10 @@ class VideoListCell: UITableViewCell {
     
     // MARK: - Properties
     
+    var value: Value? {
+        didSet { configure() }
+    }
+    
     private lazy var postImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
@@ -39,7 +43,7 @@ class VideoListCell: UITableViewCell {
         return label
     }()
     
-    // MARK: - Helpers
+    // MARK: - Lifecycle
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -64,5 +68,15 @@ class VideoListCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Helper
+    
+    func configure() {
+        guard let value = value else { return }
+        
+        postImageView.setImage(imageUrl: value.post)
+        videoLabel.text = value.title
+        infoLabel.text = value.info
     }
 }

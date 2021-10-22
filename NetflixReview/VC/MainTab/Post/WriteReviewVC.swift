@@ -40,11 +40,6 @@ class WriteReviewVC: UIViewController {
         configureUI()
     }
     
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-    
-    
     // MARK: - Helpers
     
     func configureUI() {

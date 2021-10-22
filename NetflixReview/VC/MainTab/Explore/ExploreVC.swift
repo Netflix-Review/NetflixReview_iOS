@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ExploreVC: UIViewController {
     
@@ -19,14 +20,27 @@ class ExploreVC: UIViewController {
     private var inSearchMode: Bool {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
+        
+    private var data = [Value]() {
+        didSet { tableView.reloadData() }
+    }
+    
+    private var filterData = [Value]() {
+        didSet { tableView.reloadData() }
+    }
+    
+    private let baseUrl = "http://61.254.56.218:3000"
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationItem.title = "검색"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+
         configureTableView()
         configureSearchController()
+        fetchTotalData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,20 +56,23 @@ class ExploreVC: UIViewController {
         navigationItem.hidesSearchBarWhenScrolling = true
         searchController.isActive = true
     }
-
-    // 키보드를 숨기고 표시하는 기능 제공
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
     
     // MARK: - Helpers
+    
+    // 첫 테이블 Cell에 띄울 데이터
+    func fetchTotalData() {
+        AF.request(self.baseUrl, method: .get).validate().responseDecodable(of: [Value].self) { response in
+            self.data = response.value ?? []
+            self.tableView.reloadData()
+        }
+    }
     
     func configureTableView() {
         tableView.backgroundColor = .white
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(VideoListCell.self, forCellReuseIdentifier: cellId)
-        tableView.rowHeight = 120
+        tableView.rowHeight = 110
         tableView.separatorStyle = .none
         
         view.addSubview(tableView)
@@ -79,17 +96,25 @@ class ExploreVC: UIViewController {
 extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 5
+//        return inSearchMode ? filterData.count : data.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! VideoListCell
         cell.backgroundColor = .white
+        
+//        let value = inSearchMode ? filterData[indexPath.row] : data[indexPath.row]
+//        cell.value = value
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print("tap")
+        
+//        let vc = PostVC()
+//        vc.value = data[indexPath.row]
+//        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -98,8 +123,21 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
 
 extension ExploreVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard (searchController.searchBar.text?.lowercased()) != nil else { return }
+        print(searchController.searchBar.text?.lowercased() ?? "")
         
-        self.tableView.reloadData()
+        let text = searchController.searchBar.text?.lowercased() ?? ""
+        let param = ["search": text] as Dictionary
+
+        AF.request(baseUrl + "/search", method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+
+            switch response.result {
+            case .success(let data):
+                print("성공, \(data)")
+                
+            case .failure(let error):
+                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+            }
+        }
+        
     }
 }
