@@ -128,6 +128,65 @@ protocol HeaderFilterViewDelegate: AnyObject {
     func filterView(_ view: HeaderFilterView, didSelect index: Int)
 }
 ```
+---
+
+### 5️⃣ 게시물
+
+<img src = "https://user-images.githubusercontent.com/74236080/138440524-e7590431-9698-4783-aa92-d6454cb78596.png" width="30%" height="30%"><img src = "https://user-images.githubusercontent.com/74236080/138440528-0a8d1008-3d3a-4c99-9855-7179e8fd6461.png" width="30%" height="30%">
+
+- 해당 영상의 선호도를 퍼센트로 표시합니다.
+- 추천, 비추천 버튼을 추가해서 퍼센트를 계산하고, 해당 버튼을 클릭하면 리뷰를 작성할 수 있는 페이지로 넘어갈 수 있는 알림을 띄웁니다.
+- 아래 collectionView Cell에서는 해당 영상의 리뷰를 확인할 수 있습니다.
+- 줄거리를 탭하면 cell의 크기를 조정하여 전체 줄거리를 확인할 수 있습니다.
+
+```swift
+var expand = false
+
+...
+
+override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+    if indexPath.row == 0 {
+        let headerCell = collectionView.dequeueReusableCell(withReuseIdentifier: headerCellId, for: indexPath) as! PostHeaderCell
+        headerCell.backgroundColor = .white
+        headerCell.delegate = self
+            
+        headerCell.descriptionLabel.numberOfLines = expand ? 0 : 3
+
+        let img = expand ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down")
+        headerCell.seeMoreButton.setImage(img, for: .normal)
+        headerCell.seeMoreButton.addTarget(self, action: #selector(TapSeeMoreButton), for: .touchUpInside)
+        return headerCell
+    }
+        
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell
+    return cell
+}
+```
+
+```swift
+@objc func TapSeeMoreButton() {
+    expand.toggle()
+    collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+}
+```
+
+***headerCell 사이즈 조정***
+
+```swift
+func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    if indexPath.row == 0 {
+        if expand == false {
+            return CGSize(width: view.frame.width, height: 220)
+        }
+        return CGSize(width: view.frame.width, height: 350
+    }
+    return CGSize(width: view.frame.width, height: 120)
+}
+```
+
+https://user-images.githubusercontent.com/74236080/138440593-1e644bd3-a168-403c-827c-849b45aacb73.mov
+
 
 ---
 
