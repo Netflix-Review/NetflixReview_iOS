@@ -25,36 +25,46 @@ class PostHeaderCell: UICollectionViewCell {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다! 인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다! 인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 위대한 어벤져스 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
+        label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
         label.textColor = .black
+        label.numberOfLines = 4
         label.font = UIFont.systemFont(ofSize: 16)
-        label.numberOfLines = 3
         return label
-    }()
-    
-    lazy var seeMoreButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-        button.tintColor = .lightGray
-        return button
     }()
     
     private lazy var textView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
+        
+        let stack = UIStackView(arrangedSubviews: [reviewLabel, countLabel])
+        stack.axis = .horizontal
 
-        view.addSubview(textLabel)
-        textLabel.snp.makeConstraints { make in
+        view.addSubview(stack)
+        stack.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.leading.equalTo(16)
-            make.width.equalToSuperview()
+            make.leading.equalTo(25)
+            make.width.equalTo(100)
             make.height.equalTo(50)
         }
 
         return view
     }()
-
-    private let textLabel = UILabel()
+    
+    private let reviewLabel: UILabel = {
+        let label = UILabel()
+        label.text = "리뷰"
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 18)
+        return label
+    }()
+    
+    private let countLabel: UILabel = {
+        let label = UILabel()
+        label.text = "2,300개"
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
     
     private lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
@@ -62,7 +72,7 @@ class PostHeaderCell: UICollectionViewCell {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.tintColor = .systemGreen
         button.layer.cornerRadius = 10
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         return button
     }()
@@ -73,7 +83,7 @@ class PostHeaderCell: UICollectionViewCell {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.tintColor = .systemPink
         button.layer.cornerRadius = 10
-        button.backgroundColor = .white
+        button.backgroundColor = .black
         button.addTarget(self, action: #selector(didTapUnLike), for: .touchUpInside)
         return button
     }()
@@ -104,9 +114,7 @@ class PostHeaderCell: UICollectionViewCell {
     
     func configureViewModel() {
         guard let viewModel = ValueViewModel else { return }
-
         descriptionLabel.text = viewModel.desciption
-        textLabel.attributedText = viewModel.ReviewText
     }
     
     func configureUI() {
@@ -117,27 +125,17 @@ class PostHeaderCell: UICollectionViewCell {
             make.trailing.equalTo(-15)
         }
         
-        addSubview(seeMoreButton)
-        seeMoreButton.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom).offset(10)
-            make.centerX.equalToSuperview()
-        }
-        
         addSubview(textView)
         textView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
         }
-        textView.layer.shadowOpacity = 0.25
-        textView.layer.shadowRadius = 10
-        textView.layer.shadowOffset = .init(width: 0, height: -5)
-        textView.layer.shadowColor = UIColor.lightGray.cgColor
 
         addSubview(likeButton)
         likeButton.snp.makeConstraints { make in
             make.bottom.equalTo(textView.snp.top).offset(-15)
             make.leading.equalTo(10)
-            make.width.equalTo(frame.width/2-10)
+            make.width.equalTo(frame.width/2-14)
             make.height.equalTo(50)
         }
 

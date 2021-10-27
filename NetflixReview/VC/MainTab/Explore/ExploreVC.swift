@@ -95,7 +95,7 @@ class ExploreVC: UIViewController {
 
 extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 10
 //        return inSearchMode ? filterData.count : data.count
     }
 

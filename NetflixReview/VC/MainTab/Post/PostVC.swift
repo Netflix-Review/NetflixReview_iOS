@@ -24,14 +24,11 @@ class PostVC: UICollectionViewController {
     private let cellId = "PostCell"
     private let headerCellId = "PostHeaderCell"
     
-    var value: Value?
-    
     private let baseUrl = "http://61.254.56.218:3000"
-
+    
+    var value: Value?
     var type: Type = .contents
-    
     let hud = JGProgressHUD(style: .dark)
-    
     var expand = false
     
     // MARK: - Lifecycle
@@ -84,14 +81,20 @@ extension PostVC {
             headerCell.backgroundColor = .white
             headerCell.delegate = self
             
-            headerCell.descriptionLabel.numberOfLines = expand ? 0 : 3
-            let img = expand ? UIImage(systemName: "chevron.up") : UIImage(systemName: "chevron.down")
-            headerCell.seeMoreButton.setImage(img, for: .normal)
-            headerCell.seeMoreButton.addTarget(self, action: #selector(TapSeeMoreButton), for: .touchUpInside)
+            if let value = value {
+                headerCell.ValueViewModel = ValueVM(value: value)
+            }
+            
             return headerCell
         }
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PostCell
+        cell.layer.cornerRadius = 20
+        cell.layer.shadowOpacity = 0.2
+        cell.layer.shadowRadius = 10
+        cell.layer.shadowOffset = .init(width: 0, height: -2)
+        cell.layer.shadowColor = UIColor.lightGray.cgColor
+        cell.backgroundColor = .white
         return cell
     }
     
@@ -123,13 +126,9 @@ extension PostVC {
 
 extension PostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.row == 0 {
-            if expand == false {
-                return CGSize(width: view.frame.width, height: 220)
-            }
-            return CGSize(width: view.frame.width, height: 350)
-        }
-        return CGSize(width: view.frame.width, height: 120)
+        
+        if indexPath.row == 0 { return CGSize(width: view.frame.width, height: 210) }
+        return CGSize(width: view.frame.width-30, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

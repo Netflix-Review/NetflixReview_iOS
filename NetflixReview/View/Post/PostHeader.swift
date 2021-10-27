@@ -94,7 +94,7 @@ class PostHeader: UICollectionReusableView {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 어벤져스: 엔드게임 "
+        label.text = "어벤져스: 엔드게임"
         label.textColor = .black
         label.numberOfLines = 2
         label.font = UIFont.boldSystemFont(ofSize: 18)
@@ -140,7 +140,7 @@ class PostHeader: UICollectionReusableView {
         let backData = try? Data(contentsOf: viewModel.backgroundView!)
         backgroundImage.image = UIImage(data: backData!)
         infoLabel.text = viewModel.info
-        percentLabel.text = String(viewModel.rank)
+        percentLabel.text = "\(String(viewModel.rank))%"
     }
     
     func configureUI() {
