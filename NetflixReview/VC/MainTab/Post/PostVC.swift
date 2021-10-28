@@ -23,13 +23,33 @@ class PostVC: UICollectionViewController {
     private let headerId = "PostHeader"
     private let cellId = "PostCell"
     private let headerCellId = "PostHeaderCell"
-    
     private let baseUrl = "http://61.254.56.218:3000"
     
     var value: Value?
     var type: Type = .contents
     let hud = JGProgressHUD(style: .dark)
     var expand = false
+    
+    var containerView = UIView()
+    var slideUpView = UIView()
+    let slideUpViewHeight: CGFloat = 350
+    
+    private var overViewLabel: UILabel = {
+        let label = UILabel()
+        label.text = "OverView"
+        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+
+    private var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .black
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
     
     // MARK: - Lifecycle
     
@@ -45,9 +65,27 @@ class PostVC: UICollectionViewController {
         super.viewDidLoad()
         
         configureCollectionView()
+        configureSlideView()
+        
+        descriptionLabel.text = value?.des
     }
     
     // MARK: - Helpers
+    
+    func configureSlideView() {
+        slideUpView.addSubview(overViewLabel)
+        overViewLabel.snp.makeConstraints { make in
+            make.top.equalTo(40)
+            make.leading.equalTo(50)
+        }
+
+        slideUpView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(overViewLabel.snp.bottom).offset(20)
+            make.leading.equalTo(30)
+            make.trailing.equalTo(-30)
+        }
+    }
     
     func configureCollectionView() {
         collectionView.backgroundColor = .white
@@ -63,6 +101,22 @@ class PostVC: UICollectionViewController {
     @objc func TapSeeMoreButton() {
         expand.toggle()
         collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+    }
+    
+    @objc func slideUpViewTapped() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.tabBarController?.tabBar.isHidden = false
+            self.containerView.alpha = 0
+        }, completion: nil)
+        
+        let screenSize = UIScreen.main.bounds.size
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut, animations: {
+            self.containerView.alpha = 0
+            self.slideUpView.frame = CGRect(x: 0,
+                                            y: screenSize.height,
+                                            width: screenSize.width,
+                                            height: self.slideUpViewHeight)
+        }, completion: nil)
     }
 }
 
@@ -127,12 +181,16 @@ extension PostVC {
 extension PostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.row == 0 { return CGSize(width: view.frame.width, height: 210) }
+        if indexPath.row == 0 { return CGSize(width: view.frame.width, height: 220) }
         return CGSize(width: view.frame.width-30, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 150, right: 0)
     }
 }
 
@@ -171,6 +229,34 @@ extension PostVC: PostHeaderCellDelegate {
             self.minusPercentCount()
             self.dismiss(animated: true, completion: nil)
         }, over: self)
+    }
+    
+    func tapSeeMore() {
+        view.addSubview(containerView)
+        containerView.frame = self.view.frame
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(slideUpViewTapped))
+        containerView.addGestureRecognizer(tapGesture)
+        containerView.alpha = 0
+        
+        let screenSize = UIScreen.main.bounds.size
+        view.addSubview(slideUpView)
+        slideUpView.backgroundColor = .white
+        slideUpView.layer.cornerRadius = 15
+        slideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        slideUpView.frame = CGRect(x: 0, y: screenSize.height,
+                                   width: screenSize.width, height: slideUpViewHeight)
+        
+        // 슬라이드 뷰 올리기
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
+            self.tabBarController?.tabBar.isHidden = true
+            self.containerView.alpha = 0.8
+            self.slideUpView.frame = CGRect(x: 0,
+                                            y: screenSize.height - self.slideUpViewHeight,
+                                            width: screenSize.width,
+                                            height: self.slideUpViewHeight)
+        }, completion: nil)
     }
 }
 

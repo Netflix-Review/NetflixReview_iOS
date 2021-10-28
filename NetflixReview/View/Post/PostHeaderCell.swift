@@ -11,6 +11,7 @@ import SnapKit
 protocol PostHeaderCellDelegate: AnyObject {
     func didTapLike()
     func didTapUnLike()
+    func tapSeeMore()
 }
 
 class PostHeaderCell: UICollectionViewCell {
@@ -27,9 +28,18 @@ class PostHeaderCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "인피니티 워 이후 절반만 살아남은 지구 마지막 희망이 된 어벤져스 먼저 떠난 그들을 위해 모든 것을 걸었다! 운명을 바꿀 최후의 전쟁이 펼쳐진다!"
         label.textColor = .black
-        label.numberOfLines = 4
+        label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 16)
         return label
+    }()
+    
+    lazy var seeMoreButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("더보기", for: .normal)
+        button.setTitleColor(.lightGray, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(tapSeeMore), for: .touchUpInside)
+        return button
     }()
     
     private lazy var textView: UIView = {
@@ -110,6 +120,10 @@ class PostHeaderCell: UICollectionViewCell {
         delegate?.didTapUnLike()
     }
     
+    @objc func tapSeeMore() {
+        delegate?.tapSeeMore()
+    }
+    
     // MARK: - Helper
     
     func configureViewModel() {
@@ -129,6 +143,12 @@ class PostHeaderCell: UICollectionViewCell {
         textView.snp.makeConstraints { make in
             make.bottom.leading.trailing.equalToSuperview()
             make.height.equalTo(50)
+        }
+        
+        addSubview(seeMoreButton)
+        seeMoreButton.snp.makeConstraints { make in
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(5)
+            make.centerX.equalToSuperview()
         }
 
         addSubview(likeButton)

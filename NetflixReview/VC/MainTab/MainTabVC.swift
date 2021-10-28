@@ -23,8 +23,8 @@ class MainTabVC: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.isTranslucent = true
         
-        checkLoginedUser()
-//        configureViewControllers()
+//        checkLoginedUser()
+        configureViewControllers()
     }
     
     // MARK: - Helpers

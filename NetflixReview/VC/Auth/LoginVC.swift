@@ -76,7 +76,6 @@ class LoginVC: UIViewController {
     }
     
     func configureSlideView() {
-        
         slideUpView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(40)
@@ -98,15 +97,15 @@ class LoginVC: UIViewController {
         
         // addsubView _ containerView, slideUpView 가 현재 메서드에 있는 이유는
         // 로그인을 눌렀을 때, 다시 로그인이 안눌러지도록 하기위해
-        
+
         view.addSubview(containerView)
         containerView.frame = self.view.frame
         containerView.backgroundColor = UIColor.black.withAlphaComponent(0.9)
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(slideViewDown))
         containerView.addGestureRecognizer(tapGesture)
         containerView.alpha = 0
-        
+
         let screenSize = UIScreen.main.bounds.size
         view.addSubview(slideUpView)
         slideUpView.backgroundColor = .white
@@ -114,22 +113,23 @@ class LoginVC: UIViewController {
         slideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         slideUpView.frame = CGRect(x: 0, y: screenSize.height,
                                    width: screenSize.width, height: slideUpViewHeight)
-        
+
         // 슬라이드 뷰 올리기
         UIView.animate(withDuration: 0.5,
                        delay: 0, usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 1.0,
                        options: .curveEaseInOut,
                        animations: {
-                        self.containerView.alpha = 0.8
-                        self.slideUpView.frame = CGRect(x: 0,
-                                                        y: screenSize.height - self.slideUpViewHeight,
-                                                        width: screenSize.width,
-                                                        height: self.slideUpViewHeight)
-                       }, completion: nil)
+            self.containerView.alpha = 0.8
+            self.slideUpView.frame = CGRect(x: 0,
+                                            y: screenSize.height - self.slideUpViewHeight,
+                                            width: screenSize.width,
+                                            height: self.slideUpViewHeight)
+        }, completion: nil)
+        
     }
     
-     
+    
     @objc func slideViewDown() {
         // 뷰 다시 원래 색상으로
         UIView.animate(withDuration: 0.5,
@@ -137,8 +137,8 @@ class LoginVC: UIViewController {
                        initialSpringVelocity: 1.0,
                        options: .curveEaseInOut,
                        animations: {
-                        self.containerView.alpha = 0
-                       }, completion: nil)
+            self.containerView.alpha = 0
+        }, completion: nil)
         
         // 슬라이드 뷰 내려감
         let screenSize = UIScreen.main.bounds.size
@@ -147,12 +147,12 @@ class LoginVC: UIViewController {
                        initialSpringVelocity: 1.0,
                        options: .curveEaseInOut,
                        animations: {
-                        self.containerView.alpha = 0
-                        self.slideUpView.frame = CGRect(x: 0,
-                                                        y: screenSize.height,
-                                                        width: screenSize.width,
-                                                        height: self.slideUpViewHeight)
-                       }, completion: nil)
+            self.containerView.alpha = 0
+            self.slideUpView.frame = CGRect(x: 0,
+                                            y: screenSize.height,
+                                            width: screenSize.width,
+                                            height: self.slideUpViewHeight)
+        }, completion: nil)
     }
     
     @objc func goEmailLogin() {
