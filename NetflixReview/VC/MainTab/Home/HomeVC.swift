@@ -42,6 +42,7 @@ class HomeVC: UICollectionViewController {
         fetchMovieData()
         fetchTvData()
         
+        collectionView.contentInset.bottom = 50
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(HomeHeaderLabel.self, forSupplementaryViewOfKind: HomeVC.categoryHeaderId, withReuseIdentifier: headerId)
     }
@@ -156,7 +157,7 @@ extension HomeVC {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let controller = PostVC()
-        
+       
         if indexPath.section == 0 {
             controller.value = contents[indexPath.row]
         } else if indexPath.section == 1 {

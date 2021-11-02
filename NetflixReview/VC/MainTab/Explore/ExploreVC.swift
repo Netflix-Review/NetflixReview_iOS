@@ -35,7 +35,8 @@ class ExploreVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "검색"
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
 
         configureTableView()
@@ -76,6 +77,7 @@ class ExploreVC: UIViewController {
         view.addSubview(tableView)
         tableView.frame = view.frame
         tableView.contentInset.top = 10
+        tableView.contentInset.bottom = 50
         tableView.tableFooterView = UIView()
     }
     
@@ -114,6 +116,7 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
 //        vc.value = data[indexPath.row]
 //        navigationController?.pushViewController(vc, animated: true)
     }
+    
 }
 
 // MARK: - UISearchResultsUpdating
@@ -121,21 +124,23 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
 
 extension ExploreVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchController.searchBar.text?.lowercased() ?? "")
+        let searchText = searchController.searchBar.text?.lowercased() ?? ""
+        let trimText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        let param = ["text": trimText] as Dictionary
         
-        let text = searchController.searchBar.text?.lowercased() ?? ""
-        let param = ["search": text] as Dictionary
-
+        print("trimText: \(trimText), \(param)")
+        
         AF.request(baseUrl + "/search", method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
 
             switch response.result {
-            case .success(let data):
-                print("성공, \(data)")
+            case .success(let value):
+                print("성공, \(value)")
                 
+//                self.filterData = self.data.filter({ $0.title.lowercased().contains(searchText) || $0.info.contains(searchText) })
+
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }
         }
-        
     }
 }

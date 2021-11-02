@@ -28,7 +28,6 @@ class PostVC: UICollectionViewController {
     var value: Value?
     var type: Type = .contents
     let hud = JGProgressHUD(style: .dark)
-    var expand = false
     
     var containerView = UIView()
     var slideUpView = UIView()
@@ -36,7 +35,7 @@ class PostVC: UICollectionViewController {
     
     private var overViewLabel: UILabel = {
         let label = UILabel()
-        label.text = "OverView"
+        label.text = "줄거리"
         label.textColor = .black
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
@@ -66,13 +65,13 @@ class PostVC: UICollectionViewController {
         
         configureCollectionView()
         configureSlideView()
-        
-        descriptionLabel.text = value?.des
     }
     
     // MARK: - Helpers
     
     func configureSlideView() {
+        descriptionLabel.text = value?.des
+        
         slideUpView.addSubview(overViewLabel)
         overViewLabel.snp.makeConstraints { make in
             make.top.equalTo(40)
@@ -90,6 +89,7 @@ class PostVC: UICollectionViewController {
     func configureCollectionView() {
         collectionView.backgroundColor = .white
         collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInset.bottom = 150
         
         collectionView.register(PostCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(PostHeaderCell.self, forCellWithReuseIdentifier: headerCellId)
@@ -97,11 +97,6 @@ class PostVC: UICollectionViewController {
     }
     
     // MARK: - Action
-    
-    @objc func TapSeeMoreButton() {
-        expand.toggle()
-        collectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
-    }
     
     @objc func slideUpViewTapped() {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
@@ -188,10 +183,6 @@ extension PostVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 350)
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 150, right: 0)
-    }
 }
 
 // MARK: - PostHeaderDelegate
@@ -234,7 +225,7 @@ extension PostVC: PostHeaderCellDelegate {
     func tapSeeMore() {
         view.addSubview(containerView)
         containerView.frame = self.view.frame
-        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        containerView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(slideUpViewTapped))
         containerView.addGestureRecognizer(tapGesture)
