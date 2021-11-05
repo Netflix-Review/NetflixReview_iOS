@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class ExploreVC: UIViewController {
     
@@ -21,11 +22,7 @@ class ExploreVC: UIViewController {
         return searchController.isActive && !searchController.searchBar.text!.isEmpty
     }
         
-    private var data = [Value]() {
-        didSet { tableView.reloadData() }
-    }
-    
-    private var filterData = [Value]() {
+    private var value = [Value]() {
         didSet { tableView.reloadData() }
     }
     
@@ -41,7 +38,6 @@ class ExploreVC: UIViewController {
 
         configureTableView()
         configureSearchController()
-        fetchTotalData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,14 +53,6 @@ class ExploreVC: UIViewController {
     }
     
     // MARK: - Helpers
-    
-    // 첫 테이블 Cell에 띄울 데이터
-    func fetchTotalData() {
-        AF.request(self.baseUrl, method: .get).validate().responseDecodable(of: [Value].self) { response in
-            self.data = response.value ?? []
-            self.tableView.reloadData()
-        }
-    }
     
     func configureTableView() {
         tableView.backgroundColor = .white
@@ -95,28 +83,20 @@ class ExploreVC: UIViewController {
 
 extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-//        return inSearchMode ? filterData.count : data.count
+        return value.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! VideoListCell
         cell.backgroundColor = .white
         
-//        let value = inSearchMode ? filterData[indexPath.row] : data[indexPath.row]
-//        cell.value = value
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         print("tap")
-        
-//        let vc = PostVC()
-//        vc.value = data[indexPath.row]
-//        navigationController?.pushViewController(vc, animated: true)
     }
-    
 }
 
 // MARK: - UISearchResultsUpdating
@@ -125,19 +105,18 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
 extension ExploreVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.lowercased() ?? ""
-        let trimText = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
-        let param = ["text": trimText] as Dictionary
-        
-        print("trimText: \(trimText), \(param)")
+        let param = ["text": searchText] as Dictionary
         
         AF.request(baseUrl + "/search", method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
 
             switch response.result {
-            case .success(let value):
-                print("성공, \(value)")
+            case .success(let data):
+                print("성공 \(param), \(data)")
                 
-//                self.filterData = self.data.filter({ $0.title.lowercased().contains(searchText) || $0.info.contains(searchText) })
-
+                let json = JSON(data)
+                print(json.count)
+                print("json[1]  \(json[1][0]["title"]), \(json[1])")
+                
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }

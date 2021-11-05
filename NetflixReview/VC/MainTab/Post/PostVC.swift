@@ -96,6 +96,44 @@ class PostVC: UICollectionViewController {
         collectionView.register(PostHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
+    func countMethod(updown: String) {
+       var urlString = ""
+       
+       switch type {
+       case .contents: urlString = "/plusDrama"
+       case .movie: urlString = "/plusMovie"
+       case .tv: urlString = "/plusTv"
+       }
+       
+       self.hud.show(in: self.view)
+       
+       let url = URL(string: baseUrl + urlString)!
+       let params = ["id": value?.id ?? 0, "rank": updown] as Dictionary
+       print(params)
+       AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+           
+           print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
+           
+           switch response.result {
+           case .success(let data):
+               
+               let json = JSON(data)
+               let result = json["RankResult"].intValue
+               
+               print(json, result)
+               self.value?.rank = result
+               
+               DispatchQueue.main.async {
+                   self.collectionView.reloadData()
+                   self.hud.dismiss()
+               }
+               
+           case .failure(let error):
+               print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+           }
+       }
+   }
+    
     // MARK: - Action
     
     @objc func slideUpViewTapped() {
@@ -194,16 +232,18 @@ extension PostVC: PostHeaderDelegate {
     
 }
 
+// MARK: - PostHeaderCellDelegate
+
 extension PostVC: PostHeaderCellDelegate {
     func didTapLike() {
         print("추천해요")
 
         AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품을 추천하는 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
-            self.plusPercentCount()
+            self.countMethod(updown: "Up")
             let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
         }, onCancel: {
-            self.plusPercentCount()
+            self.countMethod(updown: "Up")
             self.dismiss(animated: true, completion: nil)
         }, over: self)
 
@@ -213,11 +253,11 @@ extension PostVC: PostHeaderCellDelegate {
         print("별로예요")
 
         AlertHelper.okAndNoHandlerAlert(title: "소중한 의견 감사해요!", message: "작품이 별로였던 이유를 리뷰로 남겨보시겠어요?", onConfirm: {
-            self.minusPercentCount()
+            self.countMethod(updown: "Down")
             let controller = WriteReviewVC()
             self.navigationController?.pushViewController(controller, animated: true)
         }, onCancel: {
-            self.minusPercentCount()
+            self.countMethod(updown: "Down")
             self.dismiss(animated: true, completion: nil)
         }, over: self)
     }
@@ -248,95 +288,5 @@ extension PostVC: PostHeaderCellDelegate {
                                             width: screenSize.width,
                                             height: self.slideUpViewHeight)
         }, completion: nil)
-    }
-}
-
-
-
-// MARK: - Post API
-
-extension PostVC {
-    
-    func plusPercentCount() {
-        
-        var urlString = ""
-        
-        switch type {
-        case .contents: urlString = "/plus"
-        case .movie: urlString = "/plus"
-        case .tv: urlString = "/plus"
-        }
-        
-        self.hud.show(in: self.view)
-        
-        let url = URL(string: baseUrl + urlString)!
-        let params = ["id": value?.id ?? 0, "rank": 1] as Dictionary
-        
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-            
-            print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
-            
-            switch response.result {
-            case .success(let data):
-                
-                let json = JSON(data)
-                let result = json[0]["rank"].intValue
-                
-                self.value?.rank = result
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.hud.dismiss()
-                }
-                
-            case .failure(let error):
-                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-            }
-        }
-    }
-    
-    
-    func minusPercentCount() {
-        
-        var urlString = ""
-        
-//        switch type {
-//        case .contents: urlString = "/drama"
-//        case .movie: urlString = "/movie"
-//        case .tv: urlString = "/tv"
-//        }
-        
-        switch type {
-        case .contents: urlString = "/plus"
-        case .movie: urlString = "/plus"
-        case .tv: urlString = "/plus"
-        }
-        
-        self.hud.show(in: self.view)
-        
-        let url = URL(string: baseUrl + urlString)!
-        let params = ["id": value?.id ?? 0, "rank": "Down"] as Dictionary
-        
-        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
-            
-            print("HTTP Body : " + String(decoding: response.request?.httpBody ?? Data(), as: UTF8.self))
-            
-            switch response.result {
-            case .success(let data):
-                
-                let json = JSON(data)
-                let result = json[0]["rank"].intValue
-                
-                self.value?.rank = result
-                
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                    self.hud.dismiss()
-                }
-                
-            case .failure(let error):
-                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
-            }
-        }
     }
 }

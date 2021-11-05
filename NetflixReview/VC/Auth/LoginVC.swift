@@ -17,7 +17,7 @@ class LoginVC: UIViewController {
     
     var containerView = UIView()
     var slideUpView = UIView()
-    let slideUpViewHeight: CGFloat = 300
+    let slideUpViewHeight: CGFloat = 250
     
     private var goToLoginButton: UIButton = {
         let button = UIButton(type: .system)
@@ -84,7 +84,7 @@ class LoginVC: UIViewController {
         
         slideUpView.addSubview(emailButton)
         emailButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(50)
+            make.top.equalTo(titleLabel.snp.bottom).offset(30)
             make.leading.equalTo(40)
             make.trailing.equalTo(-40)
             make.height.equalTo(50)
