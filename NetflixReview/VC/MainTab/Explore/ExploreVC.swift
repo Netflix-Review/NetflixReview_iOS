@@ -77,6 +77,7 @@ class ExploreVC: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = false
     }
+    
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -90,12 +91,19 @@ extension ExploreVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! VideoListCell
         cell.backgroundColor = .white
         
+        let row = value[indexPath.row]
+        cell.postImageView.setImage(imageUrl: row.post)
+        cell.videoLabel.text = row.title
+        cell.infoLabel.text = row.info
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("tap")
+        
+        let vc = PostVC()
+        vc.value = value[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -106,20 +114,42 @@ extension ExploreVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchText = searchController.searchBar.text?.lowercased() ?? ""
         let param = ["text": searchText] as Dictionary
+        var tmp = [Value]()
         
-        AF.request(baseUrl + "/search", method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+        if searchText.isEmpty {
+            print("비어있음")
+            value = []
+        } else {
+            AF.request(baseUrl + "/search", method: .post, parameters: param, encoding: JSONEncoding.default, headers: ["Content-Type": "application/json"]).responseJSON { response in
+                
+                switch response.result {
+                case .success(let data):
+                    
+                    let json = JSON(data)
+                    
+                    for item in json.arrayValue {
+                            let id = item[0]["id"].intValue
+                            let title = item[0]["title"].stringValue
+                            let info = item[0]["info"].stringValue
+                            let post = item[0]["post"].stringValue
+                            let view = item[0]["view"].stringValue
+                            let des = item[0]["des"].stringValue
+                            let rank = item[0]["rank"].intValue
 
-            switch response.result {
-            case .success(let data):
-                print("성공 \(param), \(data)")
-                
-                let json = JSON(data)
-                print(json.count)
-                print("json[1]  \(json[1][0]["title"]), \(json[1])")
-                
-            case .failure(let error):
-                print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                            let value = Value(id: id, title: title, post: post, view: view, info: info, des: des, rank: rank)
+                            
+                            if item != [] { tmp.append(value) }
+                        
+                        DispatchQueue.main.async {
+                            self.value = tmp
+                        }
+                    }
+                    
+                case .failure(let error):
+                    print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
+                }
             }
         }
+        
     }
 }

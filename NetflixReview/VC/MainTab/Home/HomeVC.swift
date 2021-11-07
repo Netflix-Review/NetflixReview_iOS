@@ -55,8 +55,6 @@ class HomeVC: UICollectionViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Netflix Review"
-        
-        print(tvprograms)
     }
     
     // MARK: - FetchAPI

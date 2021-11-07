@@ -16,7 +16,7 @@ class VideoListCell: UITableViewCell {
         didSet { configure() }
     }
     
-    private lazy var postImageView: UIImageView = {
+    lazy var postImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
@@ -26,7 +26,7 @@ class VideoListCell: UITableViewCell {
         return iv
     }()
     
-    private let videoLabel: UILabel = {
+    let videoLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .black
@@ -34,7 +34,7 @@ class VideoListCell: UITableViewCell {
         return label
     }()
     
-    private lazy var infoLabel: UILabel = {
+    lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.text = "영화 ∙ 2019 ∙ 181분"
         label.textColor = .black

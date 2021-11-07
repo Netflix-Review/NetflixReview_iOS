@@ -38,7 +38,6 @@ class ProfileVC: UICollectionViewController {
         configureCollectionView()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.fill.xmark"), style: .plain, target: self, action: #selector(logout))
-        navigationController?.navigationBar.tintColor = .red
     }
     
     override func viewWillAppear(_ animated: Bool) {
