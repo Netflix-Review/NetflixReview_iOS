@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 import Alamofire
-import JGProgressHUD
+import SwiftyJSON
 
 
 class RegistrationVC: UIViewController {
@@ -112,10 +112,6 @@ class RegistrationVC: UIViewController {
         guard let password = passwordField.text else { return }
         guard let username = nameField.text else { return }
         
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "회원가입 중"
-        hud.show(in: view)
-        
         let url = URL(string: baseUrl + "/api/sign-up")!
         let params = ["email": email, "password": password, "username": username]
         
@@ -125,9 +121,18 @@ class RegistrationVC: UIViewController {
             case .success(let data):
                 print("성공, \(data)")
                 
-                AlertHelper.defaultAlert(title: "환영합니다 👏👏", message: "회원가입을 완료했습니다!", okMessage: "로그인 하러가기", over: self)
-                hud.dismiss()
+                let json = JSON(data)
+                let message = json["message"]
                 
+                if message == "3charater" || message == "1upper" || message == "6password" {
+                    AlertHelper.defaultAlert(title: "회원가입 오류!", message: "정보를 정확하게 입력해주세요\n(비밀번호는 6자리이상, 이름은 3글자이상 입력해주세요)", okMessage: "확인", over: self)
+                }
+                    
+                AlertHelper.loginAlert(title: "환영합니다 👏👏", message: "회원가입을 완료했습니다!", onConfirm: {
+                    self.navigationController?.popViewController(animated: true)
+                }, over: self)
+                
+
             case .failure(let error):
                 print("Alamofire Request Error\nCode:\(error._code), Message: \(error.errorDescription!)")
             }

@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-import JGProgressHUD
 import Alamofire
 import SwiftyJSON
 
@@ -101,10 +100,6 @@ class EmailLoginVC: UIViewController {
         guard let email = emailTextField.text else { return }
         guard let password = passwordField.text else { return }
         
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "로그인 중"
-        hud.show(in: view)
-        
         let url = URL(string: baseUrl + "/api/login")!
         let params = ["email": email, "password": password]
         
@@ -134,7 +129,6 @@ class EmailLoginVC: UIViewController {
                     AlertHelper.defaultAlert(title: "로그인 실패", message: "이메일과 비밀번호를 다시한번 확인해주세요.", okMessage: "로그인 다시하기", over: self)
                 }
                 
-                hud.dismiss()
                 self.dismiss(animated: true, completion: nil)
                 
             case .failure(let error):

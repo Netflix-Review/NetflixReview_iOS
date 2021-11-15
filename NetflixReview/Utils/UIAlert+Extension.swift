@@ -17,6 +17,17 @@ class AlertHelper {
         viewController.present(ac, animated: true)
     }
     
+    static func loginAlert(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "로그인 하러가기", style: .default, handler: { (_) in
+            onConfirm()
+        })
+        
+        ac.addAction(okAction)
+        viewController.present(ac, animated: true)
+    }
+    
     static func okHandlerAlert(title: String, message: String?, onConfirm: @escaping Action, over viewController: UIViewController) {
         let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
