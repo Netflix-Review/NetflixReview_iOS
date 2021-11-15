@@ -23,6 +23,18 @@ class HomeCell: UICollectionViewCell {
         return iv
     }()
     
+    private let rankLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .white
+        label.backgroundColor = .systemPink
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 5
+        label.font = UIFont.systemFont(ofSize: 15)
+        return label
+    }()
+    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "어벤져스: 엔드게임"
@@ -37,6 +49,7 @@ class HomeCell: UICollectionViewCell {
     var contents: Value! {
         didSet {
             self.titleLabel.text = self.contents.title
+            self.rankLabel.text = "\(self.contents.list)"
             self.postImageView.setImage(imageUrl: self.contents.post)
         }
     }
@@ -44,6 +57,7 @@ class HomeCell: UICollectionViewCell {
     var movie: Value! {
         didSet {
             self.titleLabel.text = self.movie.title
+            self.rankLabel.text = "\(self.movie.list)"
             self.postImageView.setImage(imageUrl: self.movie.post)
         }
     }
@@ -51,6 +65,7 @@ class HomeCell: UICollectionViewCell {
     var tvprogram: Value! {
         didSet {
             self.titleLabel.text = self.tvprogram.title
+            self.rankLabel.text = "\(self.tvprogram.list)"
             self.postImageView.setImage(imageUrl: self.tvprogram.post)
         }
     }
@@ -65,10 +80,17 @@ class HomeCell: UICollectionViewCell {
             make.edges.equalToSuperview()
         }
         
-        addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
+        addSubview(rankLabel)
+        rankLabel.snp.makeConstraints { make in
             make.top.equalTo(postImageView.snp.bottom).offset(8)
             make.leading.equalTo(postImageView).offset(3)
+            make.width.height.equalTo(20)
+        }
+        
+        addSubview(titleLabel)
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(postImageView.snp.bottom).offset(9)
+            make.leading.equalTo(rankLabel.snp.trailing).offset(5)
             make.trailing.equalTo(postImageView)
         }
         

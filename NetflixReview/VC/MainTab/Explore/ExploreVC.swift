@@ -128,17 +128,19 @@ extension ExploreVC: UISearchResultsUpdating {
                     let json = JSON(data)
                     
                     for item in json.arrayValue {
-                            let id = item[0]["id"].intValue
-                            let title = item[0]["title"].stringValue
-                            let info = item[0]["info"].stringValue
-                            let post = item[0]["post"].stringValue
-                            let view = item[0]["view"].stringValue
-                            let des = item[0]["des"].stringValue
-                            let rank = item[0]["rank"].intValue
-
-                            let value = Value(id: id, title: title, post: post, view: view, info: info, des: des, rank: rank)
-                            
-                            if item != [] { tmp.append(value) }
+                        let id = item[0]["id"].intValue
+                        let title = item[0]["title"].stringValue
+                        let info = item[0]["info"].stringValue
+                        let post = item[0]["post"].stringValue
+                        let view = item[0]["view"].stringValue
+                        let des = item[0]["des"].stringValue
+                        let rank = item[0]["rank"].intValue
+                        let list = item[0]["list"].intValue
+                        
+                        
+                        let value = Value(id: id, title: title, post: post, view: view, info: info, des: des, rank: rank, list: list)
+                        
+                        if item != [] { tmp.append(value) }
                         
                         DispatchQueue.main.async {
                             self.value = tmp

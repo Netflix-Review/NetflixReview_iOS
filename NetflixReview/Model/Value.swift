@@ -15,4 +15,5 @@ struct Value: Codable {
     let info: String
     let des: String
     var rank: Int
+    var list: Int
 }
