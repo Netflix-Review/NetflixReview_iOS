@@ -1,5 +1,7 @@
 # Netflix review app
 
+💁🏻 [노션 링크](https://www.notion.so/Netflix-Review-77e4f3e1e389466f8aad76d7db0795f1)
+
 ## Index
   - [Auth](#Auth)
   - [이름변경](#이름변경)
