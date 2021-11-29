@@ -66,7 +66,7 @@ let accessToken = json["token"].stringValue
 
 2. 추출한 토큰 정보를 키체인에 저장한다.
 
-[Token CRUD](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift)
+✓ [Token CRUD](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift)
 
 ```swift
 let tk = TokenUtils()
@@ -140,7 +140,7 @@ extension EditInfoVC: EditNameDelegate {
 
 - 서버에 변경한 이름을 업데이트 하기 위해, EditInfoVC 에서 "username" 의 **키체인을 업데이트**해줘야 한다.
 
-[Token CRUD](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift)
+✓ [Token CRUD](https://github.com/Netflix-Review/NetflixReview_iOS/blob/main/NetflixReview/Utils/TokenUtils.swift)
 
 ```swift
 // EditInfoVC
