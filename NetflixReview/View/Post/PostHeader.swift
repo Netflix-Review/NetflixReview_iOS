@@ -18,7 +18,7 @@ class PostHeader: UICollectionReusableView {
     
     weak var delegate: PostHeaderDelegate?
     
-    var ValueViewModel: ValueVM? {
+    var ValueViewModel: ValueViewModel? {
         didSet { configureViewModel() }
     }
     

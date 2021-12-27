@@ -17,7 +17,7 @@ class HeaderFilterView: UIView {
     
     weak var delegate: HeaderFilterViewDelegate?
     
-    private let cellId = "HeaderFilterCell"
+    private let cellId = "HeaderFilterCollectionViewCell"
     
     lazy var collectionView: UICollectionView = {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -37,7 +37,7 @@ class HeaderFilterView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        collectionView.register(HeaderFilterCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(HeaderFilterCollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         
         let selectedFirst = IndexPath(row: 0, section: 0)
         collectionView.selectItem(at: selectedFirst, animated: true, scrollPosition: .left)
@@ -76,7 +76,7 @@ extension HeaderFilterView: UICollectionViewDataSource, UICollectionViewDelegate
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HeaderFilterCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HeaderFilterCollectionViewCell
         
         let option = HeaderFIlterOptions(rawValue: indexPath.row)
         cell.option = option
