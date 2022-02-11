@@ -2,11 +2,11 @@
 
 
 <br />
-<br />
 
-💁‍♂️ [시연 영상](https://github.com/Netflix-Review/Demonstration-Video)
+## 시연 영상
 
-<br />
+[시연 영상 ](https://github.com/Netflix-Review/Demonstration-Video)
+
 <br />
 
 ## Index
