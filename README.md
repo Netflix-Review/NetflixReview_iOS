@@ -1,6 +1,14 @@
 # Netflix review app
 
 
+<br />
+<br />
+
+💁‍♂️ [시연 영상](https://github.com/Netflix-Review/Demonstration-Video)
+
+<br />
+<br />
+
 ## Index
   - [Auth](#Auth)
   - [이름변경](#이름변경)
