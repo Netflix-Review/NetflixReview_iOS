@@ -5,7 +5,7 @@
 
 ## 시연 영상
 
-[시연 영상 ](https://github.com/Netflix-Review/Demonstration-Video)
+[시연 영상 바로가기](https://github.com/Netflix-Review/Demonstration-Video)
 
 <br />
 
